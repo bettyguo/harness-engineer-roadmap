@@ -42,7 +42,18 @@ function InnerGraph({ graph, activeId, onNodeClick }: Props) {
     return m;
   }, [graph.areas]);
 
-  const { rfNodes, rfEdges } = useMemo(() => {
+  // Layout-and-structure: pure function of `graph` (and `areasById`,
+  // which is itself derived from `graph`). This memo does the expensive
+  // dagre work AND builds the per-render node/edge templates. It must
+  // NOT depend on `activeId` — that's a per-click flag, not a layout
+  // input. Re-running dagre on every click was the perf bug here.
+  type RealNodeTemplate = {
+    rfBase: Omit<RFNode, "data"> & { type: "node" };
+    node: ReturnType<typeof layoutGraph>["nodes"][number];
+    areaColor: Area["color"];
+  };
+
+  const { clusterNodes, realNodeTemplates, rfEdges } = useMemo(() => {
     const laid = layoutGraph(graph);
 
     // Compute per-area bounding boxes from laid-out node positions
@@ -93,31 +104,37 @@ function InnerGraph({ graph, activeId, onNodeClick }: Props) {
       }
     );
 
-    const realNodes: RFNode[] = laid.nodes.map((n) => {
+    // Real-node templates: everything except isActive + onClick which
+    // are filled in by the cheap render-time mapper below.
+    const realNodeTemplates: RealNodeTemplate[] = laid.nodes.map((n) => {
       const area = areasById.get(n.area)!;
       return {
-        id: n.id,
-        type: "node",
-        position: n.position,
-        data: {
-          node: n,
-          areaColor: area.color,
-          isActive: n.id === activeId,
-          onClick: onNodeClick,
+        rfBase: {
+          id: n.id,
+          type: "node",
+          position: n.position,
+          width: NODE_W,
+          height: NODE_H,
+          draggable: false,
+          selectable: false,
+          zIndex: 1,
+          style: { zIndex: 1 },
         },
-        width: NODE_W,
-        height: NODE_H,
-        draggable: false,
-        selectable: false,
-        zIndex: 1,
-        style: { zIndex: 1 },
+        node: n,
+        areaColor: area.color,
       };
     });
 
+    // Edges: build a node->area index once, then use it instead of an
+    // O(n) .find() per edge.
+    const areaByNodeId = new Map<string, Area>();
+    for (const n of graph.nodes) {
+      const a = areasById.get(n.area);
+      if (a) areaByNodeId.set(n.id, a);
+    }
     const rfEdges: RFEdge[] = laid.edges.map((e, i) => {
       if (e.kind === "depends_on") {
-        const fromNode = graph.nodes.find((n) => n.id === e.from);
-        const area = fromNode ? areasById.get(fromNode.area) : null;
+        const area = areaByNodeId.get(e.from);
         const stroke = area ? AREA_COLORS[area.color].solid : "#888";
         return {
           id: `e${i}-${e.from}-${e.to}`,
@@ -148,8 +165,23 @@ function InnerGraph({ graph, activeId, onNodeClick }: Props) {
       };
     });
 
-    return { rfNodes: [...clusterNodes, ...realNodes], rfEdges };
-  }, [graph, areasById, activeId, onNodeClick]);
+    return { clusterNodes, realNodeTemplates, rfEdges };
+  }, [graph, areasById]);
+
+  // Cheap per-render mapping: stamps activeId + onClick onto the cached
+  // templates. Re-runs on every activeId change but does no layout work.
+  const rfNodes = useMemo<RFNode[]>(() => {
+    const realNodes: RFNode[] = realNodeTemplates.map((t) => ({
+      ...t.rfBase,
+      data: {
+        node: t.node,
+        areaColor: t.areaColor,
+        isActive: t.node.id === activeId,
+        onClick: onNodeClick,
+      },
+    }));
+    return [...clusterNodes, ...realNodes];
+  }, [clusterNodes, realNodeTemplates, activeId, onNodeClick]);
 
   const onPaneClickHandler = useCallback(() => {
     // background-click clears panel; the App reads URL hash for active id
