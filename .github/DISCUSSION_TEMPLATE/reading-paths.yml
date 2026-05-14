@@ -1,0 +1,28 @@
+title: "[Reading path] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Stuck? Tell us what you're trying to do and we'll point you at a
+        reading path through the map.
+
+  - type: textarea
+    id: situation
+    attributes:
+      label: What's the situation?
+      description: One paragraph. What does your agent do, what's breaking, what have you tried?
+    validations:
+      required: true
+  - type: dropdown
+    id: anxiety
+    attributes:
+      label: Closest anxiety
+      options:
+        - "My agent works in the demo and breaks in production"
+        - "I'm scaling from one agent to many"
+        - "I'm new to harness engineering and don't know where to start"
+        - "I have a specific failure I can't categorize"
+        - "Other (explain in the box above)"
+    validations:
+      required: true

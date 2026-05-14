@@ -1,0 +1,22 @@
+title: "[Show & tell] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Built something that used this roadmap? Hit a node and shipped a
+        fix? Used the rubrics in a team review? Post about it here.
+        Concrete > abstract.
+
+  - type: input
+    id: node
+    attributes:
+      label: Which node(s) did this touch?
+      description: Optional — list one or more node ids.
+      placeholder: "loop.deterministic-skeleton, reliability.structured-output"
+  - type: textarea
+    id: body
+    attributes:
+      label: What you built / changed / learned
+    validations:
+      required: true

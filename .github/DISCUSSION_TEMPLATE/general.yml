@@ -1,0 +1,19 @@
+title: "[General] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        General-purpose discussion. Anything not a bug, not a node proposal,
+        not a stale-link report. Welcome here:
+        - "I disagree with how `<node>` is framed"
+        - "Reading-path question: I'm stuck and don't know where to start"
+        - "Show & tell: here's how I used the roadmap"
+        - "Curation-bar question: would resource X belong here?"
+
+  - type: textarea
+    id: body
+    attributes:
+      label: Discussion
+    validations:
+      required: true
