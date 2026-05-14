@@ -25,3 +25,4 @@ desktop.ini
 # CI artifacts
 .linkcheck-cache.json
 .linkcheck-report.json
+.linkcheck-report.partial.json

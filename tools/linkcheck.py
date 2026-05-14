@@ -29,7 +29,22 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "roadmap-data"
 REPORT_PATH = ROOT / ".linkcheck-report.json"
+PARTIAL_REPORT_PATH = ROOT / ".linkcheck-report.partial.json"
 IGNORE_PATH = ROOT / ".linkcheck-ignore"
+
+
+def pick_report_path(partial: bool) -> Path:
+    """Pick the output path for the JSON report.
+
+    A partial run (only some files via --paths) must NOT overwrite the
+    canonical report, because the nightly stale-link workflow trusts it
+    to be the latest *full* picture. Partial runs go to a separate file.
+    """
+    return (
+        ROOT / PARTIAL_REPORT_PATH.name
+        if partial
+        else ROOT / REPORT_PATH.name
+    )
 
 UA = (
     "Mozilla/5.0 (compatible; harness-engineer-roadmap-linkcheck/1.0; "
@@ -109,8 +124,11 @@ def main() -> int:
 
     if args.paths:
         files = [Path(p) for p in args.paths]
+        partial = True
     else:
         files = sorted(p for p in DATA_DIR.glob("*.yml") if not p.name.startswith("_"))
+        partial = False
+    report_path = pick_report_path(partial=partial)
 
     links = collect_links(files)
     if not links:
@@ -163,13 +181,13 @@ def main() -> int:
             if completed % args.max_workers == 0:
                 time.sleep(0.8 + random.random() * 0.4)
 
-    REPORT_PATH.write_text(
+    report_path.write_text(
         json.dumps({"results": results}, indent=2),
         encoding="utf-8",
     )
 
     print(f"\nresults: {ok_n} OK · {warn_n} WARN · {broken_n} BROKEN")
-    print(f"report: {REPORT_PATH.relative_to(ROOT)}")
+    print(f"report: {report_path.relative_to(ROOT)}")
 
     if broken_n and not args.soft:
         return 1
