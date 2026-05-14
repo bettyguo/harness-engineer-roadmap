@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --canvas: 10 10 15;
+    --canvas-grid: 26 26 34;
+    --ink: 245 245 247;
+    --ink-dim: 160 160 168;
+    --ink-muted: 107 107 117;
+    --accent: 94 234 212;
+    --dot-color: rgb(26 26 34);
+  }
+
+  :root[data-theme="light"] {
+    --canvas: 250 250 247;
+    --canvas-grid: 232 232 226;
+    --ink: 10 10 15;
+    --ink-dim: 72 72 79;
+    --ink-muted: 130 130 140;
+    --accent: 16 185 159;
+    --dot-color: rgb(218 218 210);
+  }
+
+  html, body, #root {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    background-color: rgb(var(--canvas));
+    background-image:
+      radial-gradient(circle at 1px 1px, var(--dot-color) 1px, transparent 0);
+    background-size: 24px 24px;
+    color: rgb(var(--ink));
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    font-feature-settings: "ss01", "ss02";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
+  }
+
+  ::selection {
+    background-color: rgba(var(--accent), 0.35);
+    color: rgb(var(--ink));
+  }
+}
+
+@layer components {
+  /* React Flow style overrides to land the dark canvas. */
+  .react-flow__renderer {
+    background: transparent;
+  }
+  .react-flow__attribution {
+    display: none;
+  }
+  .react-flow__controls {
+    border: 1px solid rgba(var(--ink), 0.08);
+    border-radius: 10px;
+    background: rgba(var(--canvas), 0.85);
+    backdrop-filter: blur(8px);
+    overflow: hidden;
+  }
+  .react-flow__controls-button {
+    background: transparent;
+    color: rgb(var(--ink-dim));
+    border-bottom: 1px solid rgba(var(--ink), 0.06);
+    transition: background 120ms, color 120ms;
+  }
+  .react-flow__controls-button:hover {
+    color: rgb(var(--ink));
+    background: rgba(var(--accent), 0.10);
+  }
+  .react-flow__controls-button svg {
+    fill: currentColor;
+  }
+  .react-flow__minimap {
+    background: rgba(var(--canvas-grid), 0.5) !important;
+    border: 1px solid rgba(var(--ink), 0.06) !important;
+    border-radius: 10px;
+  }
+
+  /* Tier badge styles. */
+  .tier-badge {
+    @apply inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono uppercase tracking-wider;
+  }
+}
