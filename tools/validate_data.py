@@ -81,6 +81,27 @@ def collect_nodes(area_files: list[Path]) -> tuple[dict, list[str]]:
     return node_by_id, errors
 
 
+def check_area_colors(area_files: list[Path]) -> list[str]:
+    """Each area must use a unique `color`. Two areas sharing a color
+    render as one visual cluster on the diagram — silently."""
+    errors: list[str] = []
+    color_to_area: dict[str, str] = {}
+    for path in area_files:
+        data = load_yaml(path)
+        if data is None:
+            continue
+        color = data["area"]["color"]
+        area_id = data["area"]["id"]
+        if color in color_to_area:
+            errors.append(
+                f"{path.name}: area.color {color!r} already used by "
+                f"{color_to_area[color]!r}; each area must use a unique color"
+            )
+        else:
+            color_to_area[color] = area_id
+    return errors
+
+
 def check_edges(node_by_id: dict) -> list[str]:
     errors: list[str] = []
     for node_id, node in node_by_id.items():
@@ -174,8 +195,16 @@ def main() -> int:
     edge_errors = check_edges(node_by_id) if not collect_errors else []
     cycle_errors = check_cycles(node_by_id) if not collect_errors and not edge_errors else []
     resource_errors = check_resources(node_by_id, args.strict)
+    color_errors = check_area_colors(area_files) if not schema_errors else []
 
-    all_errors = schema_errors + collect_errors + edge_errors + cycle_errors + resource_errors
+    all_errors = (
+        schema_errors
+        + collect_errors
+        + edge_errors
+        + cycle_errors
+        + resource_errors
+        + color_errors
+    )
 
     print(f"  areas: {len(area_files)}")
     print(f"  nodes: {len(node_by_id)}")
