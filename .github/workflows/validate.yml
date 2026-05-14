@@ -14,7 +14,9 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install Python deps
-        run: pip install -r tools/requirements.txt
+        run: pip install -r tools/requirements-dev.txt
+      - name: Run pytest
+        run: pytest -q
       - name: Validate roadmap-data
         run: python tools/validate_data.py
       - name: Generate graph.json + content/
@@ -52,6 +54,8 @@ jobs:
       - run: npm ci
         working-directory: site
       - run: npm run typecheck --if-present
+        working-directory: site
+      - run: npm test
         working-directory: site
       - run: npm run build
         working-directory: site
