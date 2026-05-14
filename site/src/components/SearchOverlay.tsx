@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { RoadmapNode, Area } from "../types";
 import { AREA_COLORS } from "../lib/colors";
 
@@ -74,6 +74,26 @@ export function SearchOverlay({ nodes, areasById, open, onClose, onPick }: Props
     return () => window.removeEventListener("keydown", onKey);
   }, [open, results, activeIndex, onPick, onClose]);
 
+  // Focus trap: Tab / Shift-Tab cycle within the overlay only.
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const onTrapKey = useCallback((e: React.KeyboardEvent) => {
+    if (e.key !== "Tab" || !overlayRef.current) return;
+    const focusables = overlayRef.current.querySelectorAll<HTMLElement>(
+      'a, button, input, textarea, select, [tabindex]:not([tabindex="-1"])',
+    );
+    if (focusables.length === 0) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    const active = document.activeElement;
+    if (e.shiftKey && active === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && active === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }, []);
+
   if (!open) return null;
 
   return (
@@ -83,10 +103,15 @@ export function SearchOverlay({ nodes, areasById, open, onClose, onPick }: Props
       onClick={onClose}
     >
       <div
+        ref={overlayRef}
         className="w-full max-w-xl rounded-xl border border-white/10
                    bg-[rgb(var(--canvas))]/95 overflow-hidden"
         style={{ boxShadow: "0 24px 64px -16px rgba(0,0,0,0.7)" }}
         onClick={(e) => e.stopPropagation()}
+        onKeyDown={onTrapKey}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Search nodes"
       >
         <div className="flex items-center gap-2 px-4 py-3 border-b border-white/5">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-[rgb(var(--ink-muted))]">
