@@ -6,8 +6,6 @@
 
 ![Harness Engineering Roadmap — diagram](assets/diagram-screenshot.png)
 
-> *(The screenshot above is a placeholder until the renderer is built in Phase 3 and the live site is captured for Phase 5.)*
-
 ---
 
 ## Why this exists
@@ -54,12 +52,9 @@ For new nodes: file a [`new_node`](.github/ISSUE_TEMPLATE/new_node.yml) issue fi
 
 ## Curator
 
-**Betty Guo** (Dongxin Guo / 郭东欣)
-Final-year PhD candidate, Computer Science, University of Hong Kong.
+**Betty Guo** ([Dongxin Guo](https://bettyguo.github.io/)), 
+PhD Candidate in Computer Science at The University of Hong Kong.
 Advised by [Prof. Siu-Ming Yiu](https://www.cs.hku.hk/people/academic-staff/smyiu).
-
-- GitHub: [@bettyguo](https://github.com/bettyguo)
-- ORCID: [0009-0000-2388-1072](https://orcid.org/0009-0000-2388-1072)
 
 ## License
 
