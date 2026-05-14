@@ -1,0 +1,56 @@
+name: Propose a new node
+description: Adding a new node to the roadmap. This goes through curator review before PR.
+title: "[new-node] "
+labels: [new-node, needs-triage]
+body:
+  - type: input
+    id: label
+    attributes:
+      label: Proposed label
+      description: How the node should appear in the diagram.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which area?
+      options:
+        - foundations
+        - loop
+        - tools
+        - context
+        - memory
+        - retrieval
+        - orchestration
+        - evals
+        - reliability
+        - cost
+        - security
+        - patterns
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary (1–2 sentences)
+    validations:
+      required: true
+  - type: textarea
+    id: competent
+    attributes:
+      label: What does "competent" mean for this node?
+      description: The rubric every roadmap node carries.
+    validations:
+      required: true
+  - type: textarea
+    id: depends
+    attributes:
+      label: Depends on
+      description: Which existing nodes are prerequisites? List by id, one per line.
+  - type: textarea
+    id: justification
+    attributes:
+      label: Why does this need to be its own node?
+      description: Could it fit inside an existing node instead? Convince the curator.
+    validations:
+      required: true

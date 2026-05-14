@@ -1,0 +1,230 @@
+area:
+  id: tools
+  label: "Tools & Tool Layers"
+  color: amber
+  order: 3
+  blurb: >
+    How the agent reaches the world: tool design, schemas, the MCP layer,
+    error handling, selection at scale, composition, sandboxing, and the
+    new computer-use surface.
+
+nodes:
+  - id: tools.tool-design
+    label: "Tool & function design"
+    tier: core
+    summary: >
+      Naming, single-purpose vs swiss-army, return shapes, descriptions
+      as prompts. The model only succeeds at tool use if the tools are
+      well-named and well-described.
+    competent_means: >
+      Can audit a tool list and remove three tools without losing
+      capability. Knows that the tool description is part of the prompt.
+    depends_on: [loop.react]
+    related: [tools.schema-design, tools.tool-selection]
+    aliases: [function design, tool definitions, function calling]
+    resources:
+      - title: "Building effective agents"
+        author: "Anthropic"
+        year: 2024
+        type: post
+        link: "https://www.anthropic.com/research/building-effective-agents"
+        why: >
+          The tool-design section is the single best practitioner-grade
+          treatment; calls out the descriptions-as-prompts insight
+          explicitly.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: tools.schema-design
+    label: "Schema design for tool I/O"
+    tier: core
+    summary: >
+      JSON Schema, descriptions as prompts, enums, structured outputs.
+      Over-permissive schemas degrade tool-use accuracy by silently
+      inviting bad inputs.
+    competent_means: >
+      Can show a before/after where tightening a tool schema raised
+      accuracy without changing the model.
+    depends_on: [tools.tool-design]
+    related: [reliability.structured-output]
+    aliases: [function schemas, json schema, tool schemas]
+    resources:
+      - title: "JSON Schema for OpenAPI"
+        author: "OpenAI"
+        year: 2024
+        type: spec
+        link: "https://platform.openai.com/docs/guides/structured-outputs"
+        why: >
+          The reference for structured-output enforcement at the model
+          boundary — durable because schemas-as-contracts is a permanent
+          pattern, even as specific platform APIs evolve.
+        difficulty: intermediate
+        cost: free
+        durability: current
+        verified: pending
+
+  - id: tools.mcp
+    label: "Model Context Protocol (MCP)"
+    tier: core
+    summary: >
+      The 2025 protocol for standardizing tool access across models and
+      clients. Replaces bespoke tool-wiring with a shared interface.
+    competent_means: >
+      Can ship an MCP server in an afternoon and knows when MCP is
+      overkill (one local tool, no client diversity).
+    depends_on: [tools.tool-design]
+    related: [tools.sandboxing]
+    aliases: [model context protocol, mcp servers, mcp client]
+    resources:
+      - title: "Model Context Protocol — specification"
+        author: "Anthropic"
+        year: 2024
+        type: spec
+        link: "https://modelcontextprotocol.io/"
+        why: >
+          The canonical spec. Read the overview + transports; skim the
+          rest until you need it. Mandatory reading once you have more
+          than one tool client.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: tools.tool-errors
+    label: "Tool errors as model input"
+    tier: core
+    summary: >
+      Errors are signals the model can read and act on. A 400 stack trace
+      back into the prompt is usually worse than a structured "you passed
+      an invalid date; expected ISO-8601."
+    competent_means: >
+      Distinguishes "the tool errored" from "the model misused the tool"
+      in traces, and shapes error returns so the model can recover.
+    depends_on: [tools.schema-design]
+    related: [reliability.structured-errors]
+    aliases: [tool error handling, error returns]
+    resources:
+      - title: "Building effective agents"
+        author: "Anthropic"
+        year: 2024
+        type: post
+        link: "https://www.anthropic.com/research/building-effective-agents"
+        why: >
+          The "tools-as-API-surface" guidance covers error shapes
+          explicitly — the only post that treats them as a model-input
+          design problem, not a logging concern.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: tools.tool-selection
+    label: "Tool selection at scale"
+    tier: recommended
+    summary: >
+      What happens when the agent has 50 tools — retrieval-based tool
+      selection, tool-bench-style filtering, dynamic tool loading.
+    competent_means: >
+      Knows the breakpoint where tool count starts hurting accuracy
+      (varies by model) and has a strategy for crossing it.
+    depends_on: [tools.tool-design]
+    related: [retrieval.embeddings]
+    aliases: [tool retrieval, many tools]
+    resources:
+      - title: "ToolBench / ToolLLM"
+        author: "Qin et al."
+        year: 2023
+        type: paper
+        link: "https://arxiv.org/abs/2307.16789"
+        why: >
+          The clearest benchmark for "what happens when you scale tool
+          counts" — the framing has held even as models have improved
+          on the absolute scores.
+        difficulty: advanced
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: tools.composition
+    label: "Tool composition & chaining"
+    tier: recommended
+    summary: >
+      Pipelines and tool-to-tool data plumbing. When the model shouldn't
+      be involved in mechanical handoffs.
+    competent_means: >
+      Can decide between in-prompt chaining (model decides next tool) and
+      in-code chaining (deterministic pipeline) for a given task.
+    depends_on: [tools.tool-design]
+    related: [loop.deterministic-skeleton]
+    aliases: [tool chaining, tool pipelines]
+    resources:
+      - title: "Building effective agents"
+        author: "Anthropic"
+        year: 2024
+        type: post
+        link: "https://www.anthropic.com/research/building-effective-agents"
+        why: >
+          The "prompt chaining" pattern in this post is the cleanest
+          treatment of in-code vs in-prompt composition.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: tools.sandboxing
+    label: "Tool sandboxing & permission scopes"
+    tier: core
+    summary: >
+      Code-execution sandboxes, file-system permissions, network egress
+      controls. Every tool you give the model is also a tool you give
+      anyone who can prompt the model.
+    competent_means: >
+      Knows three escape paths (shell, network, file-system) and has
+      closed each with a default-deny posture.
+    depends_on: [tools.tool-design]
+    related: [security.permissions]
+    aliases: [tool sandbox, execution sandbox, permissions]
+    resources:
+      - title: "Building Effective AI Agent Sandboxes"
+        author: "E2B"
+        year: 2025
+        type: post
+        link: "https://e2b.dev/blog/security-for-ai-agents-sandboxes-for-ai-developers"
+        why: >
+          Current-tool example — concrete walkthrough of sandbox design
+          for agent code-execution. The principles (default-deny, egress
+          limits, ephemeral fs) outlast the specific tool.
+        difficulty: intermediate
+        cost: free
+        durability: current
+        verified: pending
+
+  - id: tools.computer-use
+    label: "Computer-use tools"
+    tier: recommended
+    summary: >
+      Browser automation, shell tools, IDE plugin surface. Pixel-level vs
+      API-level tool use, and the failure modes specific to each.
+    competent_means: >
+      Knows the failure modes of pixel-level tool use (drift, layout
+      churn, screenshot cost) vs API-level (auth, schema rot) and picks
+      accordingly.
+    depends_on: [tools.tool-design]
+    related: [patterns.coding-agent-recipes]
+    aliases: [browser use, shell agent, computer use api]
+    resources:
+      - title: "Introducing computer use"
+        author: "Anthropic"
+        year: 2024
+        type: post
+        link: "https://www.anthropic.com/news/3-5-models-and-computer-use"
+        why: >
+          The clearest first-party explanation of pixel-level computer
+          use, including the honest failure modes. Durable because the
+          tradeoffs are intrinsic, not implementation details.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending

@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/bettyguo/harness-engineer-roadmap/blob/main/roadmap-data/_schema.json",
+  "title": "Harness Engineering Roadmap — area file",
+  "description": "Schema for a single roadmap-data/<area>.yml file. One area per file. Twelve files total.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["area", "nodes"],
+  "properties": {
+    "area": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "color", "order", "blurb"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "description": "Lowercase, kebab-case area id. Matches filename."
+        },
+        "label": { "type": "string", "minLength": 1 },
+        "color": {
+          "type": "string",
+          "enum": [
+            "violet", "teal", "amber", "rose", "indigo", "emerald",
+            "fuchsia", "sky", "orange", "lime", "red", "cyan"
+          ],
+          "description": "Palette key (resolved to a hex value in site/src/lib/colors.ts)."
+        },
+        "order": { "type": "integer", "minimum": 0 },
+        "blurb": { "type": "string", "minLength": 1 }
+      }
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/node" }
+    }
+  },
+  "$defs": {
+    "node": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id", "label", "tier", "summary", "competent_means",
+        "depends_on", "resources"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*\\.[a-z][a-z0-9-]*$",
+          "description": "Namespaced id: <area>.<node-slug>."
+        },
+        "label": { "type": "string", "minLength": 1 },
+        "tier": { "enum": ["core", "recommended", "optional"] },
+        "summary": { "type": "string", "minLength": 1 },
+        "competent_means": { "type": "string", "minLength": 1 },
+        "depends_on": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*\\.[a-z][a-z0-9-]*$"
+          }
+        },
+        "related": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*\\.[a-z][a-z0-9-]*$"
+          }
+        },
+        "aliases": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "resources": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/resource" }
+        }
+      }
+    },
+    "resource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title", "author", "year", "type", "link", "why",
+        "difficulty", "cost", "durability", "verified"
+      ],
+      "properties": {
+        "title": { "type": "string", "minLength": 1 },
+        "author": { "type": "string", "minLength": 1 },
+        "year": { "type": "integer", "minimum": 1970, "maximum": 2099 },
+        "type": {
+          "enum": ["paper", "repo", "tool", "post", "talk", "spec", "book", "course"]
+        },
+        "link": { "type": "string", "format": "uri", "pattern": "^https?://" },
+        "why": { "type": "string", "minLength": 1 },
+        "difficulty": { "enum": ["beginner", "intermediate", "advanced"] },
+        "cost": { "enum": ["free", "paid", "freemium"] },
+        "durability": { "enum": ["durable", "current"] },
+        "verified": { "enum": ["pending", "yes", "no"] },
+        "verified_at": {
+          "type": ["string", "null"],
+          "description": "ISO-8601 date string when verified flipped to yes."
+        }
+      }
+    }
+  }
+}

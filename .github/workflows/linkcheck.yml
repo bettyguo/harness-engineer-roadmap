@@ -1,0 +1,36 @@
+name: linkcheck
+
+on:
+  pull_request:
+    paths: [roadmap-data/**]
+  schedule:
+    # nightly at 03:17 UTC — odd minute to dodge the every-hour traffic
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+jobs:
+  linkcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r tools/requirements.txt
+
+      # PR mode: hard fail on broken links so they can't merge
+      - name: Link-check (PR mode)
+        if: github.event_name == 'pull_request'
+        run: python tools/linkcheck.py
+
+      # Nightly mode: soft (don't fail the workflow), but file/update an issue
+      - name: Link-check (nightly mode)
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: python tools/linkcheck.py --soft
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: linkcheck-report
+          path: .linkcheck-report.json

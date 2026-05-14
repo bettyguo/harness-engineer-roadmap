@@ -1,0 +1,35 @@
+name: Stale or broken link
+description: A resource link no longer resolves or no longer matches its description.
+title: "[stale-link] "
+labels: [stale-link]
+body:
+  - type: input
+    id: node
+    attributes:
+      label: Node id
+      placeholder: "loop.react"
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Broken URL
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Type of rot
+      options:
+        - 404 / not found
+        - redirected to unrelated content
+        - content has changed and no longer matches our description
+        - paywalled (was free when added)
+        - other
+    validations:
+      required: true
+  - type: textarea
+    id: replacement
+    attributes:
+      label: Suggested replacement (optional)
+      description: If you have a candidate replacement, paste the URL + a 1-line "why this one."

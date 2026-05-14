@@ -1,0 +1,175 @@
+area:
+  id: cost
+  label: "Cost & Latency Engineering"
+  color: lime
+  order: 10
+  blurb: >
+    Making the agent affordable to run, and fast enough to be useful.
+    Cost tracking, prompt caching, model tiering, parallelism, streaming,
+    and the discipline of short context over long.
+
+nodes:
+  - id: cost.tracking
+    label: "Cost & token tracking"
+    tier: core
+    summary: >
+      Per-task, per-user, per-feature attribution. Without it, every
+      "cost optimization" is guesswork.
+    competent_means: >
+      Knows the $/task of their agent within ~10% accuracy. Can break
+      that down by step.
+    depends_on: [evals.tracing]
+    related: [evals.cost-latency-dashboards]
+    aliases: [cost attribution, token tracking, llm cost]
+    resources:
+      - title: "OpenTelemetry GenAI Conventions"
+        author: "OpenTelemetry"
+        year: 2024
+        type: spec
+        link: "https://opentelemetry.io/docs/specs/semconv/gen-ai/"
+        why: >
+          The emerging standard includes per-call token + cost
+          attributes. Durable because the spec is the layer everyone
+          implements against, vendor-neutral.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: cost.caching
+    label: "Prompt caching"
+    tier: core
+    summary: >
+      Anthropic prompt caching, OpenAI prefix caching, KV-cache reuse.
+      The cheapest single optimization in modern agent design — design
+      prompts cache-first.
+    competent_means: >
+      Their system prompt is cache-key-stable across requests. Knows
+      their cache-hit rate within ~5%.
+    depends_on: [context.system-prompts]
+    related: [cost.tracking]
+    aliases: [prompt cache, prefix cache, kv cache]
+    resources:
+      - title: "Prompt caching with Claude"
+        author: "Anthropic"
+        year: 2024
+        type: spec
+        link: "https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching"
+        why: >
+          Vendor docs (durability:current). The mechanism (prefix-stable
+          caching with TTL) is now standard across providers; the
+          durable lesson is "design your prompt as a cache key."
+        difficulty: intermediate
+        cost: free
+        durability: current
+        verified: pending
+
+  - id: cost.model-tiering
+    label: "Model tiering & routing"
+    tier: recommended
+    summary: >
+      Cheap model for simple steps, expensive model for hard. A router
+      decides — either by a model call or by a rule.
+    competent_means: >
+      Can show a tier split with a quality plot — proof the cheap tier
+      doesn't degrade outcomes for routed-cheap requests.
+    depends_on: [cost.tracking]
+    related: [orchestration.routing]
+    aliases: [model routing, tiered models, mixture of models]
+    resources:
+      - title: "RouteLLM: Learning to Route LLMs with Preference Data"
+        author: "Ong et al."
+        year: 2024
+        type: paper
+        link: "https://arxiv.org/abs/2406.18665"
+        why: >
+          The clearest treatment of model routing as a learned policy.
+          The framing (preference data, calibrated routing) is durable
+          even as specific routers improve.
+        difficulty: advanced
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: cost.parallelism
+    label: "Parallelism & batching"
+    tier: recommended
+    summary: >
+      Concurrent tool calls, batched embeddings, async generation. The
+      latency win is real; contention bugs are the tax.
+    competent_means: >
+      Knows when parallelism pays (independent tool calls, embedding
+      batches) and when it doesn't (sequential dependencies, rate-
+      limited APIs).
+    depends_on: [cost.tracking]
+    related: [orchestration.parallel]
+    aliases: [parallel agents, concurrent tools, batched calls]
+    resources:
+      - title: "Building effective agents"
+        author: "Anthropic"
+        year: 2024
+        type: post
+        link: "https://www.anthropic.com/research/building-effective-agents"
+        why: >
+          The "parallelization" pattern split into sectioning vs voting
+          is the cleanest framing — separates latency wins from
+          ensemble wins.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: cost.streaming
+    label: "Streaming & partial outputs"
+    tier: recommended
+    summary: >
+      Streaming for perceived latency, partial-output UX, the
+      ergonomics of "show progress without committing to it." A UX
+      lever as much as an engineering one.
+    competent_means: >
+      Knows when streaming is a UX win (long generation, chat surface)
+      vs a footgun (structured output that must be validated whole).
+    depends_on: [cost.tracking]
+    related: []
+    aliases: [streaming responses, sse, partial outputs]
+    resources:
+      - title: "Streaming Responses"
+        author: "OpenAI"
+        year: 2024
+        type: spec
+        link: "https://platform.openai.com/docs/api-reference/streaming"
+        why: >
+          Vendor reference (durability:current). The pattern (SSE,
+          delta events, terminal marker) is durable across providers.
+        difficulty: beginner
+        cost: free
+        durability: current
+        verified: pending
+
+  - id: cost.short-vs-long-context
+    label: "Short-context discipline"
+    tier: recommended
+    summary: >
+      A 4k well-shaped context often beats 100k everything-in. Long
+      context is a tool, not a default. Both latency and quality often
+      improve with less.
+    competent_means: >
+      Prefers short, structured context by default and can defend
+      reaching for long context with a specific reason.
+    depends_on: [context.window-budget]
+    related: [context.long-context-pitfalls]
+    aliases: [short context, minimal context]
+    resources:
+      - title: "Lost in the Middle: How Language Models Use Long Contexts"
+        author: "Liu et al."
+        year: 2023
+        type: paper
+        link: "https://arxiv.org/abs/2307.03172"
+        why: >
+          Empirical grounding for "less context, attended-to, beats
+          more context, ignored." Cite this when arguing against
+          everything-in defaults.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending

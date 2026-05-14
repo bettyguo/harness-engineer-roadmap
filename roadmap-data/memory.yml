@@ -1,0 +1,201 @@
+area:
+  id: memory
+  label: "Memory & State"
+  color: indigo
+  order: 5
+  blurb: >
+    What the agent remembers across turns and sessions. Working vs
+    long-term, episodic vs semantic, state persistence, the knowledge-base
+    pattern, vector memory, forgetting policies, and shared memory across
+    agents.
+
+nodes:
+  - id: memory.working-vs-long-term
+    label: "Working memory vs long-term memory"
+    tier: core
+    summary: >
+      What goes in context every turn (working) vs what's recalled when
+      needed (long-term). Different access patterns, different storage,
+      different failure modes.
+    competent_means: >
+      Can draw the memory architecture of any agent they read about and
+      identify which memory type is doing the load-bearing work.
+    depends_on: [context.window-budget]
+    related: [memory.state-persistence]
+    aliases: [short-term memory, persistent memory, agent memory]
+    resources:
+      - title: "Memory in Agents"
+        author: "Letta"
+        year: 2024
+        type: post
+        link: "https://www.letta.com/blog/memory"
+        why: >
+          The clearest taxonomy of memory types in modern agents,
+          including the working/long-term split as a first-class design
+          decision rather than an implementation detail.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: memory.episodic-semantic
+    label: "Episodic vs semantic memory"
+    tier: recommended
+    summary: >
+      "What happened last Tuesday" vs "what's true." Different retrieval
+      strategies, different freshness needs.
+    competent_means: >
+      Knows which their agent actually needs (often: only one) and can
+      defend the choice against the temptation to ship both.
+    depends_on: [memory.working-vs-long-term]
+    related: []
+    aliases: [episodic memory, semantic memory]
+    resources:
+      - title: "MemGPT: Towards LLMs as Operating Systems"
+        author: "Packer et al."
+        year: 2023
+        type: paper
+        link: "https://arxiv.org/abs/2310.08560"
+        why: >
+          Treats memory as a tiered storage problem (RAM/disk analogue).
+          The taxonomy survives the specific MemGPT implementation.
+        difficulty: advanced
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: memory.state-persistence
+    label: "State & session persistence"
+    tier: core
+    summary: >
+      Where state lives across turns: in-process, KV store, database,
+      blob store. The durability/latency tradeoff lives here.
+    competent_means: >
+      Can argue the durability/latency/cost tradeoffs for their agent's
+      state store with a specific failure case in mind.
+    depends_on: [memory.working-vs-long-term]
+    related: [reliability.fallbacks]
+    aliases: [state store, session state, agent state]
+    resources:
+      - title: "Building Stateful Agents"
+        author: "LangChain"
+        year: 2024
+        type: post
+        link: "https://blog.langchain.com/langgraph-multi-agent-workflows/"
+        why: >
+          Current-tool example — concrete walkthrough of state stores in
+          a real framework. The "checkpoint as durability boundary"
+          pattern is durable even if LangGraph rotates.
+        difficulty: intermediate
+        cost: free
+        durability: current
+        verified: pending
+
+  - id: memory.knowledge-bases
+    label: "LLM knowledge bases (Karpathy pattern)"
+    tier: recommended
+    summary: >
+      A markdown library the LLM curates, lints, and interlinks. Replaces
+      RAG for some use cases where retrieval is the wrong primitive.
+    competent_means: >
+      Knows when it beats RAG (small-to-medium evolving corpora, single
+      user) and when it's a toy (high-traffic, low-trust, large corpus).
+    depends_on: [memory.working-vs-long-term]
+    related: [retrieval.rag-basics]
+    aliases: [llm wiki, knowledge base, evolving markdown]
+    resources:
+      - title: "LLM Knowledge Bases (gist)"
+        author: "Andrej Karpathy"
+        year: 2026
+        type: post
+        link: "https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f"
+        why: >
+          The originating post for the pattern. Short, specific, and the
+          framing — markdown library as primary memory — is the durable
+          contribution.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: memory.vector-memory
+    label: "Vector-store memory"
+    tier: recommended
+    summary: >
+      Embedding-based recall over past turns or events. Eviction policies
+      matter more than embedding choice past a certain scale.
+    competent_means: >
+      Can defend their chunking strategy with a concrete example of when
+      it failed and what the failure looked like in production.
+    depends_on: [memory.working-vs-long-term, retrieval.embeddings]
+    related: [memory.forgetting]
+    aliases: [embedding memory, vector recall]
+    resources:
+      - title: "MemGPT: Towards LLMs as Operating Systems"
+        author: "Packer et al."
+        year: 2023
+        type: paper
+        link: "https://arxiv.org/abs/2310.08560"
+        why: >
+          The clearest paper-treatment of "embed memories, evict on
+          pressure, summarize before eviction." The mechanics outlive
+          the implementation.
+        difficulty: advanced
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: memory.forgetting
+    label: "Forgetting, decay, eviction"
+    tier: recommended
+    summary: >
+      When old memory becomes a liability — stale facts, outdated
+      preferences, drifted personas. Forgetting is a design parameter,
+      not a bug.
+    competent_means: >
+      Has implemented a non-trivial eviction policy (TTL + relevance +
+      access-recency) and watched it remove the right things.
+    depends_on: [memory.vector-memory]
+    related: [context.compaction]
+    aliases: [memory decay, eviction policy, ttl memory]
+    resources:
+      - title: "Memory in Agents"
+        author: "Letta"
+        year: 2024
+        type: post
+        link: "https://www.letta.com/blog/memory"
+        why: >
+          Treats forgetting as a design problem with specific eviction
+          patterns. The clearest practitioner-level coverage.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: memory.shared-memory
+    label: "Shared memory across agents"
+    tier: optional
+    summary: >
+      Multi-agent memory blackboards, shared context channels, conflict
+      resolution. A small surface that adds a large race-condition class.
+    competent_means: >
+      Knows the canonical race conditions (last-writer-wins overwrite,
+      stale read, fan-out divergence) and how each one shows up in
+      traces.
+    depends_on: [memory.state-persistence, orchestration.handoffs]
+    related: []
+    aliases: [shared state, blackboard, multi-agent memory]
+    resources:
+      - title: "LangGraph multi-agent workflows"
+        author: "LangChain"
+        year: 2024
+        type: post
+        link: "https://blog.langchain.com/langgraph-multi-agent-workflows/"
+        why: >
+          Current-tool example — walks through shared-state design
+          patterns in a real framework. The race-condition lessons
+          transfer.
+        difficulty: advanced
+        cost: free
+        durability: current
+        verified: pending

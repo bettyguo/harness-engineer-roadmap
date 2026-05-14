@@ -1,0 +1,5 @@
+# Domains to skip in linkcheck (one per line, substring match).
+# Use sparingly — every entry here is a potential silent rot point.
+# Add a date and reason in a comment when you add one.
+#
+# example: # 2026-05-14: arxiv mirror flakey under rate-limit during nightly run

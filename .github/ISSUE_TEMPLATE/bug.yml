@@ -1,0 +1,24 @@
+name: Bug report
+description: Something on the site or in the tooling is broken.
+title: "[bug] "
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What's broken?
+      description: Be specific. Browser version if relevant. Screenshots help.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen?
+    validations:
+      required: true

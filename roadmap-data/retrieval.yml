@@ -1,0 +1,176 @@
+area:
+  id: retrieval
+  label: "Retrieval Integration"
+  color: emerald
+  order: 6
+  blurb: >
+    Retrieval from the harness-layer perspective — not RAG 101. How RAG
+    plugs into the agent loop, embeddings, hybrid search, query
+    rewriting, citations, and agentic / iterative retrieval.
+
+nodes:
+  - id: retrieval.rag-basics
+    label: "RAG as a harness component"
+    tier: core
+    summary: >
+      Just enough RAG to slot it into a harness — chunk, embed, retrieve,
+      re-insert into context. Most production RAG problems are chunking
+      and retrieval-prompt problems, not embedding choice.
+    competent_means: >
+      Can explain why most "bad RAG" is bad chunking or bad query, not
+      bad embedding. Knows the three sub-systems a RAG stack is made of.
+    depends_on: [foundations.what-is-a-harness]
+    related: [memory.knowledge-bases]
+    aliases: [rag, retrieval augmented generation]
+    resources:
+      - title: "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks"
+        author: "Lewis et al."
+        year: 2020
+        type: paper
+        link: "https://arxiv.org/abs/2005.11401"
+        why: >
+          The originating paper. Read the architecture section; skim the
+          numbers. The "retrieve, then condition" framing is the durable
+          contribution.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: retrieval.embeddings
+    label: "Embeddings & dense retrieval"
+    tier: core
+    summary: >
+      Embedding model choice, dimensionality, normalization, the cost of
+      switching embeddings post-launch. Most teams pick once and never
+      revisit; they should.
+    competent_means: >
+      Knows three embedding-choice failure modes (domain mismatch, scale
+      mismatch, language mismatch) and can identify which is biting them.
+    depends_on: [retrieval.rag-basics]
+    related: []
+    aliases: [embedding models, vector embeddings, dense retrieval]
+    resources:
+      - title: "MTEB: Massive Text Embedding Benchmark"
+        author: "Muennighoff et al."
+        year: 2022
+        type: paper
+        link: "https://arxiv.org/abs/2210.07316"
+        why: >
+          The reference for "which embedding model and why." The
+          leaderboard rotates; the methodology for picking is durable.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: retrieval.hybrid
+    label: "Hybrid search (BM25 + dense + rerank)"
+    tier: recommended
+    summary: >
+      Pure dense retrieval loses on technical terms, acronyms, and
+      named-entity queries. BM25 + dense + a reranker is the production
+      default.
+    competent_means: >
+      Ships hybrid retrieval by default. Can show a query where dense
+      misses and BM25 catches.
+    depends_on: [retrieval.embeddings]
+    related: []
+    aliases: [hybrid retrieval, bm25, reranking]
+    resources:
+      - title: "Hybrid Search Explained"
+        author: "Pinecone"
+        year: 2023
+        type: post
+        link: "https://www.pinecone.io/learn/hybrid-search-intro/"
+        why: >
+          Vendor-flavored but the clearest practitioner walkthrough of
+          why hybrid wins, with worked examples on the kinds of queries
+          dense alone fails.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: retrieval.query-rewriting
+    label: "Query rewriting & HyDE"
+    tier: recommended
+    summary: >
+      Let the model rewrite the user's query before retrieval —
+      expansion, decomposition, hypothesis-doc generation. Cheap when
+      retrieval matters more than generation cost.
+    competent_means: >
+      Can show a query where rewriting changes the retrieved set in a
+      way that materially improves the final answer.
+    depends_on: [retrieval.rag-basics]
+    related: [retrieval.agentic-retrieval]
+    aliases: [hyde, query expansion, query decomposition]
+    resources:
+      - title: "Precise Zero-Shot Dense Retrieval without Relevance Labels (HyDE)"
+        author: "Gao et al."
+        year: 2022
+        type: paper
+        link: "https://arxiv.org/abs/2212.10496"
+        why: >
+          The canonical paper on rewriting queries via hypothetical
+          documents. The trick generalizes: model-as-query-rewriter is a
+          durable pattern.
+        difficulty: advanced
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: retrieval.citations
+    label: "Citations, attribution, grounding"
+    tier: core
+    summary: >
+      The antidote to hallucinated retrievals: make the agent show its
+      work. Without citations you cannot audit "did this answer actually
+      come from the source?"
+    competent_means: >
+      Can audit an agent's citations and find one that's fabricated.
+      Has a citation-validation gate in their eval suite.
+    depends_on: [retrieval.rag-basics]
+    related: [evals.task-evals]
+    aliases: [grounded generation, attribution, citation validation]
+    resources:
+      - title: "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection"
+        author: "Asai et al."
+        year: 2023
+        type: paper
+        link: "https://arxiv.org/abs/2310.11511"
+        why: >
+          The clearest treatment of "generation that knows when to cite
+          and when to abstain." The mechanism is durable; the specific
+          training recipe is one of many.
+        difficulty: advanced
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: retrieval.agentic-retrieval
+    label: "Agentic / iterative retrieval"
+    tier: recommended
+    summary: >
+      The agent decides what to retrieve next based on what it just read.
+      Where the agent loop and retrieval meet — and where most "deep
+      research" agents live.
+    competent_means: >
+      Knows when iterative beats single-shot retrieval (large corpora,
+      multi-hop questions) and the cost it adds (latency, token spend).
+    depends_on: [retrieval.query-rewriting, loop.react]
+    related: [patterns.research-agent-recipes]
+    aliases: [iterative rag, research agent, agentic rag]
+    resources:
+      - title: "Self-Ask with Search"
+        author: "Press et al."
+        year: 2022
+        type: paper
+        link: "https://arxiv.org/abs/2210.03350"
+        why: >
+          The clearest paper on "decompose, retrieve, repeat" loops. The
+          pattern survives the specific implementation.
+        difficulty: advanced
+        cost: free
+        durability: durable
+        verified: pending

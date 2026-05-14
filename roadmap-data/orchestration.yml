@@ -1,0 +1,203 @@
+area:
+  id: orchestration
+  label: "Multi-Agent Orchestration"
+  color: fuchsia
+  order: 7
+  blurb: >
+    When one agent isn't enough — and the more important question of when
+    one is. Single vs multi, supervisor/worker, handoffs, routing,
+    parallelism, debate, and the anti-patterns that have cost the field
+    the most.
+
+nodes:
+  - id: orchestration.single-vs-multi
+    label: "Single vs multi-agent"
+    tier: core
+    summary: >
+      The gate question: do you actually need multiple agents? Most
+      "multi-agent" systems are one agent split across files for
+      organization, not capability.
+    competent_means: >
+      Can argue against multi-agent for a use case where it's a fad, and
+      identify the small class where it's earned.
+    depends_on: [loop.basic-loop]
+    related: [orchestration.anti-patterns]
+    aliases: [single agent, multi-agent, agent count]
+    resources:
+      - title: "Don't Build Multi-Agents"
+        author: "Cognition AI"
+        year: 2025
+        type: post
+        link: "https://cognition.ai/blog/dont-build-multi-agents"
+        why: >
+          The strongest argument-from-experience against multi-agent as
+          the default. Required reading before you ship a supervisor.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: orchestration.supervisor-worker
+    label: "Supervisor / worker patterns"
+    tier: recommended
+    summary: >
+      One agent dispatches, others execute. Useful when the dispatcher
+      genuinely has different concerns from the executor — not just to
+      look organized.
+    competent_means: >
+      Can sketch the supervisor's tool list and explain why each tool is
+      a supervisor concern, not a worker concern.
+    depends_on: [orchestration.single-vs-multi]
+    related: [orchestration.handoffs]
+    aliases: [supervisor agent, worker agent, dispatcher]
+    resources:
+      - title: "Multi-Agent Workflows"
+        author: "LangChain"
+        year: 2024
+        type: post
+        link: "https://blog.langchain.com/langgraph-multi-agent-workflows/"
+        why: >
+          Current-tool example — the supervisor pattern walked through
+          with code. The structural insight (dispatcher concerns vs
+          worker concerns) is durable.
+        difficulty: intermediate
+        cost: free
+        durability: current
+        verified: pending
+
+  - id: orchestration.handoffs
+    label: "Handoffs & state passing"
+    tier: core
+    summary: >
+      What does the receiving agent actually need to know? Most multi-
+      agent bugs are handoff bugs — re-reading the world, dropped
+      context, conflicting state.
+    competent_means: >
+      Knows three handoff bugs (dropped context, redundant re-read,
+      conflicting overwrite) and the trace pattern that surfaces each.
+    depends_on: [orchestration.supervisor-worker]
+    related: [memory.shared-memory]
+    aliases: [agent handoff, state handoff, message passing]
+    resources:
+      - title: "OpenAI Agents SDK — Handoffs"
+        author: "OpenAI"
+        year: 2025
+        type: spec
+        link: "https://platform.openai.com/docs/guides/agents"
+        why: >
+          Current-tool example — first-party docs on handoff as a
+          first-class primitive. The framing (handoff = transferred
+          intent + transferred context) is durable.
+        difficulty: intermediate
+        cost: free
+        durability: current
+        verified: pending
+
+  - id: orchestration.routing
+    label: "Routing & specialization"
+    tier: recommended
+    summary: >
+      Picking the right agent for the request. Often a model call, often
+      a classifier, sometimes a hand-tuned regex.
+    competent_means: >
+      Can defend their routing policy (model vs classifier vs rules)
+      against a concrete misroute example.
+    depends_on: [orchestration.supervisor-worker]
+    related: [cost.model-tiering]
+    aliases: [agent routing, request routing]
+    resources:
+      - title: "Building effective agents"
+        author: "Anthropic"
+        year: 2024
+        type: post
+        link: "https://www.anthropic.com/research/building-effective-agents"
+        why: >
+          The "routing" pattern in this post is the cleanest treatment
+          of when a router is a model and when it should be a rule.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: orchestration.parallel
+    label: "Parallelism & fan-out"
+    tier: recommended
+    summary: >
+      Running tool calls or subagents concurrently. The latency win is
+      real; the cost and complexity wins less obvious.
+    competent_means: >
+      Knows the latency/cost tradeoff for a fan-out and has chosen one
+      with eyes open (or chosen to keep it sequential and saved the
+      complexity).
+    depends_on: [cost.parallelism]
+    related: []
+    aliases: [parallel agents, fan-out, concurrent tools]
+    resources:
+      - title: "Building effective agents"
+        author: "Anthropic"
+        year: 2024
+        type: post
+        link: "https://www.anthropic.com/research/building-effective-agents"
+        why: >
+          The "parallelization" pattern (sectioning vs voting) is the
+          cleanest treatment — distinguishes "parallel for speed" from
+          "parallel for ensemble" cleanly.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: orchestration.debate
+    label: "Debate, voting, ensembles"
+    tier: optional
+    summary: >
+      Multiple agents critique or vote. Theatrical wins are easy; real
+      accuracy wins are rare and benchmark-specific.
+    competent_means: >
+      Knows when ensemble accuracy gains are real (uncertain domains,
+      verifier-cheap-than-generator) vs theatrical (most cases).
+    depends_on: [orchestration.single-vs-multi]
+    related: []
+    aliases: [agent debate, voting, ensemble agents]
+    resources:
+      - title: "Improving Factuality and Reasoning in Language Models through Multiagent Debate"
+        author: "Du et al."
+        year: 2023
+        type: paper
+        link: "https://arxiv.org/abs/2305.14325"
+        why: >
+          The most-cited debate paper. Read the methodology; treat the
+          gains skeptically — newer work has shown ensemble effects
+          often dominate the "debate" framing.
+        difficulty: advanced
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: orchestration.anti-patterns
+    label: "Multi-agent anti-patterns"
+    tier: core
+    summary: >
+      "Two agents pretending to talk." "One supervisor that's secretly
+      doing all the work." The most expensive failure mode in the
+      field — multi-agent looking like progress while paying for
+      nothing.
+    competent_means: >
+      Can spot a multi-agent design that should have been one agent and
+      name the specific cost it's paying.
+    depends_on: [orchestration.single-vs-multi]
+    related: [patterns.anti-patterns]
+    aliases: [multi-agent failure modes]
+    resources:
+      - title: "Don't Build Multi-Agents"
+        author: "Cognition AI"
+        year: 2025
+        type: post
+        link: "https://cognition.ai/blog/dont-build-multi-agents"
+        why: >
+          The most thorough catalogue of multi-agent anti-patterns from
+          a team that shipped both. Required reading.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending

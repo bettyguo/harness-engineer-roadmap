@@ -1,0 +1,207 @@
+area:
+  id: security
+  label: "Security & the Agent Threat Surface"
+  color: red
+  order: 11
+  blurb: >
+    The new attack surface that agents create. Prompt injection,
+    capability gating, data exfiltration, confidentiality, tool-output
+    poisoning, audit trails, and red-teaming as a continuous practice.
+
+nodes:
+  - id: security.prompt-injection
+    label: "Prompt injection"
+    tier: core
+    summary: >
+      Direct and indirect injection — the most-shipped vulnerability in
+      agents. Any text the model sees from any source can carry an
+      instruction.
+    competent_means: >
+      Can attack their own agent in three ways (direct user input,
+      retrieved document, tool output) and has a defense for each.
+    depends_on: [context.context-poisoning]
+    related: [security.tool-poisoning]
+    aliases: [prompt injection, indirect prompt injection, jailbreak]
+    resources:
+      - title: "Prompt injection: What's the worst that can happen?"
+        author: "Simon Willison"
+        year: 2023
+        type: post
+        link: "https://simonwillison.net/2023/Apr/14/worst-that-can-happen/"
+        why: >
+          The clearest non-academic walkthrough of the attack surface
+          and the realistic threat model. Required reading; Willison's
+          ongoing index of the topic is the de facto bibliography.
+        difficulty: beginner
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: security.permissions
+    label: "Capability gating & permissions"
+    tier: core
+    summary: >
+      What can the agent do, and on whose behalf? Least-privilege as a
+      default, with explicit elevation when needed.
+    competent_means: >
+      Agent runs least-privilege by default. Can enumerate every
+      permission it holds and the justification for each.
+    depends_on: [tools.sandboxing]
+    related: [security.data-exfiltration]
+    aliases: [least privilege, capability scoping, agent permissions]
+    resources:
+      - title: "The Confused Deputy: Re-Examined"
+        author: "Norm Hardy / canonicalized in capability literature"
+        year: 1988
+        type: paper
+        link: "https://www.cap-lore.com/CapTheory/ConfusedDeputy.html"
+        why: >
+          The pre-LLM origin of the capability/least-privilege framing.
+          Applies directly to agents: the agent is the confused deputy
+          when it can act on its principal's behalf with the attacker's
+          intent.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: security.data-exfiltration
+    label: "Data exfiltration"
+    tier: core
+    summary: >
+      Side-channel leaks via tool calls, outbound URLs, embeddings, and
+      logs. The model doesn't need a shell to leak — it just needs a
+      tool that can talk to the network.
+    competent_means: >
+      Their agent's egress is enumerable (every outbound destination
+      logged) and rate-limited. Knows three exfiltration paths and how
+      each was closed.
+    depends_on: [security.permissions]
+    related: [security.audit-trail]
+    aliases: [data leak, exfil, side channel]
+    resources:
+      - title: "Markdown Image Exfiltration in LLM Agents"
+        author: "Simon Willison"
+        year: 2024
+        type: post
+        link: "https://simonwillison.net/2024/Mar/23/prompt-injection-llm-agents/"
+        why: >
+          A specific worked example — markdown-image exfil — that
+          covers the general pattern (any outbound URL is a side
+          channel). Durable because the channel keeps reappearing in
+          new forms.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: security.confidentiality
+    label: "Confidentiality & PII"
+    tier: recommended
+    summary: >
+      Redaction, secrets handling, prompt-leak hygiene. The trace
+      pipeline is often the worst offender, not the agent itself.
+    competent_means: >
+      Has a redactor in the trace pipeline that they have tested
+      against synthetic PII. Knows what their LLM provider retains.
+    depends_on: [evals.tracing]
+    related: [security.audit-trail]
+    aliases: [pii redaction, secrets handling, prompt leak]
+    resources:
+      - title: "OWASP Top 10 for LLM Applications"
+        author: "OWASP"
+        year: 2024
+        type: spec
+        link: "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+        why: >
+          The reference taxonomy. Read LLM02 (insecure output handling)
+          and LLM06 (sensitive information disclosure) — durable
+          framing that survives version bumps of the list.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: security.tool-poisoning
+    label: "Tool-output poisoning"
+    tier: recommended
+    summary: >
+      Adversarial content in retrieved docs or tool returns — the
+      indirect-injection surface every retrieval-augmented agent has.
+    competent_means: >
+      Distinguishes trusted from untrusted tool outputs in their
+      pipeline and treats untrusted ones as inputs to be sanitized,
+      not instructions to be followed.
+    depends_on: [security.prompt-injection, tools.tool-errors]
+    related: [context.context-poisoning]
+    aliases: [indirect injection, document poisoning]
+    resources:
+      - title: "Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection"
+        author: "Greshake et al."
+        year: 2023
+        type: paper
+        link: "https://arxiv.org/abs/2302.12173"
+        why: >
+          The paper that named indirect prompt injection. Section 3 on
+          attack vectors is required reading for anyone building a
+          retrieval-augmented agent.
+        difficulty: advanced
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: security.audit-trail
+    label: "Audit trails"
+    tier: recommended
+    summary: >
+      Who did what, when, why — provable from logs. The forensic
+      surface that turns a security incident into a recoverable one.
+    competent_means: >
+      Their agent's actions are reconstructible months later from
+      structured logs. Has run at least one drill of "given a user
+      report, prove what the agent did."
+    depends_on: [evals.tracing]
+    related: [security.confidentiality]
+    aliases: [audit log, forensics, action trail]
+    resources:
+      - title: "OWASP Top 10 for LLM Applications — LLM09 Overreliance"
+        author: "OWASP"
+        year: 2024
+        type: spec
+        link: "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+        why: >
+          OWASP's framing of audit trails as a defense against
+          overreliance and an enabler of incident response. Durable
+          even as the list version-bumps.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: security.red-team
+    label: "Red-teaming agents"
+    tier: optional
+    summary: >
+      Adversarial eval as continuous discipline. Treats the threat
+      surface like a regression eval — every release runs the attack
+      suite.
+    competent_means: >
+      Runs a red-team eval on their agent on a stated cadence and has
+      a backlog of attacks generated by the team (not just imported).
+    depends_on: [security.prompt-injection, evals.regression]
+    related: [reliability.chaos]
+    aliases: [agent red team, adversarial eval]
+    resources:
+      - title: "Red Teaming Language Models with Language Models"
+        author: "Perez et al."
+        year: 2022
+        type: paper
+        link: "https://arxiv.org/abs/2202.03286"
+        why: >
+          The canonical paper on using models to generate red-team
+          inputs. The mechanism (generate, classify, refine) is durable
+          even as model-specific attack catalogues change.
+        difficulty: advanced
+        cost: free
+        durability: durable
+        verified: pending

@@ -1,0 +1,139 @@
+area:
+  id: foundations
+  label: "Foundations"
+  color: violet
+  order: 1
+  blurb: >
+    The framing every harness engineer needs before the rest of the map
+    clicks. Agent = Model + Harness, the engineer-the-mistake-out rule,
+    and the durable-vs-current distinction that survives this field's
+    monthly churn.
+
+nodes:
+  - id: foundations.what-is-a-harness
+    label: "What is a harness?"
+    tier: core
+    summary: >
+      "Agent = Model + Harness." The harness is everything around the model:
+      state, security, orchestration, memory, observability, evals. Fixing
+      the harness often beats switching the model.
+    competent_means: >
+      Can name the six harness components and explain why teams routinely
+      ship better systems on a worse model by improving the harness.
+    depends_on: []
+    related: [foundations.engineer-the-mistake-out, foundations.durable-vs-current]
+    aliases: [agent harness, model + harness, llm scaffolding, the harness]
+    resources:
+      - title: "Harness engineering for coding agent users"
+        author: "Birgitta Böckeler"
+        year: 2026
+        type: post
+        link: "https://martinfowler.com/articles/harness-engineering.html"
+        why: >
+          The canonical vocabulary for the discipline — guides, sensors,
+          harnessability, behaviour vs maintainability harness. Read this
+          first; everything since builds on it.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+      - title: "The Agent Harness: Why the LLM Is the Smallest Part of Your Agent System"
+        author: "MongoDB"
+        year: 2026
+        type: post
+        link: "https://www.mongodb.com/company/blog/technical/agent-harness-why-llm-is-smallest-part-of-your-agent-system"
+        why: >
+          The six-component view (state, security, orchestration, memory,
+          observability, evals). Useful as the working mental model when
+          auditing an existing system.
+        difficulty: beginner
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: foundations.engineer-the-mistake-out
+    label: "Engineer the mistake out"
+    tier: core
+    summary: >
+      Hashimoto's rule: every time the agent makes a mistake, you engineer
+      the harness so it physically cannot make that mistake again — instead
+      of prompt-fixing and hoping.
+    competent_means: >
+      Can identify three of their own recent "fixed it with a prompt tweak"
+      moments and re-describe what the proper harness-level fix would have
+      been.
+    depends_on: [foundations.what-is-a-harness]
+    related: [patterns.anti-patterns, reliability.failure-taxonomy]
+    aliases: [hashimoto rule, agent = model + harness]
+    resources:
+      - title: "My AI Adoption Journey"
+        author: "Mitchell Hashimoto"
+        year: 2026
+        type: post
+        link: "https://mitchellh.com/writing/my-ai-adoption-journey"
+        why: >
+          The essay that named the discipline. Read the section formalizing
+          "agent = model + harness" and the "engineer the mistake out"
+          philosophy — short, opinionated, foundational.
+        difficulty: beginner
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: foundations.durable-vs-current
+    label: "Durable concepts vs current tools"
+    tier: core
+    summary: >
+      The field churns monthly. Concepts (the agent loop, eval discipline,
+      memory architecture) outlive tool names (the framework du jour, the
+      MCP server you ship today). Learn to tell them apart.
+    competent_means: >
+      When reading a new framework's docs, can name which durable concept
+      each feature implements, and can argue when a new tool is meaningful
+      progress vs a rename.
+    depends_on: [foundations.what-is-a-harness]
+    related: []
+    aliases: [concepts over tools, framework churn]
+    resources:
+      - title: "Don't Build Multi-Agents"
+        author: "Cognition AI"
+        year: 2025
+        type: post
+        link: "https://cognition.ai/blog/dont-build-multi-agents"
+        why: >
+          A model of separating durable principle (context shapes
+          behavior) from the current-tool fashion (multi-agent
+          frameworks). Read it for the framing more than the conclusion.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: foundations.competence-rubric
+    label: "What 'competent' looks like"
+    tier: recommended
+    summary: >
+      Every node in this roadmap carries a behavioural rubric — what being
+      competent at this thing actually looks like — instead of "understands
+      X." Use the rubrics to self-score honestly.
+    competent_means: >
+      Can score themselves on at least three recent nodes and identify
+      where they would actually fail the rubric in production.
+    depends_on: [foundations.what-is-a-harness]
+    related: [evals.why-evals-are-hard]
+    aliases: [rubric, self-assessment]
+    resources:
+      - title: "Building effective agents"
+        author: "Anthropic"
+        year: 2024
+        type: post
+        link: "https://www.anthropic.com/research/building-effective-agents"
+        why: >
+          Frames agent competence behaviorally — what a working system does,
+          not what it knows. Pairs well with the rubric mindset this node
+          captures.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending

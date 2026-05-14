@@ -1,0 +1,210 @@
+area:
+  id: patterns
+  label: "Patterns & Anti-Patterns"
+  color: cyan
+  order: 12
+  blurb: >
+    Concrete, named patterns and anti-patterns. The shareable-on-its-own
+    area — the kind of content readers send to teammates. Skeleton with
+    flex, guarded tools, context recipes, eval-driven loops, the named
+    anti-patterns, and the recipe templates for coding and research
+    agents.
+
+nodes:
+  - id: patterns.skeleton-with-flex
+    label: "Skeleton with flexible steps"
+    tier: core
+    summary: >
+      Deterministic backbone, model fills the gaps. The #1 reliability
+      pattern — the single biggest leverage point most agents miss.
+    competent_means: >
+      Has refactored at least one open-ended agent into a skeleton
+      design and can describe the reliability gain it produced.
+    depends_on: [loop.deterministic-skeleton]
+    related: [patterns.eval-driven-loop]
+    aliases: [structured agent, workflow with model gaps]
+    resources:
+      - title: "Building effective agents"
+        author: "Anthropic"
+        year: 2024
+        type: post
+        link: "https://www.anthropic.com/research/building-effective-agents"
+        why: >
+          The "workflow vs agent" framing is the cleanest treatment of
+          the pattern. The case for backbones with flex steps is
+          worked through with examples.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: patterns.guarded-tool
+    label: "Guarded tool pattern"
+    tier: core
+    summary: >
+      Every tool has a precondition and a postcondition checker. The
+      model can call it; the harness decides whether the call's
+      results count.
+    competent_means: >
+      Has shipped a tool with both a precondition (refuses bad inputs
+      with a structured error) and a postcondition (validates the
+      output before returning).
+    depends_on: [tools.tool-design, reliability.validation]
+    related: []
+    aliases: [tool guards, pre/post checks, validated tool]
+    resources:
+      - title: "Building effective agents"
+        author: "Anthropic"
+        year: 2024
+        type: post
+        link: "https://www.anthropic.com/research/building-effective-agents"
+        why: >
+          Treats tool design with pre/post validation as a first-class
+          harness concern. The structural lesson is durable.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: patterns.context-recipes
+    label: "Context recipes (system + user + retrieved)"
+    tier: core
+    summary: >
+      Named slot layouts that have been shown to work. System prompt
+      (stable, cached), retrieved context (untrusted, sanitized), user
+      input (untrusted, sanitized), output schema (enforced).
+    competent_means: >
+      Can describe their agent's context layout as a recipe with named
+      slots and trust levels. Hasn't mixed trust levels into a single
+      slot.
+    depends_on: [context.structured-context]
+    related: [security.prompt-injection]
+    aliases: [prompt recipe, context layout]
+    resources:
+      - title: "Context engineering for agents"
+        author: "LangChain"
+        year: 2025
+        type: post
+        link: "https://www.langchain.com/blog/context-engineering-for-agents"
+        why: >
+          The clearest practitioner-grade taxonomy of context slots
+          and their roles. The recipe framing is the durable
+          contribution.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: patterns.eval-driven-loop
+    label: "Eval-driven loop"
+    tier: recommended
+    summary: >
+      Every change has an eval. Every regression blocks the change.
+      The discipline that lets you move fast without breaking the
+      agent.
+    competent_means: >
+      Their PR cycle includes an eval run, and the team has aborted at
+      least one promising change because the eval went red.
+    depends_on: [evals.regression]
+    related: [patterns.skeleton-with-flex]
+    aliases: [eval-driven development, agent tdd]
+    resources:
+      - title: "A Field Guide to Rapidly Improving AI Products"
+        author: "Hamel Husain"
+        year: 2024
+        type: post
+        link: "https://hamel.dev/blog/posts/field-guide/"
+        why: >
+          The case for eval-as-the-flywheel is made with worked
+          examples. The discipline — write the eval, run it on every
+          change — is durable.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: patterns.anti-patterns
+    label: "Named anti-patterns"
+    tier: core
+    summary: >
+      The recurring failures, given names. "Prompt the bug away."
+      "Add another agent." "More context = more correct." "Fancy
+      retriever, broken chunking." Each with an example.
+    competent_means: >
+      Can name three of their own past anti-patterns from production,
+      with what they cost and what fixed each.
+    depends_on: [foundations.engineer-the-mistake-out]
+    related: [orchestration.anti-patterns]
+    aliases: [anti-patterns, agent anti-patterns, failure patterns]
+    resources:
+      - title: "Don't Build Multi-Agents"
+        author: "Cognition AI"
+        year: 2025
+        type: post
+        link: "https://cognition.ai/blog/dont-build-multi-agents"
+        why: >
+          The canonical "this isn't progress, it's complexity" case.
+          The named anti-patterns survive the specific framework
+          critique.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: patterns.coding-agent-recipes
+    label: "Coding-agent recipes"
+    tier: recommended
+    summary: >
+      The Claude Code / Cursor / Aider class: file-edit tool, test
+      runner, plan-mode, repo-scoped context. The most-shipped agent
+      shape of 2026, with reusable design choices.
+    competent_means: >
+      Can describe the canonical coding-agent loop (read → plan →
+      edit → run → check) and the harness pieces that make it work
+      (read-only tools, sandboxed edits, eval-as-tests).
+    depends_on: [tools.computer-use, loop.deterministic-skeleton]
+    related: [patterns.skeleton-with-flex]
+    aliases: [code agent, swe agent]
+    resources:
+      - title: "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering"
+        author: "Yang et al."
+        year: 2024
+        type: paper
+        link: "https://arxiv.org/abs/2405.15793"
+        why: >
+          The clearest paper-treatment of "design the agent-computer
+          interface, not the agent." The framing transfers across
+          every coding-agent product.
+        difficulty: advanced
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: patterns.research-agent-recipes
+    label: "Research-agent recipes"
+    tier: recommended
+    summary: >
+      The OpenAI-DeepResearch / Anthropic Research / Gemini Deep
+      Research class: browse → read → cite → summarize loops, with
+      careful citation and abstention discipline.
+    competent_means: >
+      Can describe the research-agent harness (search tool,
+      reader/extractor, citation tracker, abstention rule) and the
+      eval that catches fabricated citations.
+    depends_on: [loop.plan-execute, retrieval.agentic-retrieval]
+    related: [retrieval.citations]
+    aliases: [research agent, deep research, browsing agent]
+    resources:
+      - title: "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection"
+        author: "Asai et al."
+        year: 2023
+        type: paper
+        link: "https://arxiv.org/abs/2310.11511"
+        why: >
+          The cleanest mechanism for "generate that cites and
+          abstains." Research-agent recipes routinely import this idea
+          even when the implementation is different.
+        difficulty: advanced
+        cost: free
+        durability: durable
+        verified: pending

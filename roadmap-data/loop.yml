@@ -1,0 +1,227 @@
+area:
+  id: loop
+  label: "The Agent Loop & Control Flow"
+  color: teal
+  order: 2
+  blurb: >
+    The mechanics of think → act → observe → repeat, and the patterns that
+    make the loop reliable instead of meandering.
+
+nodes:
+  - id: loop.basic-loop
+    label: "The basic agent loop"
+    tier: core
+    summary: >
+      think → act → observe → repeat. The minimal viable agent. Most
+      frameworks hide this; you should be able to write it yourself.
+    competent_means: >
+      Can implement a working agent loop in ~50 lines without a framework
+      and name three things the framework was hiding from you.
+    depends_on: [foundations.what-is-a-harness]
+    related: []
+    aliases: [agent loop, observation loop, react loop]
+    resources:
+      - title: "Building effective agents"
+        author: "Anthropic"
+        year: 2024
+        type: post
+        link: "https://www.anthropic.com/research/building-effective-agents"
+        why: >
+          The cleanest "build it yourself before you import a framework"
+          guide in the field. Walks through the loop with code, not
+          metaphors.
+        difficulty: beginner
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: loop.react
+    label: "ReAct (reasoning + acting)"
+    tier: core
+    summary: >
+      Interleaved reasoning and tool calls. The canonical "think out loud,
+      then act, then read what happened" pattern.
+    competent_means: >
+      Can explain why interleaving beats plan-then-act-then-stop, and can
+      identify when your traces show degenerate reasoning (reasoning that
+      doesn't change the action).
+    depends_on: [loop.basic-loop]
+    related: [loop.reflexion]
+    aliases: [react pattern, reasoning and acting]
+    resources:
+      - title: "ReAct: Synergizing Reasoning and Acting in Language Models"
+        author: "Yao et al."
+        year: 2023
+        type: paper
+        link: "https://arxiv.org/abs/2210.03629"
+        why: >
+          The canonical paper. Read sections 2 and 4; skim the rest. The
+          framing has held up; the benchmark numbers are dated.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: loop.plan-execute
+    label: "Plan-and-execute"
+    tier: recommended
+    summary: >
+      Generate a plan first, execute the plan, replan on failure. Trades
+      reactivity for explicitness and saves tokens on cheap models.
+    competent_means: >
+      Knows when planning pays off (long-horizon tasks, expensive tools)
+      vs when ReAct's reactivity wins (uncertain environments, cheap
+      tools).
+    depends_on: [loop.react]
+    related: [loop.tree-search]
+    aliases: [planning, plan and execute, planner-executor]
+    resources:
+      - title: "Plan-and-Solve Prompting: Improving Zero-Shot Chain-of-Thought Reasoning by Large Language Models"
+        author: "Wang et al."
+        year: 2023
+        type: paper
+        link: "https://arxiv.org/abs/2305.04091"
+        why: >
+          The grounded version of "make a plan first." Treats planning as
+          a prompt technique, not a separate architecture — saves you
+          from over-engineering the planner role.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: loop.reflexion
+    label: "Reflexion / self-critique"
+    tier: recommended
+    summary: >
+      The agent critiques its own output, then retries with the critique in
+      context. Cheap reliability win when verification is cheaper than
+      generation.
+    competent_means: >
+      Can implement a one-shot reflexion pass and articulate the cost — when
+      the second model call doesn't earn its tokens.
+    depends_on: [loop.react]
+    related: [evals.llm-as-judge]
+    aliases: [self-critique, self-reflection]
+    resources:
+      - title: "Reflexion: Language Agents with Verbal Reinforcement Learning"
+        author: "Shinn et al."
+        year: 2023
+        type: paper
+        link: "https://arxiv.org/abs/2303.11366"
+        why: >
+          The paper that formalized the pattern. The "verbal RL" framing
+          is the durable insight; the specific benchmarks are dated.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: loop.tree-search
+    label: "Tree-of-Thoughts & search-based loops"
+    tier: optional
+    summary: >
+      LATS, ToT, MCTS-flavored agent search. Heavier than ReAct; sometimes
+      worth the cost on hard, low-feedback tasks.
+    competent_means: >
+      Can name the cost/latency tax and articulate the small class of tasks
+      where it actually pays off (deep reasoning, no environment feedback).
+    depends_on: [loop.plan-execute]
+    related: []
+    aliases: [tree of thoughts, tot, mcts agent, lats]
+    resources:
+      - title: "Tree of Thoughts: Deliberate Problem Solving with Large Language Models"
+        author: "Yao et al."
+        year: 2023
+        type: paper
+        link: "https://arxiv.org/abs/2305.10601"
+        why: >
+          The seminal paper. Read it for the framing of search-over-thought
+          rather than the benchmark gains — the gains have closed.
+        difficulty: advanced
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: loop.deterministic-skeleton
+    label: "Deterministic skeletons"
+    tier: core
+    summary: >
+      Hard-code the deterministic backbone (state machine, DAG) and let the
+      model fill flexible steps. The single biggest reliability lever you
+      have.
+    competent_means: >
+      Can refactor an open-ended agent into a skeleton+flexible-step design
+      and can name three steps that should never be left to the model.
+    depends_on: [loop.basic-loop]
+    related: [patterns.skeleton-with-flex]
+    aliases: [agent skeleton, workflow agent, structured agent]
+    resources:
+      - title: "Building effective agents"
+        author: "Anthropic"
+        year: 2024
+        type: post
+        link: "https://www.anthropic.com/research/building-effective-agents"
+        why: >
+          The "workflow vs agent" framing in this post is the clearest in
+          the field — the case for deterministic backbones is made with
+          worked examples.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: loop.halting
+    label: "Halting conditions & loop budgets"
+    tier: core
+    summary: >
+      Step budgets, time budgets, repeat-detection, termination conditions.
+      Most production agent fails are halting failures, not reasoning
+      failures.
+    competent_means: >
+      Knows three ways an agent fails to halt (oscillation, monotonic
+      grind, false-success exit) and has implemented a detector for each.
+    depends_on: [loop.basic-loop]
+    related: [reliability.timeouts]
+    aliases: [termination, step budget, infinite loop]
+    resources:
+      - title: "Building effective agents"
+        author: "Anthropic"
+        year: 2024
+        type: post
+        link: "https://www.anthropic.com/research/building-effective-agents"
+        why: >
+          The "stopping criteria" guidance is the most actionable on the
+          web — treats halting as a first-class design decision, not an
+          afterthought.
+        difficulty: beginner
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: loop.human-in-the-loop
+    label: "Human-in-the-loop checkpoints"
+    tier: recommended
+    summary: >
+      Pause points, approval gates, ask-to-clarify. The escape hatch that
+      keeps the agent useful when confidence is low.
+    competent_means: >
+      Can design a HITL gate that doesn't kill latency (asynchronous,
+      batched approvals, well-chosen interruption points).
+    depends_on: [loop.deterministic-skeleton]
+    related: [reliability.validation]
+    aliases: [hitl, approval gate, human review]
+    resources:
+      - title: "Human-in-the-loop"
+        author: "LangGraph"
+        year: 2025
+        type: post
+        link: "https://langchain-ai.github.io/langgraph/concepts/human_in_the_loop/"
+        why: >
+          Current-tool example (durability:current) — the clearest
+          implementation walkthrough for a HITL gate in a real framework;
+          the principles transfer if LangGraph rotates out of fashion.
+        difficulty: intermediate
+        cost: free
+        durability: current
+        verified: pending

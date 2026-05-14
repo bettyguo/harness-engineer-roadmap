@@ -1,0 +1,27 @@
+# Node
+node_modules/
+site/dist/
+site/.vite/
+site/*.tsbuildinfo
+.npm
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.python-version
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# CI artifacts
+.linkcheck-cache.json
+.linkcheck-report.json

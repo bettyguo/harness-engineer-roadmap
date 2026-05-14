@@ -1,0 +1,231 @@
+area:
+  id: reliability
+  label: "Failure Modes & Reliability"
+  color: orange
+  order: 9
+  blurb: >
+    The discipline that distinguishes a demo from production. A failure
+    taxonomy, structured error returns, retries/timeouts, structured
+    output enforcement, validation gates, fallbacks, and chaos testing.
+
+nodes:
+  - id: reliability.failure-taxonomy
+    label: "The failure taxonomy"
+    tier: core
+    summary: >
+      Hallucination, loop-fail, tool-misuse, context-drift, halt-fail,
+      permission-fail. A vocabulary for naming what went wrong before
+      you can fix it.
+    competent_means: >
+      Can label any agent failure with one of these categories and name
+      the harness component that owns the fix.
+    depends_on: [foundations.what-is-a-harness]
+    related: [foundations.engineer-the-mistake-out]
+    aliases: [agent failures, failure modes]
+    resources:
+      - title: "Building effective agents"
+        author: "Anthropic"
+        year: 2024
+        type: post
+        link: "https://www.anthropic.com/research/building-effective-agents"
+        why: >
+          The "common failure modes" section is the closest thing to a
+          canonical taxonomy in the field. Pairs well with Hashimoto's
+          "engineer the mistake out" rule.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: reliability.structured-errors
+    label: "Structured error returns"
+    tier: core
+    summary: >
+      Errors as model-readable signals, not stack traces. A 400 with
+      "expected ISO-8601 date" beats a raw exception every time.
+    competent_means: >
+      Distinguishes "raise" from "return-as-context" and has shaped at
+      least one tool's error vocabulary so the model can recover.
+    depends_on: [tools.schema-design]
+    related: [tools.tool-errors]
+    aliases: [error returns, recoverable errors]
+    resources:
+      - title: "Building effective agents"
+        author: "Anthropic"
+        year: 2024
+        type: post
+        link: "https://www.anthropic.com/research/building-effective-agents"
+        why: >
+          The tool-design section covers error shapes as a model-input
+          design problem — the durable framing.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: reliability.retries-backoff
+    label: "Retries, backoff, idempotency"
+    tier: core
+    summary: >
+      Standard reliability discipline applied to model + tool calls.
+      Don't retry without backoff; don't retry without idempotency
+      thinking.
+    competent_means: >
+      Can defend their retry budget per call type, and knows which of
+      their tools are safe to retry vs which need an idempotency key.
+    depends_on: [reliability.structured-errors]
+    related: [reliability.timeouts]
+    aliases: [retry logic, exponential backoff, idempotent tools]
+    resources:
+      - title: "Patterns of Distributed Systems — Retry"
+        author: "Martin Kleppmann / Unmesh Joshi"
+        year: 2020
+        type: post
+        link: "https://martinfowler.com/articles/patterns-of-distributed-systems/retry.html"
+        why: >
+          The durable engineering treatment of retry/backoff/
+          idempotency. The lessons predate LLMs and survive them.
+        difficulty: intermediate
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: reliability.timeouts
+    label: "Timeouts & deadlines"
+    tier: core
+    summary: >
+      Per-call, per-step, per-task. Every long-running agent has at
+      least one un-bounded call hiding somewhere — find it before
+      production does.
+    competent_means: >
+      Knows where their longest call lives, has a deadline on it, and
+      has a fallback for when the deadline fires.
+    depends_on: [reliability.retries-backoff]
+    related: [loop.halting]
+    aliases: [deadline, timeout, sla]
+    resources:
+      - title: "Latency Numbers Every Programmer Should Know"
+        author: "Peter Norvig / Jeff Dean (canonicalized by Jonas Bonér)"
+        year: 2012
+        type: post
+        link: "https://gist.github.com/jboner/2841832"
+        why: >
+          The reference frame for "what's an honest deadline?" — durable
+          because it teaches you to budget time in milliseconds, not
+          vibes.
+        difficulty: beginner
+        cost: free
+        durability: durable
+        verified: pending
+
+  - id: reliability.structured-output
+    label: "Structured output enforcement"
+    tier: core
+    summary: >
+      JSON Schema, function calling, constrained decoding, schema-fix
+      loops. Never parse freeform model output in production.
+    competent_means: >
+      Their agent never relies on regex-parsing model text. Has a
+      schema-fix retry path for malformed output.
+    depends_on: [tools.schema-design]
+    related: [context.structured-context]
+    aliases: [json mode, structured outputs, constrained decoding]
+    resources:
+      - title: "Structured Outputs"
+        author: "OpenAI"
+        year: 2024
+        type: spec
+        link: "https://platform.openai.com/docs/guides/structured-outputs"
+        why: >
+          Vendor docs (durability:current) — the clearest first-party
+          guide to enforcing JSON-schema output at the API boundary.
+          The mechanism is increasingly standard.
+        difficulty: intermediate
+        cost: free
+        durability: current
+        verified: pending
+
+  - id: reliability.validation
+    label: "Validation gates"
+    tier: recommended
+    summary: >
+      Post-conditions on tool output, sanity checks on plans, type-
+      level guardrails. Rejecting a "successful" output is sometimes
+      the right move.
+    competent_means: >
+      Has rejected a "successful" agent run that failed a validation
+      gate, and can name what the gate caught.
+    depends_on: [reliability.structured-output]
+    related: [loop.human-in-the-loop]
+    aliases: [output validation, postcondition, guard rails]
+    resources:
+      - title: "Guardrails for Large Language Models"
+        author: "Guardrails AI"
+        year: 2024
+        type: post
+        link: "https://www.guardrailsai.com/docs"
+        why: >
+          Current-tool example — concrete walkthrough of validation as
+          a first-class harness layer. The principle (validate
+          structurally, validate semantically, validate behaviorally)
+          is durable.
+        difficulty: intermediate
+        cost: free
+        durability: current
+        verified: pending
+
+  - id: reliability.fallbacks
+    label: "Fallbacks & degraded modes"
+    tier: recommended
+    summary: >
+      What does the agent do when the model is down, the tool is
+      unreachable, or the budget is exhausted? A documented degraded
+      mode beats unexplained 500s.
+    competent_means: >
+      Their agent has a documented degraded mode that they have
+      actually exercised (chaos-tested or observed in prod).
+    depends_on: [reliability.retries-backoff]
+    related: [reliability.chaos]
+    aliases: [graceful degradation, fallback mode, circuit breaker]
+    resources:
+      - title: "Release It! (book) — Stability Patterns"
+        author: "Michael T. Nygard"
+        year: 2018
+        type: book
+        link: "https://pragprog.com/titles/mnee2/release-it-second-edition/"
+        why: >
+          Pre-LLM but the timeouts/bulkheads/circuit-breakers material
+          transfers directly. The most durable reliability text in this
+          area.
+        difficulty: intermediate
+        cost: paid
+        durability: durable
+        verified: pending
+
+  - id: reliability.chaos
+    label: "Chaos testing for agents"
+    tier: optional
+    summary: >
+      Inject tool failures, latency spikes, context truncation, model
+      503s. Most agents have never been observed under adversity until
+      production.
+    competent_means: >
+      Has run a chaos test (manually injected failure) that found a
+      real bug in their agent.
+    depends_on: [reliability.failure-taxonomy]
+    related: [evals.regression]
+    aliases: [chaos engineering, failure injection]
+    resources:
+      - title: "Chaos Engineering — Principles"
+        author: "Principles of Chaos"
+        year: 2019
+        type: post
+        link: "https://principlesofchaos.org/"
+        why: >
+          The canonical statement of the discipline. Pre-LLM but the
+          principles (steady-state hypothesis, blast-radius, automate)
+          transfer directly to agent chaos testing.
+        difficulty: advanced
+        cost: free
+        durability: durable
+        verified: pending

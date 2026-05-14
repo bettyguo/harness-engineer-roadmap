@@ -1,0 +1,40 @@
+name: Propose a resource
+description: You found a resource that belongs on a node.
+title: "[resource] "
+labels: [resource]
+body:
+  - type: input
+    id: node
+    attributes:
+      label: Node id
+      description: e.g. `loop.react`. Look it up in roadmap-data/.
+      placeholder: "loop.react"
+    validations:
+      required: true
+  - type: input
+    id: title
+    attributes:
+      label: Resource title (verbatim)
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: URL
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why THIS resource for THIS node? (1–2 sentences)
+      description: Curation bar — be specific. "Good intro" is not enough.
+    validations:
+      required: true
+  - type: dropdown
+    id: durability
+    attributes:
+      label: Durable or current?
+      description: durable = concept-level, ≥3yr shelf. current = tool-name, expect rotation.
+      options: [durable, current]
+    validations:
+      required: true

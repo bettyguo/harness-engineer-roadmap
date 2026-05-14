@@ -1,0 +1,2968 @@
+{
+  "version": 1,
+  "generated_by": "tools/build.py",
+  "areas": [
+    {
+      "id": "foundations",
+      "label": "Foundations",
+      "color": "violet",
+      "order": 1,
+      "blurb": "The framing every harness engineer needs before the rest of the map clicks. Agent = Model + Harness, the engineer-the-mistake-out rule, and the durable-vs-current distinction that survives this field's monthly churn.\n"
+    },
+    {
+      "id": "loop",
+      "label": "The Agent Loop & Control Flow",
+      "color": "teal",
+      "order": 2,
+      "blurb": "The mechanics of think \u2192 act \u2192 observe \u2192 repeat, and the patterns that make the loop reliable instead of meandering.\n"
+    },
+    {
+      "id": "tools",
+      "label": "Tools & Tool Layers",
+      "color": "amber",
+      "order": 3,
+      "blurb": "How the agent reaches the world: tool design, schemas, the MCP layer, error handling, selection at scale, composition, sandboxing, and the new computer-use surface.\n"
+    },
+    {
+      "id": "context",
+      "label": "Context Engineering",
+      "color": "rose",
+      "order": 4,
+      "blurb": "Karpathy's term for filling the context window with the right information for the next step. Window budgeting, structured prompts, compaction, position bias, long-context pitfalls, and the poisoning surface.\n"
+    },
+    {
+      "id": "memory",
+      "label": "Memory & State",
+      "color": "indigo",
+      "order": 5,
+      "blurb": "What the agent remembers across turns and sessions. Working vs long-term, episodic vs semantic, state persistence, the knowledge-base pattern, vector memory, forgetting policies, and shared memory across agents.\n"
+    },
+    {
+      "id": "retrieval",
+      "label": "Retrieval Integration",
+      "color": "emerald",
+      "order": 6,
+      "blurb": "Retrieval from the harness-layer perspective \u2014 not RAG 101. How RAG plugs into the agent loop, embeddings, hybrid search, query rewriting, citations, and agentic / iterative retrieval.\n"
+    },
+    {
+      "id": "orchestration",
+      "label": "Multi-Agent Orchestration",
+      "color": "fuchsia",
+      "order": 7,
+      "blurb": "When one agent isn't enough \u2014 and the more important question of when one is. Single vs multi, supervisor/worker, handoffs, routing, parallelism, debate, and the anti-patterns that have cost the field the most.\n"
+    },
+    {
+      "id": "evals",
+      "label": "Evals & Observability",
+      "color": "sky",
+      "order": 8,
+      "blurb": "How you know whether the agent is working. Task evals, trajectory evals, LLM-as-judge, regression discipline, tracing, the current observability tools, and the cost/latency dashboards that surface problems before users do.\n"
+    },
+    {
+      "id": "reliability",
+      "label": "Failure Modes & Reliability",
+      "color": "orange",
+      "order": 9,
+      "blurb": "The discipline that distinguishes a demo from production. A failure taxonomy, structured error returns, retries/timeouts, structured output enforcement, validation gates, fallbacks, and chaos testing.\n"
+    },
+    {
+      "id": "cost",
+      "label": "Cost & Latency Engineering",
+      "color": "lime",
+      "order": 10,
+      "blurb": "Making the agent affordable to run, and fast enough to be useful. Cost tracking, prompt caching, model tiering, parallelism, streaming, and the discipline of short context over long.\n"
+    },
+    {
+      "id": "security",
+      "label": "Security & the Agent Threat Surface",
+      "color": "red",
+      "order": 11,
+      "blurb": "The new attack surface that agents create. Prompt injection, capability gating, data exfiltration, confidentiality, tool-output poisoning, audit trails, and red-teaming as a continuous practice.\n"
+    },
+    {
+      "id": "patterns",
+      "label": "Patterns & Anti-Patterns",
+      "color": "cyan",
+      "order": 12,
+      "blurb": "Concrete, named patterns and anti-patterns. The shareable-on-its-own area \u2014 the kind of content readers send to teammates. Skeleton with flex, guarded tools, context recipes, eval-driven loops, the named anti-patterns, and the recipe templates for coding and research agents.\n"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "foundations.what-is-a-harness",
+      "label": "What is a harness?",
+      "area": "foundations",
+      "tier": "core",
+      "summary": "\"Agent = Model + Harness.\" The harness is everything around the model: state, security, orchestration, memory, observability, evals. Fixing the harness often beats switching the model.\n",
+      "competent_means": "Can name the six harness components and explain why teams routinely ship better systems on a worse model by improving the harness.\n",
+      "aliases": [
+        "agent harness",
+        "model + harness",
+        "llm scaffolding",
+        "the harness"
+      ],
+      "resources": [
+        {
+          "title": "Harness engineering for coding agent users",
+          "author": "Birgitta B\u00f6ckeler",
+          "year": 2026,
+          "type": "post",
+          "link": "https://martinfowler.com/articles/harness-engineering.html",
+          "why": "The canonical vocabulary for the discipline \u2014 guides, sensors, harnessability, behaviour vs maintainability harness. Read this first; everything since builds on it.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        },
+        {
+          "title": "The Agent Harness: Why the LLM Is the Smallest Part of Your Agent System",
+          "author": "MongoDB",
+          "year": 2026,
+          "type": "post",
+          "link": "https://www.mongodb.com/company/blog/technical/agent-harness-why-llm-is-smallest-part-of-your-agent-system",
+          "why": "The six-component view (state, security, orchestration, memory, observability, evals). Useful as the working mental model when auditing an existing system.\n",
+          "difficulty": "beginner",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "foundations.engineer-the-mistake-out",
+      "label": "Engineer the mistake out",
+      "area": "foundations",
+      "tier": "core",
+      "summary": "Hashimoto's rule: every time the agent makes a mistake, you engineer the harness so it physically cannot make that mistake again \u2014 instead of prompt-fixing and hoping.\n",
+      "competent_means": "Can identify three of their own recent \"fixed it with a prompt tweak\" moments and re-describe what the proper harness-level fix would have been.\n",
+      "aliases": [
+        "hashimoto rule",
+        "agent = model + harness"
+      ],
+      "resources": [
+        {
+          "title": "My AI Adoption Journey",
+          "author": "Mitchell Hashimoto",
+          "year": 2026,
+          "type": "post",
+          "link": "https://mitchellh.com/writing/my-ai-adoption-journey",
+          "why": "The essay that named the discipline. Read the section formalizing \"agent = model + harness\" and the \"engineer the mistake out\" philosophy \u2014 short, opinionated, foundational.\n",
+          "difficulty": "beginner",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "foundations.durable-vs-current",
+      "label": "Durable concepts vs current tools",
+      "area": "foundations",
+      "tier": "core",
+      "summary": "The field churns monthly. Concepts (the agent loop, eval discipline, memory architecture) outlive tool names (the framework du jour, the MCP server you ship today). Learn to tell them apart.\n",
+      "competent_means": "When reading a new framework's docs, can name which durable concept each feature implements, and can argue when a new tool is meaningful progress vs a rename.\n",
+      "aliases": [
+        "concepts over tools",
+        "framework churn"
+      ],
+      "resources": [
+        {
+          "title": "Don't Build Multi-Agents",
+          "author": "Cognition AI",
+          "year": 2025,
+          "type": "post",
+          "link": "https://cognition.ai/blog/dont-build-multi-agents",
+          "why": "A model of separating durable principle (context shapes behavior) from the current-tool fashion (multi-agent frameworks). Read it for the framing more than the conclusion.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "foundations.competence-rubric",
+      "label": "What 'competent' looks like",
+      "area": "foundations",
+      "tier": "recommended",
+      "summary": "Every node in this roadmap carries a behavioural rubric \u2014 what being competent at this thing actually looks like \u2014 instead of \"understands X.\" Use the rubrics to self-score honestly.\n",
+      "competent_means": "Can score themselves on at least three recent nodes and identify where they would actually fail the rubric in production.\n",
+      "aliases": [
+        "rubric",
+        "self-assessment"
+      ],
+      "resources": [
+        {
+          "title": "Building effective agents",
+          "author": "Anthropic",
+          "year": 2024,
+          "type": "post",
+          "link": "https://www.anthropic.com/research/building-effective-agents",
+          "why": "Frames agent competence behaviorally \u2014 what a working system does, not what it knows. Pairs well with the rubric mindset this node captures.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "loop.basic-loop",
+      "label": "The basic agent loop",
+      "area": "loop",
+      "tier": "core",
+      "summary": "think \u2192 act \u2192 observe \u2192 repeat. The minimal viable agent. Most frameworks hide this; you should be able to write it yourself.\n",
+      "competent_means": "Can implement a working agent loop in ~50 lines without a framework and name three things the framework was hiding from you.\n",
+      "aliases": [
+        "agent loop",
+        "observation loop",
+        "react loop"
+      ],
+      "resources": [
+        {
+          "title": "Building effective agents",
+          "author": "Anthropic",
+          "year": 2024,
+          "type": "post",
+          "link": "https://www.anthropic.com/research/building-effective-agents",
+          "why": "The cleanest \"build it yourself before you import a framework\" guide in the field. Walks through the loop with code, not metaphors.\n",
+          "difficulty": "beginner",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "loop.react",
+      "label": "ReAct (reasoning + acting)",
+      "area": "loop",
+      "tier": "core",
+      "summary": "Interleaved reasoning and tool calls. The canonical \"think out loud, then act, then read what happened\" pattern.\n",
+      "competent_means": "Can explain why interleaving beats plan-then-act-then-stop, and can identify when your traces show degenerate reasoning (reasoning that doesn't change the action).\n",
+      "aliases": [
+        "react pattern",
+        "reasoning and acting"
+      ],
+      "resources": [
+        {
+          "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+          "author": "Yao et al.",
+          "year": 2023,
+          "type": "paper",
+          "link": "https://arxiv.org/abs/2210.03629",
+          "why": "The canonical paper. Read sections 2 and 4; skim the rest. The framing has held up; the benchmark numbers are dated.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "loop.plan-execute",
+      "label": "Plan-and-execute",
+      "area": "loop",
+      "tier": "recommended",
+      "summary": "Generate a plan first, execute the plan, replan on failure. Trades reactivity for explicitness and saves tokens on cheap models.\n",
+      "competent_means": "Knows when planning pays off (long-horizon tasks, expensive tools) vs when ReAct's reactivity wins (uncertain environments, cheap tools).\n",
+      "aliases": [
+        "planning",
+        "plan and execute",
+        "planner-executor"
+      ],
+      "resources": [
+        {
+          "title": "Plan-and-Solve Prompting: Improving Zero-Shot Chain-of-Thought Reasoning by Large Language Models",
+          "author": "Wang et al.",
+          "year": 2023,
+          "type": "paper",
+          "link": "https://arxiv.org/abs/2305.04091",
+          "why": "The grounded version of \"make a plan first.\" Treats planning as a prompt technique, not a separate architecture \u2014 saves you from over-engineering the planner role.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "loop.reflexion",
+      "label": "Reflexion / self-critique",
+      "area": "loop",
+      "tier": "recommended",
+      "summary": "The agent critiques its own output, then retries with the critique in context. Cheap reliability win when verification is cheaper than generation.\n",
+      "competent_means": "Can implement a one-shot reflexion pass and articulate the cost \u2014 when the second model call doesn't earn its tokens.\n",
+      "aliases": [
+        "self-critique",
+        "self-reflection"
+      ],
+      "resources": [
+        {
+          "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+          "author": "Shinn et al.",
+          "year": 2023,
+          "type": "paper",
+          "link": "https://arxiv.org/abs/2303.11366",
+          "why": "The paper that formalized the pattern. The \"verbal RL\" framing is the durable insight; the specific benchmarks are dated.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "loop.tree-search",
+      "label": "Tree-of-Thoughts & search-based loops",
+      "area": "loop",
+      "tier": "optional",
+      "summary": "LATS, ToT, MCTS-flavored agent search. Heavier than ReAct; sometimes worth the cost on hard, low-feedback tasks.\n",
+      "competent_means": "Can name the cost/latency tax and articulate the small class of tasks where it actually pays off (deep reasoning, no environment feedback).\n",
+      "aliases": [
+        "tree of thoughts",
+        "tot",
+        "mcts agent",
+        "lats"
+      ],
+      "resources": [
+        {
+          "title": "Tree of Thoughts: Deliberate Problem Solving with Large Language Models",
+          "author": "Yao et al.",
+          "year": 2023,
+          "type": "paper",
+          "link": "https://arxiv.org/abs/2305.10601",
+          "why": "The seminal paper. Read it for the framing of search-over-thought rather than the benchmark gains \u2014 the gains have closed.\n",
+          "difficulty": "advanced",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "loop.deterministic-skeleton",
+      "label": "Deterministic skeletons",
+      "area": "loop",
+      "tier": "core",
+      "summary": "Hard-code the deterministic backbone (state machine, DAG) and let the model fill flexible steps. The single biggest reliability lever you have.\n",
+      "competent_means": "Can refactor an open-ended agent into a skeleton+flexible-step design and can name three steps that should never be left to the model.\n",
+      "aliases": [
+        "agent skeleton",
+        "workflow agent",
+        "structured agent"
+      ],
+      "resources": [
+        {
+          "title": "Building effective agents",
+          "author": "Anthropic",
+          "year": 2024,
+          "type": "post",
+          "link": "https://www.anthropic.com/research/building-effective-agents",
+          "why": "The \"workflow vs agent\" framing in this post is the clearest in the field \u2014 the case for deterministic backbones is made with worked examples.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "loop.halting",
+      "label": "Halting conditions & loop budgets",
+      "area": "loop",
+      "tier": "core",
+      "summary": "Step budgets, time budgets, repeat-detection, termination conditions. Most production agent fails are halting failures, not reasoning failures.\n",
+      "competent_means": "Knows three ways an agent fails to halt (oscillation, monotonic grind, false-success exit) and has implemented a detector for each.\n",
+      "aliases": [
+        "termination",
+        "step budget",
+        "infinite loop"
+      ],
+      "resources": [
+        {
+          "title": "Building effective agents",
+          "author": "Anthropic",
+          "year": 2024,
+          "type": "post",
+          "link": "https://www.anthropic.com/research/building-effective-agents",
+          "why": "The \"stopping criteria\" guidance is the most actionable on the web \u2014 treats halting as a first-class design decision, not an afterthought.\n",
+          "difficulty": "beginner",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "loop.human-in-the-loop",
+      "label": "Human-in-the-loop checkpoints",
+      "area": "loop",
+      "tier": "recommended",
+      "summary": "Pause points, approval gates, ask-to-clarify. The escape hatch that keeps the agent useful when confidence is low.\n",
+      "competent_means": "Can design a HITL gate that doesn't kill latency (asynchronous, batched approvals, well-chosen interruption points).\n",
+      "aliases": [
+        "hitl",
+        "approval gate",
+        "human review"
+      ],
+      "resources": [
+        {
+          "title": "Human-in-the-loop",
+          "author": "LangGraph",
+          "year": 2025,
+          "type": "post",
+          "link": "https://langchain-ai.github.io/langgraph/concepts/human_in_the_loop/",
+          "why": "Current-tool example (durability:current) \u2014 the clearest implementation walkthrough for a HITL gate in a real framework; the principles transfer if LangGraph rotates out of fashion.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "current",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "tools.tool-design",
+      "label": "Tool & function design",
+      "area": "tools",
+      "tier": "core",
+      "summary": "Naming, single-purpose vs swiss-army, return shapes, descriptions as prompts. The model only succeeds at tool use if the tools are well-named and well-described.\n",
+      "competent_means": "Can audit a tool list and remove three tools without losing capability. Knows that the tool description is part of the prompt.\n",
+      "aliases": [
+        "function design",
+        "tool definitions",
+        "function calling"
+      ],
+      "resources": [
+        {
+          "title": "Building effective agents",
+          "author": "Anthropic",
+          "year": 2024,
+          "type": "post",
+          "link": "https://www.anthropic.com/research/building-effective-agents",
+          "why": "The tool-design section is the single best practitioner-grade treatment; calls out the descriptions-as-prompts insight explicitly.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "tools.schema-design",
+      "label": "Schema design for tool I/O",
+      "area": "tools",
+      "tier": "core",
+      "summary": "JSON Schema, descriptions as prompts, enums, structured outputs. Over-permissive schemas degrade tool-use accuracy by silently inviting bad inputs.\n",
+      "competent_means": "Can show a before/after where tightening a tool schema raised accuracy without changing the model.\n",
+      "aliases": [
+        "function schemas",
+        "json schema",
+        "tool schemas"
+      ],
+      "resources": [
+        {
+          "title": "JSON Schema for OpenAPI",
+          "author": "OpenAI",
+          "year": 2024,
+          "type": "spec",
+          "link": "https://platform.openai.com/docs/guides/structured-outputs",
+          "why": "The reference for structured-output enforcement at the model boundary \u2014 durable because schemas-as-contracts is a permanent pattern, even as specific platform APIs evolve.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "current",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "tools.mcp",
+      "label": "Model Context Protocol (MCP)",
+      "area": "tools",
+      "tier": "core",
+      "summary": "The 2025 protocol for standardizing tool access across models and clients. Replaces bespoke tool-wiring with a shared interface.\n",
+      "competent_means": "Can ship an MCP server in an afternoon and knows when MCP is overkill (one local tool, no client diversity).\n",
+      "aliases": [
+        "model context protocol",
+        "mcp servers",
+        "mcp client"
+      ],
+      "resources": [
+        {
+          "title": "Model Context Protocol \u2014 specification",
+          "author": "Anthropic",
+          "year": 2024,
+          "type": "spec",
+          "link": "https://modelcontextprotocol.io/",
+          "why": "The canonical spec. Read the overview + transports; skim the rest until you need it. Mandatory reading once you have more than one tool client.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "tools.tool-errors",
+      "label": "Tool errors as model input",
+      "area": "tools",
+      "tier": "core",
+      "summary": "Errors are signals the model can read and act on. A 400 stack trace back into the prompt is usually worse than a structured \"you passed an invalid date; expected ISO-8601.\"\n",
+      "competent_means": "Distinguishes \"the tool errored\" from \"the model misused the tool\" in traces, and shapes error returns so the model can recover.\n",
+      "aliases": [
+        "tool error handling",
+        "error returns"
+      ],
+      "resources": [
+        {
+          "title": "Building effective agents",
+          "author": "Anthropic",
+          "year": 2024,
+          "type": "post",
+          "link": "https://www.anthropic.com/research/building-effective-agents",
+          "why": "The \"tools-as-API-surface\" guidance covers error shapes explicitly \u2014 the only post that treats them as a model-input design problem, not a logging concern.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "tools.tool-selection",
+      "label": "Tool selection at scale",
+      "area": "tools",
+      "tier": "recommended",
+      "summary": "What happens when the agent has 50 tools \u2014 retrieval-based tool selection, tool-bench-style filtering, dynamic tool loading.\n",
+      "competent_means": "Knows the breakpoint where tool count starts hurting accuracy (varies by model) and has a strategy for crossing it.\n",
+      "aliases": [
+        "tool retrieval",
+        "many tools"
+      ],
+      "resources": [
+        {
+          "title": "ToolBench / ToolLLM",
+          "author": "Qin et al.",
+          "year": 2023,
+          "type": "paper",
+          "link": "https://arxiv.org/abs/2307.16789",
+          "why": "The clearest benchmark for \"what happens when you scale tool counts\" \u2014 the framing has held even as models have improved on the absolute scores.\n",
+          "difficulty": "advanced",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "tools.composition",
+      "label": "Tool composition & chaining",
+      "area": "tools",
+      "tier": "recommended",
+      "summary": "Pipelines and tool-to-tool data plumbing. When the model shouldn't be involved in mechanical handoffs.\n",
+      "competent_means": "Can decide between in-prompt chaining (model decides next tool) and in-code chaining (deterministic pipeline) for a given task.\n",
+      "aliases": [
+        "tool chaining",
+        "tool pipelines"
+      ],
+      "resources": [
+        {
+          "title": "Building effective agents",
+          "author": "Anthropic",
+          "year": 2024,
+          "type": "post",
+          "link": "https://www.anthropic.com/research/building-effective-agents",
+          "why": "The \"prompt chaining\" pattern in this post is the cleanest treatment of in-code vs in-prompt composition.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "tools.sandboxing",
+      "label": "Tool sandboxing & permission scopes",
+      "area": "tools",
+      "tier": "core",
+      "summary": "Code-execution sandboxes, file-system permissions, network egress controls. Every tool you give the model is also a tool you give anyone who can prompt the model.\n",
+      "competent_means": "Knows three escape paths (shell, network, file-system) and has closed each with a default-deny posture.\n",
+      "aliases": [
+        "tool sandbox",
+        "execution sandbox",
+        "permissions"
+      ],
+      "resources": [
+        {
+          "title": "Building Effective AI Agent Sandboxes",
+          "author": "E2B",
+          "year": 2025,
+          "type": "post",
+          "link": "https://e2b.dev/blog/security-for-ai-agents-sandboxes-for-ai-developers",
+          "why": "Current-tool example \u2014 concrete walkthrough of sandbox design for agent code-execution. The principles (default-deny, egress limits, ephemeral fs) outlast the specific tool.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "current",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "tools.computer-use",
+      "label": "Computer-use tools",
+      "area": "tools",
+      "tier": "recommended",
+      "summary": "Browser automation, shell tools, IDE plugin surface. Pixel-level vs API-level tool use, and the failure modes specific to each.\n",
+      "competent_means": "Knows the failure modes of pixel-level tool use (drift, layout churn, screenshot cost) vs API-level (auth, schema rot) and picks accordingly.\n",
+      "aliases": [
+        "browser use",
+        "shell agent",
+        "computer use api"
+      ],
+      "resources": [
+        {
+          "title": "Introducing computer use",
+          "author": "Anthropic",
+          "year": 2024,
+          "type": "post",
+          "link": "https://www.anthropic.com/news/3-5-models-and-computer-use",
+          "why": "The clearest first-party explanation of pixel-level computer use, including the honest failure modes. Durable because the tradeoffs are intrinsic, not implementation details.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "context.window-budget",
+      "label": "Context-window budgeting",
+      "area": "context",
+      "tier": "core",
+      "summary": "Token accounting, headroom, ceiling effects. Most \"I'll just put everything in\" agents are bad budgets, not bad prompts.\n",
+      "competent_means": "Can sketch a per-turn token budget for a real agent on the back of a napkin and identify which item is the worst-offending bloater.\n",
+      "aliases": [
+        "context budget",
+        "token budget",
+        "context window"
+      ],
+      "resources": [
+        {
+          "title": "Context engineering for agents",
+          "author": "LangChain",
+          "year": 2025,
+          "type": "post",
+          "link": "https://www.langchain.com/blog/context-engineering-for-agents",
+          "why": "The clearest practitioner-grade overview of context budgeting as a first-class design problem. Vendor-flavored but the concepts transfer.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "context.system-prompts",
+      "label": "System-prompt design",
+      "area": "context",
+      "tier": "core",
+      "summary": "Persona, rules, output shape, and what NOT to put in the system prompt. The system prompt is a cache-key in most production setups \u2014 design it accordingly.\n",
+      "competent_means": "Can audit a system prompt and cut 30% without behavior loss; knows what should never live in the system prompt (per-user, per-task content).\n",
+      "aliases": [
+        "system message",
+        "instructions",
+        "persona"
+      ],
+      "resources": [
+        {
+          "title": "Prompt engineering \u2014 Anthropic docs",
+          "author": "Anthropic",
+          "year": 2024,
+          "type": "spec",
+          "link": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview",
+          "why": "Current-tool example \u2014 vendor docs, but the structural advice (be specific, use examples, define output shape) is durable and one of the few that addresses system-prompt design explicitly.\n",
+          "difficulty": "beginner",
+          "cost": "free",
+          "durability": "current",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "context.compaction",
+      "label": "Compaction & summarization",
+      "area": "context",
+      "tier": "core",
+      "summary": "Auto-compact, sliding windows, hierarchical summaries. Lossy by design \u2014 the discipline is knowing which signal you're allowed to lose.\n",
+      "competent_means": "Knows three things compaction can drop without harm and three things it can never drop. Has a metric for compaction-induced regression.\n",
+      "aliases": [
+        "auto-compact",
+        "summarization",
+        "conversation compression"
+      ],
+      "resources": [
+        {
+          "title": "Long-Context Window Engineering Patterns",
+          "author": "Anthropic",
+          "year": 2025,
+          "type": "post",
+          "link": "https://docs.anthropic.com/en/docs/build-with-claude/context-windows",
+          "why": "Vendor docs, durable principles \u2014 covers compaction patterns and when they preserve vs destroy load-bearing context.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "current",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "context.relevance-filtering",
+      "label": "Relevance filtering & pruning",
+      "area": "context",
+      "tier": "recommended",
+      "summary": "Trim noisy tool outputs before they hit the next turn. Most context problems are too-much-noise, not too-little-signal.\n",
+      "competent_means": "Can show a before/after where filtering tool returns raised accuracy without changing the model or the prompt.\n",
+      "aliases": [
+        "context pruning",
+        "output filtering"
+      ],
+      "resources": [
+        {
+          "title": "Context engineering for agents",
+          "author": "LangChain",
+          "year": 2025,
+          "type": "post",
+          "link": "https://www.langchain.com/blog/context-engineering-for-agents",
+          "why": "Discusses output-filtering as a routine harness practice \u2014 the framing of \"prune what the model doesn't need\" is durable even as the example tools rotate.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "context.position-bias",
+      "label": "Position bias & ordering",
+      "area": "context",
+      "tier": "recommended",
+      "summary": "Lost-in-the-middle, recency bias, primacy bias. Models attend to the start and the end of context more than the middle.\n",
+      "competent_means": "Can demo position bias on a current model with a runnable example and design the prompt to put the load-bearing item where the model will attend.\n",
+      "aliases": [
+        "lost in the middle",
+        "attention bias"
+      ],
+      "resources": [
+        {
+          "title": "Lost in the Middle: How Language Models Use Long Contexts",
+          "author": "Liu et al.",
+          "year": 2023,
+          "type": "paper",
+          "link": "https://arxiv.org/abs/2307.03172",
+          "why": "The paper that named the effect. Read sections 3\u20134; the U-shape attention curve is the durable insight, not the specific numbers (which improve with new models).\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "context.structured-context",
+      "label": "Structured context (XML, tags, sections)",
+      "area": "context",
+      "tier": "core",
+      "summary": "Anthropic-style XML, OpenAI-style sections. Structure isn't cosmetic \u2014 it changes compliance with output and ordering rules.\n",
+      "competent_means": "Can refactor a flat prompt to structured (named sections, explicit output schema) and explain the compliance gain.\n",
+      "aliases": [
+        "xml prompts",
+        "structured prompts",
+        "prompt sections"
+      ],
+      "resources": [
+        {
+          "title": "Use XML tags to structure your prompts",
+          "author": "Anthropic",
+          "year": 2024,
+          "type": "spec",
+          "link": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags",
+          "why": "Vendor docs (durability:current), but the technique itself is durable and transfers to any model \u2014 XML, JSON-fenced sections, or markdown headers all work.\n",
+          "difficulty": "beginner",
+          "cost": "free",
+          "durability": "current",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "context.long-context-pitfalls",
+      "label": "Long-context pitfalls",
+      "area": "context",
+      "tier": "recommended",
+      "summary": "1M-token windows aren't free: latency, attention dilution, cost. Long context is a tool, not a default.\n",
+      "competent_means": "Knows when not to use long context (when retrieval would do; when attention dilution would dominate; when latency budget says no).\n",
+      "aliases": [
+        "long context",
+        "million-token"
+      ],
+      "resources": [
+        {
+          "title": "Lost in the Middle: How Language Models Use Long Contexts",
+          "author": "Liu et al.",
+          "year": 2023,
+          "type": "paper",
+          "link": "https://arxiv.org/abs/2307.03172",
+          "why": "The clearest empirical evidence that long context isn't a free win. Cite this in any \"why don't we just put it all in?\" argument.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "context.context-poisoning",
+      "label": "Context poisoning",
+      "area": "context",
+      "tier": "core",
+      "summary": "Bad data in context cascades. Untrusted text from tool outputs, retrieved docs, or user input can manipulate downstream reasoning.\n",
+      "competent_means": "Can name three ways context gets poisoned (indirect injection, retrieved-doc takeover, error-loop poisoning) and the trace pattern to catch each.\n",
+      "aliases": [
+        "context contamination",
+        "indirect injection"
+      ],
+      "resources": [
+        {
+          "title": "Prompt Injection: What's the worst that can happen?",
+          "author": "Simon Willison",
+          "year": 2023,
+          "type": "post",
+          "link": "https://simonwillison.net/2023/Apr/14/worst-that-can-happen/",
+          "why": "The clearest non-academic walk-through of the attack surface, including the context-poisoning angle. Required reading.\n",
+          "difficulty": "beginner",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "memory.working-vs-long-term",
+      "label": "Working memory vs long-term memory",
+      "area": "memory",
+      "tier": "core",
+      "summary": "What goes in context every turn (working) vs what's recalled when needed (long-term). Different access patterns, different storage, different failure modes.\n",
+      "competent_means": "Can draw the memory architecture of any agent they read about and identify which memory type is doing the load-bearing work.\n",
+      "aliases": [
+        "short-term memory",
+        "persistent memory",
+        "agent memory"
+      ],
+      "resources": [
+        {
+          "title": "Memory in Agents",
+          "author": "Letta",
+          "year": 2024,
+          "type": "post",
+          "link": "https://www.letta.com/blog/memory",
+          "why": "The clearest taxonomy of memory types in modern agents, including the working/long-term split as a first-class design decision rather than an implementation detail.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "memory.episodic-semantic",
+      "label": "Episodic vs semantic memory",
+      "area": "memory",
+      "tier": "recommended",
+      "summary": "\"What happened last Tuesday\" vs \"what's true.\" Different retrieval strategies, different freshness needs.\n",
+      "competent_means": "Knows which their agent actually needs (often: only one) and can defend the choice against the temptation to ship both.\n",
+      "aliases": [
+        "episodic memory",
+        "semantic memory"
+      ],
+      "resources": [
+        {
+          "title": "MemGPT: Towards LLMs as Operating Systems",
+          "author": "Packer et al.",
+          "year": 2023,
+          "type": "paper",
+          "link": "https://arxiv.org/abs/2310.08560",
+          "why": "Treats memory as a tiered storage problem (RAM/disk analogue). The taxonomy survives the specific MemGPT implementation.\n",
+          "difficulty": "advanced",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "memory.state-persistence",
+      "label": "State & session persistence",
+      "area": "memory",
+      "tier": "core",
+      "summary": "Where state lives across turns: in-process, KV store, database, blob store. The durability/latency tradeoff lives here.\n",
+      "competent_means": "Can argue the durability/latency/cost tradeoffs for their agent's state store with a specific failure case in mind.\n",
+      "aliases": [
+        "state store",
+        "session state",
+        "agent state"
+      ],
+      "resources": [
+        {
+          "title": "Building Stateful Agents",
+          "author": "LangChain",
+          "year": 2024,
+          "type": "post",
+          "link": "https://blog.langchain.com/langgraph-multi-agent-workflows/",
+          "why": "Current-tool example \u2014 concrete walkthrough of state stores in a real framework. The \"checkpoint as durability boundary\" pattern is durable even if LangGraph rotates.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "current",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "memory.knowledge-bases",
+      "label": "LLM knowledge bases (Karpathy pattern)",
+      "area": "memory",
+      "tier": "recommended",
+      "summary": "A markdown library the LLM curates, lints, and interlinks. Replaces RAG for some use cases where retrieval is the wrong primitive.\n",
+      "competent_means": "Knows when it beats RAG (small-to-medium evolving corpora, single user) and when it's a toy (high-traffic, low-trust, large corpus).\n",
+      "aliases": [
+        "llm wiki",
+        "knowledge base",
+        "evolving markdown"
+      ],
+      "resources": [
+        {
+          "title": "LLM Knowledge Bases (gist)",
+          "author": "Andrej Karpathy",
+          "year": 2026,
+          "type": "post",
+          "link": "https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f",
+          "why": "The originating post for the pattern. Short, specific, and the framing \u2014 markdown library as primary memory \u2014 is the durable contribution.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "memory.vector-memory",
+      "label": "Vector-store memory",
+      "area": "memory",
+      "tier": "recommended",
+      "summary": "Embedding-based recall over past turns or events. Eviction policies matter more than embedding choice past a certain scale.\n",
+      "competent_means": "Can defend their chunking strategy with a concrete example of when it failed and what the failure looked like in production.\n",
+      "aliases": [
+        "embedding memory",
+        "vector recall"
+      ],
+      "resources": [
+        {
+          "title": "MemGPT: Towards LLMs as Operating Systems",
+          "author": "Packer et al.",
+          "year": 2023,
+          "type": "paper",
+          "link": "https://arxiv.org/abs/2310.08560",
+          "why": "The clearest paper-treatment of \"embed memories, evict on pressure, summarize before eviction.\" The mechanics outlive the implementation.\n",
+          "difficulty": "advanced",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "memory.forgetting",
+      "label": "Forgetting, decay, eviction",
+      "area": "memory",
+      "tier": "recommended",
+      "summary": "When old memory becomes a liability \u2014 stale facts, outdated preferences, drifted personas. Forgetting is a design parameter, not a bug.\n",
+      "competent_means": "Has implemented a non-trivial eviction policy (TTL + relevance + access-recency) and watched it remove the right things.\n",
+      "aliases": [
+        "memory decay",
+        "eviction policy",
+        "ttl memory"
+      ],
+      "resources": [
+        {
+          "title": "Memory in Agents",
+          "author": "Letta",
+          "year": 2024,
+          "type": "post",
+          "link": "https://www.letta.com/blog/memory",
+          "why": "Treats forgetting as a design problem with specific eviction patterns. The clearest practitioner-level coverage.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "memory.shared-memory",
+      "label": "Shared memory across agents",
+      "area": "memory",
+      "tier": "optional",
+      "summary": "Multi-agent memory blackboards, shared context channels, conflict resolution. A small surface that adds a large race-condition class.\n",
+      "competent_means": "Knows the canonical race conditions (last-writer-wins overwrite, stale read, fan-out divergence) and how each one shows up in traces.\n",
+      "aliases": [
+        "shared state",
+        "blackboard",
+        "multi-agent memory"
+      ],
+      "resources": [
+        {
+          "title": "LangGraph multi-agent workflows",
+          "author": "LangChain",
+          "year": 2024,
+          "type": "post",
+          "link": "https://blog.langchain.com/langgraph-multi-agent-workflows/",
+          "why": "Current-tool example \u2014 walks through shared-state design patterns in a real framework. The race-condition lessons transfer.\n",
+          "difficulty": "advanced",
+          "cost": "free",
+          "durability": "current",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "retrieval.rag-basics",
+      "label": "RAG as a harness component",
+      "area": "retrieval",
+      "tier": "core",
+      "summary": "Just enough RAG to slot it into a harness \u2014 chunk, embed, retrieve, re-insert into context. Most production RAG problems are chunking and retrieval-prompt problems, not embedding choice.\n",
+      "competent_means": "Can explain why most \"bad RAG\" is bad chunking or bad query, not bad embedding. Knows the three sub-systems a RAG stack is made of.\n",
+      "aliases": [
+        "rag",
+        "retrieval augmented generation"
+      ],
+      "resources": [
+        {
+          "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+          "author": "Lewis et al.",
+          "year": 2020,
+          "type": "paper",
+          "link": "https://arxiv.org/abs/2005.11401",
+          "why": "The originating paper. Read the architecture section; skim the numbers. The \"retrieve, then condition\" framing is the durable contribution.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "retrieval.embeddings",
+      "label": "Embeddings & dense retrieval",
+      "area": "retrieval",
+      "tier": "core",
+      "summary": "Embedding model choice, dimensionality, normalization, the cost of switching embeddings post-launch. Most teams pick once and never revisit; they should.\n",
+      "competent_means": "Knows three embedding-choice failure modes (domain mismatch, scale mismatch, language mismatch) and can identify which is biting them.\n",
+      "aliases": [
+        "embedding models",
+        "vector embeddings",
+        "dense retrieval"
+      ],
+      "resources": [
+        {
+          "title": "MTEB: Massive Text Embedding Benchmark",
+          "author": "Muennighoff et al.",
+          "year": 2022,
+          "type": "paper",
+          "link": "https://arxiv.org/abs/2210.07316",
+          "why": "The reference for \"which embedding model and why.\" The leaderboard rotates; the methodology for picking is durable.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "retrieval.hybrid",
+      "label": "Hybrid search (BM25 + dense + rerank)",
+      "area": "retrieval",
+      "tier": "recommended",
+      "summary": "Pure dense retrieval loses on technical terms, acronyms, and named-entity queries. BM25 + dense + a reranker is the production default.\n",
+      "competent_means": "Ships hybrid retrieval by default. Can show a query where dense misses and BM25 catches.\n",
+      "aliases": [
+        "hybrid retrieval",
+        "bm25",
+        "reranking"
+      ],
+      "resources": [
+        {
+          "title": "Hybrid Search Explained",
+          "author": "Pinecone",
+          "year": 2023,
+          "type": "post",
+          "link": "https://www.pinecone.io/learn/hybrid-search-intro/",
+          "why": "Vendor-flavored but the clearest practitioner walkthrough of why hybrid wins, with worked examples on the kinds of queries dense alone fails.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "retrieval.query-rewriting",
+      "label": "Query rewriting & HyDE",
+      "area": "retrieval",
+      "tier": "recommended",
+      "summary": "Let the model rewrite the user's query before retrieval \u2014 expansion, decomposition, hypothesis-doc generation. Cheap when retrieval matters more than generation cost.\n",
+      "competent_means": "Can show a query where rewriting changes the retrieved set in a way that materially improves the final answer.\n",
+      "aliases": [
+        "hyde",
+        "query expansion",
+        "query decomposition"
+      ],
+      "resources": [
+        {
+          "title": "Precise Zero-Shot Dense Retrieval without Relevance Labels (HyDE)",
+          "author": "Gao et al.",
+          "year": 2022,
+          "type": "paper",
+          "link": "https://arxiv.org/abs/2212.10496",
+          "why": "The canonical paper on rewriting queries via hypothetical documents. The trick generalizes: model-as-query-rewriter is a durable pattern.\n",
+          "difficulty": "advanced",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "retrieval.citations",
+      "label": "Citations, attribution, grounding",
+      "area": "retrieval",
+      "tier": "core",
+      "summary": "The antidote to hallucinated retrievals: make the agent show its work. Without citations you cannot audit \"did this answer actually come from the source?\"\n",
+      "competent_means": "Can audit an agent's citations and find one that's fabricated. Has a citation-validation gate in their eval suite.\n",
+      "aliases": [
+        "grounded generation",
+        "attribution",
+        "citation validation"
+      ],
+      "resources": [
+        {
+          "title": "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection",
+          "author": "Asai et al.",
+          "year": 2023,
+          "type": "paper",
+          "link": "https://arxiv.org/abs/2310.11511",
+          "why": "The clearest treatment of \"generation that knows when to cite and when to abstain.\" The mechanism is durable; the specific training recipe is one of many.\n",
+          "difficulty": "advanced",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "retrieval.agentic-retrieval",
+      "label": "Agentic / iterative retrieval",
+      "area": "retrieval",
+      "tier": "recommended",
+      "summary": "The agent decides what to retrieve next based on what it just read. Where the agent loop and retrieval meet \u2014 and where most \"deep research\" agents live.\n",
+      "competent_means": "Knows when iterative beats single-shot retrieval (large corpora, multi-hop questions) and the cost it adds (latency, token spend).\n",
+      "aliases": [
+        "iterative rag",
+        "research agent",
+        "agentic rag"
+      ],
+      "resources": [
+        {
+          "title": "Self-Ask with Search",
+          "author": "Press et al.",
+          "year": 2022,
+          "type": "paper",
+          "link": "https://arxiv.org/abs/2210.03350",
+          "why": "The clearest paper on \"decompose, retrieve, repeat\" loops. The pattern survives the specific implementation.\n",
+          "difficulty": "advanced",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "orchestration.single-vs-multi",
+      "label": "Single vs multi-agent",
+      "area": "orchestration",
+      "tier": "core",
+      "summary": "The gate question: do you actually need multiple agents? Most \"multi-agent\" systems are one agent split across files for organization, not capability.\n",
+      "competent_means": "Can argue against multi-agent for a use case where it's a fad, and identify the small class where it's earned.\n",
+      "aliases": [
+        "single agent",
+        "multi-agent",
+        "agent count"
+      ],
+      "resources": [
+        {
+          "title": "Don't Build Multi-Agents",
+          "author": "Cognition AI",
+          "year": 2025,
+          "type": "post",
+          "link": "https://cognition.ai/blog/dont-build-multi-agents",
+          "why": "The strongest argument-from-experience against multi-agent as the default. Required reading before you ship a supervisor.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "orchestration.supervisor-worker",
+      "label": "Supervisor / worker patterns",
+      "area": "orchestration",
+      "tier": "recommended",
+      "summary": "One agent dispatches, others execute. Useful when the dispatcher genuinely has different concerns from the executor \u2014 not just to look organized.\n",
+      "competent_means": "Can sketch the supervisor's tool list and explain why each tool is a supervisor concern, not a worker concern.\n",
+      "aliases": [
+        "supervisor agent",
+        "worker agent",
+        "dispatcher"
+      ],
+      "resources": [
+        {
+          "title": "Multi-Agent Workflows",
+          "author": "LangChain",
+          "year": 2024,
+          "type": "post",
+          "link": "https://blog.langchain.com/langgraph-multi-agent-workflows/",
+          "why": "Current-tool example \u2014 the supervisor pattern walked through with code. The structural insight (dispatcher concerns vs worker concerns) is durable.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "current",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "orchestration.handoffs",
+      "label": "Handoffs & state passing",
+      "area": "orchestration",
+      "tier": "core",
+      "summary": "What does the receiving agent actually need to know? Most multi- agent bugs are handoff bugs \u2014 re-reading the world, dropped context, conflicting state.\n",
+      "competent_means": "Knows three handoff bugs (dropped context, redundant re-read, conflicting overwrite) and the trace pattern that surfaces each.\n",
+      "aliases": [
+        "agent handoff",
+        "state handoff",
+        "message passing"
+      ],
+      "resources": [
+        {
+          "title": "OpenAI Agents SDK \u2014 Handoffs",
+          "author": "OpenAI",
+          "year": 2025,
+          "type": "spec",
+          "link": "https://platform.openai.com/docs/guides/agents",
+          "why": "Current-tool example \u2014 first-party docs on handoff as a first-class primitive. The framing (handoff = transferred intent + transferred context) is durable.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "current",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "orchestration.routing",
+      "label": "Routing & specialization",
+      "area": "orchestration",
+      "tier": "recommended",
+      "summary": "Picking the right agent for the request. Often a model call, often a classifier, sometimes a hand-tuned regex.\n",
+      "competent_means": "Can defend their routing policy (model vs classifier vs rules) against a concrete misroute example.\n",
+      "aliases": [
+        "agent routing",
+        "request routing"
+      ],
+      "resources": [
+        {
+          "title": "Building effective agents",
+          "author": "Anthropic",
+          "year": 2024,
+          "type": "post",
+          "link": "https://www.anthropic.com/research/building-effective-agents",
+          "why": "The \"routing\" pattern in this post is the cleanest treatment of when a router is a model and when it should be a rule.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "orchestration.parallel",
+      "label": "Parallelism & fan-out",
+      "area": "orchestration",
+      "tier": "recommended",
+      "summary": "Running tool calls or subagents concurrently. The latency win is real; the cost and complexity wins less obvious.\n",
+      "competent_means": "Knows the latency/cost tradeoff for a fan-out and has chosen one with eyes open (or chosen to keep it sequential and saved the complexity).\n",
+      "aliases": [
+        "parallel agents",
+        "fan-out",
+        "concurrent tools"
+      ],
+      "resources": [
+        {
+          "title": "Building effective agents",
+          "author": "Anthropic",
+          "year": 2024,
+          "type": "post",
+          "link": "https://www.anthropic.com/research/building-effective-agents",
+          "why": "The \"parallelization\" pattern (sectioning vs voting) is the cleanest treatment \u2014 distinguishes \"parallel for speed\" from \"parallel for ensemble\" cleanly.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "orchestration.debate",
+      "label": "Debate, voting, ensembles",
+      "area": "orchestration",
+      "tier": "optional",
+      "summary": "Multiple agents critique or vote. Theatrical wins are easy; real accuracy wins are rare and benchmark-specific.\n",
+      "competent_means": "Knows when ensemble accuracy gains are real (uncertain domains, verifier-cheap-than-generator) vs theatrical (most cases).\n",
+      "aliases": [
+        "agent debate",
+        "voting",
+        "ensemble agents"
+      ],
+      "resources": [
+        {
+          "title": "Improving Factuality and Reasoning in Language Models through Multiagent Debate",
+          "author": "Du et al.",
+          "year": 2023,
+          "type": "paper",
+          "link": "https://arxiv.org/abs/2305.14325",
+          "why": "The most-cited debate paper. Read the methodology; treat the gains skeptically \u2014 newer work has shown ensemble effects often dominate the \"debate\" framing.\n",
+          "difficulty": "advanced",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "orchestration.anti-patterns",
+      "label": "Multi-agent anti-patterns",
+      "area": "orchestration",
+      "tier": "core",
+      "summary": "\"Two agents pretending to talk.\" \"One supervisor that's secretly doing all the work.\" The most expensive failure mode in the field \u2014 multi-agent looking like progress while paying for nothing.\n",
+      "competent_means": "Can spot a multi-agent design that should have been one agent and name the specific cost it's paying.\n",
+      "aliases": [
+        "multi-agent failure modes"
+      ],
+      "resources": [
+        {
+          "title": "Don't Build Multi-Agents",
+          "author": "Cognition AI",
+          "year": 2025,
+          "type": "post",
+          "link": "https://cognition.ai/blog/dont-build-multi-agents",
+          "why": "The most thorough catalogue of multi-agent anti-patterns from a team that shipped both. Required reading.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "evals.why-evals-are-hard",
+      "label": "Why agent evals are different",
+      "area": "evals",
+      "tier": "core",
+      "summary": "Non-determinism, multi-step trajectories, partial credit, no clean labels. Most traditional ML eval intuition is wrong for agents.\n",
+      "competent_means": "Can explain to a backend engineer why a unit-test mindset doesn't transfer, and name three properties of agent eval that need to be designed for.\n",
+      "aliases": [
+        "agent eval",
+        "llm eval",
+        "evaluation"
+      ],
+      "resources": [
+        {
+          "title": "Evaluating LLM Agents: A Deep Dive",
+          "author": "Hamel Husain",
+          "year": 2024,
+          "type": "post",
+          "link": "https://hamel.dev/blog/posts/evals/",
+          "why": "The most practitioner-grade essay on agent eval \u2014 frames it as a discipline rather than a metric. The \"look at your data\" framing is durable.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "evals.task-evals",
+      "label": "Task-level evals",
+      "area": "evals",
+      "tier": "core",
+      "summary": "End-to-end task success. A rubric, a held-out set, a pass rate. The eval you need before any of the fancier ones.\n",
+      "competent_means": "Has a written rubric for their agent's primary task and a held-out set they didn't pick from training prompts.\n",
+      "aliases": [
+        "end-to-end eval",
+        "task success"
+      ],
+      "resources": [
+        {
+          "title": "A Field Guide to Rapidly Improving AI Products",
+          "author": "Hamel Husain",
+          "year": 2024,
+          "type": "post",
+          "link": "https://hamel.dev/blog/posts/field-guide/",
+          "why": "The clearest \"build the eval before you build the feature\" discipline in the literature. Walks through task-level eval design with worked examples.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "evals.trajectory-evals",
+      "label": "Trajectory / process evals",
+      "area": "evals",
+      "tier": "recommended",
+      "summary": "Scoring intermediate steps, not just final outputs. Catches the regression where the agent gets the right answer for the wrong reason.\n",
+      "competent_means": "Has caught at least one regression that task-level eval missed because the agent reached the answer via a broken path.\n",
+      "aliases": [
+        "process eval",
+        "step eval",
+        "intermediate eval"
+      ],
+      "resources": [
+        {
+          "title": "Tau-Bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains",
+          "author": "Yao et al.",
+          "year": 2024,
+          "type": "paper",
+          "link": "https://arxiv.org/abs/2406.12045",
+          "why": "The clearest example of trajectory-aware benchmarking. The design (multi-step, tool-use, partial credit) sets the template for how to think about trajectory evals.\n",
+          "difficulty": "advanced",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "evals.llm-as-judge",
+      "label": "LLM-as-judge",
+      "area": "evals",
+      "tier": "core",
+      "summary": "Using a model to grade a model. Cheap and scalable; calibration and bias are the catches. A judge is a model \u2014 eval it.\n",
+      "competent_means": "Knows three ways judges fail (position bias, verbosity bias, self-preference) and the human spot-check rate they use to keep the judge honest.\n",
+      "aliases": [
+        "llm judge",
+        "model as judge",
+        "judge model"
+      ],
+      "resources": [
+        {
+          "title": "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena",
+          "author": "Zheng et al.",
+          "year": 2023,
+          "type": "paper",
+          "link": "https://arxiv.org/abs/2306.05685",
+          "why": "The paper that established LLM-as-judge as a discipline. Section 3 is required reading on the bias catalogue.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "evals.regression",
+      "label": "Regression eval & golden sets",
+      "area": "evals",
+      "tier": "core",
+      "summary": "Locking in behavior. Your eval set is your test suite \u2014 every PR runs it; regressions block merges.\n",
+      "competent_means": "Their PR pipeline blocks on agent eval regressions. Has caught a regression in CI rather than in production.\n",
+      "aliases": [
+        "golden set",
+        "regression suite",
+        "eval ci"
+      ],
+      "resources": [
+        {
+          "title": "Evaluating LLM Agents: A Deep Dive",
+          "author": "Hamel Husain",
+          "year": 2024,
+          "type": "post",
+          "link": "https://hamel.dev/blog/posts/evals/",
+          "why": "Treats regression discipline as the single biggest reliability lever for agents. The framing transfers directly to a PR pipeline.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "evals.tracing",
+      "label": "Tracing & structured logs",
+      "area": "evals",
+      "tier": "core",
+      "summary": "Per-turn traces, OpenTelemetry-style spans, replayable runs. The observability surface that makes everything else debuggable.\n",
+      "competent_means": "Can debug a failed agent run from traces alone, without having seen it happen in real time.\n",
+      "aliases": [
+        "agent tracing",
+        "observability",
+        "telemetry"
+      ],
+      "resources": [
+        {
+          "title": "OpenTelemetry GenAI Conventions",
+          "author": "OpenTelemetry",
+          "year": 2024,
+          "type": "spec",
+          "link": "https://opentelemetry.io/docs/specs/semconv/gen-ai/",
+          "why": "The emerging standard for instrumenting agent calls. Durable even as specific vendors come and go \u2014 the spec is the layer everyone implements against.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "evals.observability-tools",
+      "label": "Observability tools (current)",
+      "area": "evals",
+      "tier": "recommended",
+      "summary": "Langfuse, AgentOps, LangSmith, Laminar \u2014 the current crop. durability:current because most of these names will rotate; the capabilities they offer will not.\n",
+      "competent_means": "Knows the four capabilities they actually want (trace search, replay, eval integration, cost dashboard) and can pick a tool by capability, not by brand.\n",
+      "aliases": [
+        "langfuse",
+        "agentops",
+        "langsmith",
+        "observability vendors"
+      ],
+      "resources": [
+        {
+          "title": "AgentOps",
+          "author": "AgentOps team",
+          "year": 2024,
+          "type": "repo",
+          "link": "https://github.com/AgentOps-AI/agentops",
+          "why": "One representative current tool. Open-source, integrates with most agent frameworks. Listed as example of the category, not a recommendation against alternatives.\n",
+          "difficulty": "intermediate",
+          "cost": "freemium",
+          "durability": "current",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "evals.cost-latency-dashboards",
+      "label": "Cost & latency dashboards",
+      "area": "evals",
+      "tier": "recommended",
+      "summary": "The \"is this agent affordable to run\" view. $ per task, p50/p99 latency, cache-hit rate.\n",
+      "competent_means": "Their agent has a $/task dashboard and a p50/p99 latency dashboard \u2014 both updated on every deploy.\n",
+      "aliases": [
+        "cost dashboard",
+        "latency monitoring",
+        "agent metrics"
+      ],
+      "resources": [
+        {
+          "title": "Building effective agents",
+          "author": "Anthropic",
+          "year": 2024,
+          "type": "post",
+          "link": "https://www.anthropic.com/research/building-effective-agents",
+          "why": "The \"measure cost and latency from day one\" guidance is unusually direct \u2014 most agent posts skip this. Durable.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "reliability.failure-taxonomy",
+      "label": "The failure taxonomy",
+      "area": "reliability",
+      "tier": "core",
+      "summary": "Hallucination, loop-fail, tool-misuse, context-drift, halt-fail, permission-fail. A vocabulary for naming what went wrong before you can fix it.\n",
+      "competent_means": "Can label any agent failure with one of these categories and name the harness component that owns the fix.\n",
+      "aliases": [
+        "agent failures",
+        "failure modes"
+      ],
+      "resources": [
+        {
+          "title": "Building effective agents",
+          "author": "Anthropic",
+          "year": 2024,
+          "type": "post",
+          "link": "https://www.anthropic.com/research/building-effective-agents",
+          "why": "The \"common failure modes\" section is the closest thing to a canonical taxonomy in the field. Pairs well with Hashimoto's \"engineer the mistake out\" rule.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "reliability.structured-errors",
+      "label": "Structured error returns",
+      "area": "reliability",
+      "tier": "core",
+      "summary": "Errors as model-readable signals, not stack traces. A 400 with \"expected ISO-8601 date\" beats a raw exception every time.\n",
+      "competent_means": "Distinguishes \"raise\" from \"return-as-context\" and has shaped at least one tool's error vocabulary so the model can recover.\n",
+      "aliases": [
+        "error returns",
+        "recoverable errors"
+      ],
+      "resources": [
+        {
+          "title": "Building effective agents",
+          "author": "Anthropic",
+          "year": 2024,
+          "type": "post",
+          "link": "https://www.anthropic.com/research/building-effective-agents",
+          "why": "The tool-design section covers error shapes as a model-input design problem \u2014 the durable framing.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "reliability.retries-backoff",
+      "label": "Retries, backoff, idempotency",
+      "area": "reliability",
+      "tier": "core",
+      "summary": "Standard reliability discipline applied to model + tool calls. Don't retry without backoff; don't retry without idempotency thinking.\n",
+      "competent_means": "Can defend their retry budget per call type, and knows which of their tools are safe to retry vs which need an idempotency key.\n",
+      "aliases": [
+        "retry logic",
+        "exponential backoff",
+        "idempotent tools"
+      ],
+      "resources": [
+        {
+          "title": "Patterns of Distributed Systems \u2014 Retry",
+          "author": "Martin Kleppmann / Unmesh Joshi",
+          "year": 2020,
+          "type": "post",
+          "link": "https://martinfowler.com/articles/patterns-of-distributed-systems/retry.html",
+          "why": "The durable engineering treatment of retry/backoff/ idempotency. The lessons predate LLMs and survive them.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "reliability.timeouts",
+      "label": "Timeouts & deadlines",
+      "area": "reliability",
+      "tier": "core",
+      "summary": "Per-call, per-step, per-task. Every long-running agent has at least one un-bounded call hiding somewhere \u2014 find it before production does.\n",
+      "competent_means": "Knows where their longest call lives, has a deadline on it, and has a fallback for when the deadline fires.\n",
+      "aliases": [
+        "deadline",
+        "timeout",
+        "sla"
+      ],
+      "resources": [
+        {
+          "title": "Latency Numbers Every Programmer Should Know",
+          "author": "Peter Norvig / Jeff Dean (canonicalized by Jonas Bon\u00e9r)",
+          "year": 2012,
+          "type": "post",
+          "link": "https://gist.github.com/jboner/2841832",
+          "why": "The reference frame for \"what's an honest deadline?\" \u2014 durable because it teaches you to budget time in milliseconds, not vibes.\n",
+          "difficulty": "beginner",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "reliability.structured-output",
+      "label": "Structured output enforcement",
+      "area": "reliability",
+      "tier": "core",
+      "summary": "JSON Schema, function calling, constrained decoding, schema-fix loops. Never parse freeform model output in production.\n",
+      "competent_means": "Their agent never relies on regex-parsing model text. Has a schema-fix retry path for malformed output.\n",
+      "aliases": [
+        "json mode",
+        "structured outputs",
+        "constrained decoding"
+      ],
+      "resources": [
+        {
+          "title": "Structured Outputs",
+          "author": "OpenAI",
+          "year": 2024,
+          "type": "spec",
+          "link": "https://platform.openai.com/docs/guides/structured-outputs",
+          "why": "Vendor docs (durability:current) \u2014 the clearest first-party guide to enforcing JSON-schema output at the API boundary. The mechanism is increasingly standard.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "current",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "reliability.validation",
+      "label": "Validation gates",
+      "area": "reliability",
+      "tier": "recommended",
+      "summary": "Post-conditions on tool output, sanity checks on plans, type- level guardrails. Rejecting a \"successful\" output is sometimes the right move.\n",
+      "competent_means": "Has rejected a \"successful\" agent run that failed a validation gate, and can name what the gate caught.\n",
+      "aliases": [
+        "output validation",
+        "postcondition",
+        "guard rails"
+      ],
+      "resources": [
+        {
+          "title": "Guardrails for Large Language Models",
+          "author": "Guardrails AI",
+          "year": 2024,
+          "type": "post",
+          "link": "https://www.guardrailsai.com/docs",
+          "why": "Current-tool example \u2014 concrete walkthrough of validation as a first-class harness layer. The principle (validate structurally, validate semantically, validate behaviorally) is durable.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "current",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "reliability.fallbacks",
+      "label": "Fallbacks & degraded modes",
+      "area": "reliability",
+      "tier": "recommended",
+      "summary": "What does the agent do when the model is down, the tool is unreachable, or the budget is exhausted? A documented degraded mode beats unexplained 500s.\n",
+      "competent_means": "Their agent has a documented degraded mode that they have actually exercised (chaos-tested or observed in prod).\n",
+      "aliases": [
+        "graceful degradation",
+        "fallback mode",
+        "circuit breaker"
+      ],
+      "resources": [
+        {
+          "title": "Release It! (book) \u2014 Stability Patterns",
+          "author": "Michael T. Nygard",
+          "year": 2018,
+          "type": "book",
+          "link": "https://pragprog.com/titles/mnee2/release-it-second-edition/",
+          "why": "Pre-LLM but the timeouts/bulkheads/circuit-breakers material transfers directly. The most durable reliability text in this area.\n",
+          "difficulty": "intermediate",
+          "cost": "paid",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "reliability.chaos",
+      "label": "Chaos testing for agents",
+      "area": "reliability",
+      "tier": "optional",
+      "summary": "Inject tool failures, latency spikes, context truncation, model 503s. Most agents have never been observed under adversity until production.\n",
+      "competent_means": "Has run a chaos test (manually injected failure) that found a real bug in their agent.\n",
+      "aliases": [
+        "chaos engineering",
+        "failure injection"
+      ],
+      "resources": [
+        {
+          "title": "Chaos Engineering \u2014 Principles",
+          "author": "Principles of Chaos",
+          "year": 2019,
+          "type": "post",
+          "link": "https://principlesofchaos.org/",
+          "why": "The canonical statement of the discipline. Pre-LLM but the principles (steady-state hypothesis, blast-radius, automate) transfer directly to agent chaos testing.\n",
+          "difficulty": "advanced",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "cost.tracking",
+      "label": "Cost & token tracking",
+      "area": "cost",
+      "tier": "core",
+      "summary": "Per-task, per-user, per-feature attribution. Without it, every \"cost optimization\" is guesswork.\n",
+      "competent_means": "Knows the $/task of their agent within ~10% accuracy. Can break that down by step.\n",
+      "aliases": [
+        "cost attribution",
+        "token tracking",
+        "llm cost"
+      ],
+      "resources": [
+        {
+          "title": "OpenTelemetry GenAI Conventions",
+          "author": "OpenTelemetry",
+          "year": 2024,
+          "type": "spec",
+          "link": "https://opentelemetry.io/docs/specs/semconv/gen-ai/",
+          "why": "The emerging standard includes per-call token + cost attributes. Durable because the spec is the layer everyone implements against, vendor-neutral.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "cost.caching",
+      "label": "Prompt caching",
+      "area": "cost",
+      "tier": "core",
+      "summary": "Anthropic prompt caching, OpenAI prefix caching, KV-cache reuse. The cheapest single optimization in modern agent design \u2014 design prompts cache-first.\n",
+      "competent_means": "Their system prompt is cache-key-stable across requests. Knows their cache-hit rate within ~5%.\n",
+      "aliases": [
+        "prompt cache",
+        "prefix cache",
+        "kv cache"
+      ],
+      "resources": [
+        {
+          "title": "Prompt caching with Claude",
+          "author": "Anthropic",
+          "year": 2024,
+          "type": "spec",
+          "link": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching",
+          "why": "Vendor docs (durability:current). The mechanism (prefix-stable caching with TTL) is now standard across providers; the durable lesson is \"design your prompt as a cache key.\"\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "current",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "cost.model-tiering",
+      "label": "Model tiering & routing",
+      "area": "cost",
+      "tier": "recommended",
+      "summary": "Cheap model for simple steps, expensive model for hard. A router decides \u2014 either by a model call or by a rule.\n",
+      "competent_means": "Can show a tier split with a quality plot \u2014 proof the cheap tier doesn't degrade outcomes for routed-cheap requests.\n",
+      "aliases": [
+        "model routing",
+        "tiered models",
+        "mixture of models"
+      ],
+      "resources": [
+        {
+          "title": "RouteLLM: Learning to Route LLMs with Preference Data",
+          "author": "Ong et al.",
+          "year": 2024,
+          "type": "paper",
+          "link": "https://arxiv.org/abs/2406.18665",
+          "why": "The clearest treatment of model routing as a learned policy. The framing (preference data, calibrated routing) is durable even as specific routers improve.\n",
+          "difficulty": "advanced",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "cost.parallelism",
+      "label": "Parallelism & batching",
+      "area": "cost",
+      "tier": "recommended",
+      "summary": "Concurrent tool calls, batched embeddings, async generation. The latency win is real; contention bugs are the tax.\n",
+      "competent_means": "Knows when parallelism pays (independent tool calls, embedding batches) and when it doesn't (sequential dependencies, rate- limited APIs).\n",
+      "aliases": [
+        "parallel agents",
+        "concurrent tools",
+        "batched calls"
+      ],
+      "resources": [
+        {
+          "title": "Building effective agents",
+          "author": "Anthropic",
+          "year": 2024,
+          "type": "post",
+          "link": "https://www.anthropic.com/research/building-effective-agents",
+          "why": "The \"parallelization\" pattern split into sectioning vs voting is the cleanest framing \u2014 separates latency wins from ensemble wins.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "cost.streaming",
+      "label": "Streaming & partial outputs",
+      "area": "cost",
+      "tier": "recommended",
+      "summary": "Streaming for perceived latency, partial-output UX, the ergonomics of \"show progress without committing to it.\" A UX lever as much as an engineering one.\n",
+      "competent_means": "Knows when streaming is a UX win (long generation, chat surface) vs a footgun (structured output that must be validated whole).\n",
+      "aliases": [
+        "streaming responses",
+        "sse",
+        "partial outputs"
+      ],
+      "resources": [
+        {
+          "title": "Streaming Responses",
+          "author": "OpenAI",
+          "year": 2024,
+          "type": "spec",
+          "link": "https://platform.openai.com/docs/api-reference/streaming",
+          "why": "Vendor reference (durability:current). The pattern (SSE, delta events, terminal marker) is durable across providers.\n",
+          "difficulty": "beginner",
+          "cost": "free",
+          "durability": "current",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "cost.short-vs-long-context",
+      "label": "Short-context discipline",
+      "area": "cost",
+      "tier": "recommended",
+      "summary": "A 4k well-shaped context often beats 100k everything-in. Long context is a tool, not a default. Both latency and quality often improve with less.\n",
+      "competent_means": "Prefers short, structured context by default and can defend reaching for long context with a specific reason.\n",
+      "aliases": [
+        "short context",
+        "minimal context"
+      ],
+      "resources": [
+        {
+          "title": "Lost in the Middle: How Language Models Use Long Contexts",
+          "author": "Liu et al.",
+          "year": 2023,
+          "type": "paper",
+          "link": "https://arxiv.org/abs/2307.03172",
+          "why": "Empirical grounding for \"less context, attended-to, beats more context, ignored.\" Cite this when arguing against everything-in defaults.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "security.prompt-injection",
+      "label": "Prompt injection",
+      "area": "security",
+      "tier": "core",
+      "summary": "Direct and indirect injection \u2014 the most-shipped vulnerability in agents. Any text the model sees from any source can carry an instruction.\n",
+      "competent_means": "Can attack their own agent in three ways (direct user input, retrieved document, tool output) and has a defense for each.\n",
+      "aliases": [
+        "prompt injection",
+        "indirect prompt injection",
+        "jailbreak"
+      ],
+      "resources": [
+        {
+          "title": "Prompt injection: What's the worst that can happen?",
+          "author": "Simon Willison",
+          "year": 2023,
+          "type": "post",
+          "link": "https://simonwillison.net/2023/Apr/14/worst-that-can-happen/",
+          "why": "The clearest non-academic walkthrough of the attack surface and the realistic threat model. Required reading; Willison's ongoing index of the topic is the de facto bibliography.\n",
+          "difficulty": "beginner",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "security.permissions",
+      "label": "Capability gating & permissions",
+      "area": "security",
+      "tier": "core",
+      "summary": "What can the agent do, and on whose behalf? Least-privilege as a default, with explicit elevation when needed.\n",
+      "competent_means": "Agent runs least-privilege by default. Can enumerate every permission it holds and the justification for each.\n",
+      "aliases": [
+        "least privilege",
+        "capability scoping",
+        "agent permissions"
+      ],
+      "resources": [
+        {
+          "title": "The Confused Deputy: Re-Examined",
+          "author": "Norm Hardy / canonicalized in capability literature",
+          "year": 1988,
+          "type": "paper",
+          "link": "https://www.cap-lore.com/CapTheory/ConfusedDeputy.html",
+          "why": "The pre-LLM origin of the capability/least-privilege framing. Applies directly to agents: the agent is the confused deputy when it can act on its principal's behalf with the attacker's intent.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "security.data-exfiltration",
+      "label": "Data exfiltration",
+      "area": "security",
+      "tier": "core",
+      "summary": "Side-channel leaks via tool calls, outbound URLs, embeddings, and logs. The model doesn't need a shell to leak \u2014 it just needs a tool that can talk to the network.\n",
+      "competent_means": "Their agent's egress is enumerable (every outbound destination logged) and rate-limited. Knows three exfiltration paths and how each was closed.\n",
+      "aliases": [
+        "data leak",
+        "exfil",
+        "side channel"
+      ],
+      "resources": [
+        {
+          "title": "Markdown Image Exfiltration in LLM Agents",
+          "author": "Simon Willison",
+          "year": 2024,
+          "type": "post",
+          "link": "https://simonwillison.net/2024/Mar/23/prompt-injection-llm-agents/",
+          "why": "A specific worked example \u2014 markdown-image exfil \u2014 that covers the general pattern (any outbound URL is a side channel). Durable because the channel keeps reappearing in new forms.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "security.confidentiality",
+      "label": "Confidentiality & PII",
+      "area": "security",
+      "tier": "recommended",
+      "summary": "Redaction, secrets handling, prompt-leak hygiene. The trace pipeline is often the worst offender, not the agent itself.\n",
+      "competent_means": "Has a redactor in the trace pipeline that they have tested against synthetic PII. Knows what their LLM provider retains.\n",
+      "aliases": [
+        "pii redaction",
+        "secrets handling",
+        "prompt leak"
+      ],
+      "resources": [
+        {
+          "title": "OWASP Top 10 for LLM Applications",
+          "author": "OWASP",
+          "year": 2024,
+          "type": "spec",
+          "link": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+          "why": "The reference taxonomy. Read LLM02 (insecure output handling) and LLM06 (sensitive information disclosure) \u2014 durable framing that survives version bumps of the list.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "security.tool-poisoning",
+      "label": "Tool-output poisoning",
+      "area": "security",
+      "tier": "recommended",
+      "summary": "Adversarial content in retrieved docs or tool returns \u2014 the indirect-injection surface every retrieval-augmented agent has.\n",
+      "competent_means": "Distinguishes trusted from untrusted tool outputs in their pipeline and treats untrusted ones as inputs to be sanitized, not instructions to be followed.\n",
+      "aliases": [
+        "indirect injection",
+        "document poisoning"
+      ],
+      "resources": [
+        {
+          "title": "Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection",
+          "author": "Greshake et al.",
+          "year": 2023,
+          "type": "paper",
+          "link": "https://arxiv.org/abs/2302.12173",
+          "why": "The paper that named indirect prompt injection. Section 3 on attack vectors is required reading for anyone building a retrieval-augmented agent.\n",
+          "difficulty": "advanced",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "security.audit-trail",
+      "label": "Audit trails",
+      "area": "security",
+      "tier": "recommended",
+      "summary": "Who did what, when, why \u2014 provable from logs. The forensic surface that turns a security incident into a recoverable one.\n",
+      "competent_means": "Their agent's actions are reconstructible months later from structured logs. Has run at least one drill of \"given a user report, prove what the agent did.\"\n",
+      "aliases": [
+        "audit log",
+        "forensics",
+        "action trail"
+      ],
+      "resources": [
+        {
+          "title": "OWASP Top 10 for LLM Applications \u2014 LLM09 Overreliance",
+          "author": "OWASP",
+          "year": 2024,
+          "type": "spec",
+          "link": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+          "why": "OWASP's framing of audit trails as a defense against overreliance and an enabler of incident response. Durable even as the list version-bumps.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "security.red-team",
+      "label": "Red-teaming agents",
+      "area": "security",
+      "tier": "optional",
+      "summary": "Adversarial eval as continuous discipline. Treats the threat surface like a regression eval \u2014 every release runs the attack suite.\n",
+      "competent_means": "Runs a red-team eval on their agent on a stated cadence and has a backlog of attacks generated by the team (not just imported).\n",
+      "aliases": [
+        "agent red team",
+        "adversarial eval"
+      ],
+      "resources": [
+        {
+          "title": "Red Teaming Language Models with Language Models",
+          "author": "Perez et al.",
+          "year": 2022,
+          "type": "paper",
+          "link": "https://arxiv.org/abs/2202.03286",
+          "why": "The canonical paper on using models to generate red-team inputs. The mechanism (generate, classify, refine) is durable even as model-specific attack catalogues change.\n",
+          "difficulty": "advanced",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "patterns.skeleton-with-flex",
+      "label": "Skeleton with flexible steps",
+      "area": "patterns",
+      "tier": "core",
+      "summary": "Deterministic backbone, model fills the gaps. The #1 reliability pattern \u2014 the single biggest leverage point most agents miss.\n",
+      "competent_means": "Has refactored at least one open-ended agent into a skeleton design and can describe the reliability gain it produced.\n",
+      "aliases": [
+        "structured agent",
+        "workflow with model gaps"
+      ],
+      "resources": [
+        {
+          "title": "Building effective agents",
+          "author": "Anthropic",
+          "year": 2024,
+          "type": "post",
+          "link": "https://www.anthropic.com/research/building-effective-agents",
+          "why": "The \"workflow vs agent\" framing is the cleanest treatment of the pattern. The case for backbones with flex steps is worked through with examples.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "patterns.guarded-tool",
+      "label": "Guarded tool pattern",
+      "area": "patterns",
+      "tier": "core",
+      "summary": "Every tool has a precondition and a postcondition checker. The model can call it; the harness decides whether the call's results count.\n",
+      "competent_means": "Has shipped a tool with both a precondition (refuses bad inputs with a structured error) and a postcondition (validates the output before returning).\n",
+      "aliases": [
+        "tool guards",
+        "pre/post checks",
+        "validated tool"
+      ],
+      "resources": [
+        {
+          "title": "Building effective agents",
+          "author": "Anthropic",
+          "year": 2024,
+          "type": "post",
+          "link": "https://www.anthropic.com/research/building-effective-agents",
+          "why": "Treats tool design with pre/post validation as a first-class harness concern. The structural lesson is durable.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "patterns.context-recipes",
+      "label": "Context recipes (system + user + retrieved)",
+      "area": "patterns",
+      "tier": "core",
+      "summary": "Named slot layouts that have been shown to work. System prompt (stable, cached), retrieved context (untrusted, sanitized), user input (untrusted, sanitized), output schema (enforced).\n",
+      "competent_means": "Can describe their agent's context layout as a recipe with named slots and trust levels. Hasn't mixed trust levels into a single slot.\n",
+      "aliases": [
+        "prompt recipe",
+        "context layout"
+      ],
+      "resources": [
+        {
+          "title": "Context engineering for agents",
+          "author": "LangChain",
+          "year": 2025,
+          "type": "post",
+          "link": "https://www.langchain.com/blog/context-engineering-for-agents",
+          "why": "The clearest practitioner-grade taxonomy of context slots and their roles. The recipe framing is the durable contribution.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "patterns.eval-driven-loop",
+      "label": "Eval-driven loop",
+      "area": "patterns",
+      "tier": "recommended",
+      "summary": "Every change has an eval. Every regression blocks the change. The discipline that lets you move fast without breaking the agent.\n",
+      "competent_means": "Their PR cycle includes an eval run, and the team has aborted at least one promising change because the eval went red.\n",
+      "aliases": [
+        "eval-driven development",
+        "agent tdd"
+      ],
+      "resources": [
+        {
+          "title": "A Field Guide to Rapidly Improving AI Products",
+          "author": "Hamel Husain",
+          "year": 2024,
+          "type": "post",
+          "link": "https://hamel.dev/blog/posts/field-guide/",
+          "why": "The case for eval-as-the-flywheel is made with worked examples. The discipline \u2014 write the eval, run it on every change \u2014 is durable.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "patterns.anti-patterns",
+      "label": "Named anti-patterns",
+      "area": "patterns",
+      "tier": "core",
+      "summary": "The recurring failures, given names. \"Prompt the bug away.\" \"Add another agent.\" \"More context = more correct.\" \"Fancy retriever, broken chunking.\" Each with an example.\n",
+      "competent_means": "Can name three of their own past anti-patterns from production, with what they cost and what fixed each.\n",
+      "aliases": [
+        "anti-patterns",
+        "agent anti-patterns",
+        "failure patterns"
+      ],
+      "resources": [
+        {
+          "title": "Don't Build Multi-Agents",
+          "author": "Cognition AI",
+          "year": 2025,
+          "type": "post",
+          "link": "https://cognition.ai/blog/dont-build-multi-agents",
+          "why": "The canonical \"this isn't progress, it's complexity\" case. The named anti-patterns survive the specific framework critique.\n",
+          "difficulty": "intermediate",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "patterns.coding-agent-recipes",
+      "label": "Coding-agent recipes",
+      "area": "patterns",
+      "tier": "recommended",
+      "summary": "The Claude Code / Cursor / Aider class: file-edit tool, test runner, plan-mode, repo-scoped context. The most-shipped agent shape of 2026, with reusable design choices.\n",
+      "competent_means": "Can describe the canonical coding-agent loop (read \u2192 plan \u2192 edit \u2192 run \u2192 check) and the harness pieces that make it work (read-only tools, sandboxed edits, eval-as-tests).\n",
+      "aliases": [
+        "code agent",
+        "swe agent"
+      ],
+      "resources": [
+        {
+          "title": "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering",
+          "author": "Yang et al.",
+          "year": 2024,
+          "type": "paper",
+          "link": "https://arxiv.org/abs/2405.15793",
+          "why": "The clearest paper-treatment of \"design the agent-computer interface, not the agent.\" The framing transfers across every coding-agent product.\n",
+          "difficulty": "advanced",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    },
+    {
+      "id": "patterns.research-agent-recipes",
+      "label": "Research-agent recipes",
+      "area": "patterns",
+      "tier": "recommended",
+      "summary": "The OpenAI-DeepResearch / Anthropic Research / Gemini Deep Research class: browse \u2192 read \u2192 cite \u2192 summarize loops, with careful citation and abstention discipline.\n",
+      "competent_means": "Can describe the research-agent harness (search tool, reader/extractor, citation tracker, abstention rule) and the eval that catches fabricated citations.\n",
+      "aliases": [
+        "research agent",
+        "deep research",
+        "browsing agent"
+      ],
+      "resources": [
+        {
+          "title": "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection",
+          "author": "Asai et al.",
+          "year": 2023,
+          "type": "paper",
+          "link": "https://arxiv.org/abs/2310.11511",
+          "why": "The cleanest mechanism for \"generate that cites and abstains.\" Research-agent recipes routinely import this idea even when the implementation is different.\n",
+          "difficulty": "advanced",
+          "cost": "free",
+          "durability": "durable",
+          "verified": "pending"
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "foundations.what-is-a-harness",
+      "to": "foundations.engineer-the-mistake-out",
+      "kind": "depends_on"
+    },
+    {
+      "from": "foundations.engineer-the-mistake-out",
+      "to": "patterns.anti-patterns",
+      "kind": "related"
+    },
+    {
+      "from": "foundations.engineer-the-mistake-out",
+      "to": "reliability.failure-taxonomy",
+      "kind": "related"
+    },
+    {
+      "from": "foundations.what-is-a-harness",
+      "to": "foundations.durable-vs-current",
+      "kind": "depends_on"
+    },
+    {
+      "from": "foundations.what-is-a-harness",
+      "to": "foundations.competence-rubric",
+      "kind": "depends_on"
+    },
+    {
+      "from": "foundations.what-is-a-harness",
+      "to": "loop.basic-loop",
+      "kind": "depends_on"
+    },
+    {
+      "from": "loop.basic-loop",
+      "to": "loop.react",
+      "kind": "depends_on"
+    },
+    {
+      "from": "loop.react",
+      "to": "loop.reflexion",
+      "kind": "related"
+    },
+    {
+      "from": "loop.react",
+      "to": "loop.plan-execute",
+      "kind": "depends_on"
+    },
+    {
+      "from": "loop.plan-execute",
+      "to": "loop.tree-search",
+      "kind": "related"
+    },
+    {
+      "from": "loop.react",
+      "to": "loop.reflexion",
+      "kind": "depends_on"
+    },
+    {
+      "from": "loop.plan-execute",
+      "to": "loop.tree-search",
+      "kind": "depends_on"
+    },
+    {
+      "from": "loop.basic-loop",
+      "to": "loop.deterministic-skeleton",
+      "kind": "depends_on"
+    },
+    {
+      "from": "loop.deterministic-skeleton",
+      "to": "patterns.skeleton-with-flex",
+      "kind": "related"
+    },
+    {
+      "from": "loop.basic-loop",
+      "to": "loop.halting",
+      "kind": "depends_on"
+    },
+    {
+      "from": "loop.halting",
+      "to": "reliability.timeouts",
+      "kind": "related"
+    },
+    {
+      "from": "loop.deterministic-skeleton",
+      "to": "loop.human-in-the-loop",
+      "kind": "depends_on"
+    },
+    {
+      "from": "loop.human-in-the-loop",
+      "to": "reliability.validation",
+      "kind": "related"
+    },
+    {
+      "from": "loop.react",
+      "to": "tools.tool-design",
+      "kind": "depends_on"
+    },
+    {
+      "from": "tools.tool-design",
+      "to": "tools.tool-selection",
+      "kind": "related"
+    },
+    {
+      "from": "tools.tool-design",
+      "to": "tools.schema-design",
+      "kind": "depends_on"
+    },
+    {
+      "from": "tools.tool-design",
+      "to": "tools.mcp",
+      "kind": "depends_on"
+    },
+    {
+      "from": "tools.mcp",
+      "to": "tools.sandboxing",
+      "kind": "related"
+    },
+    {
+      "from": "tools.schema-design",
+      "to": "tools.tool-errors",
+      "kind": "depends_on"
+    },
+    {
+      "from": "tools.tool-design",
+      "to": "tools.tool-selection",
+      "kind": "depends_on"
+    },
+    {
+      "from": "tools.tool-design",
+      "to": "tools.composition",
+      "kind": "depends_on"
+    },
+    {
+      "from": "tools.tool-design",
+      "to": "tools.sandboxing",
+      "kind": "depends_on"
+    },
+    {
+      "from": "tools.tool-design",
+      "to": "tools.computer-use",
+      "kind": "depends_on"
+    },
+    {
+      "from": "foundations.what-is-a-harness",
+      "to": "context.window-budget",
+      "kind": "depends_on"
+    },
+    {
+      "from": "context.window-budget",
+      "to": "cost.short-vs-long-context",
+      "kind": "related"
+    },
+    {
+      "from": "context.window-budget",
+      "to": "context.system-prompts",
+      "kind": "depends_on"
+    },
+    {
+      "from": "context.system-prompts",
+      "to": "cost.caching",
+      "kind": "related"
+    },
+    {
+      "from": "context.window-budget",
+      "to": "context.compaction",
+      "kind": "depends_on"
+    },
+    {
+      "from": "context.compaction",
+      "to": "memory.forgetting",
+      "kind": "related"
+    },
+    {
+      "from": "context.window-budget",
+      "to": "context.relevance-filtering",
+      "kind": "depends_on"
+    },
+    {
+      "from": "context.window-budget",
+      "to": "context.position-bias",
+      "kind": "depends_on"
+    },
+    {
+      "from": "context.system-prompts",
+      "to": "context.structured-context",
+      "kind": "depends_on"
+    },
+    {
+      "from": "context.structured-context",
+      "to": "reliability.structured-output",
+      "kind": "related"
+    },
+    {
+      "from": "context.window-budget",
+      "to": "context.long-context-pitfalls",
+      "kind": "depends_on"
+    },
+    {
+      "from": "context.long-context-pitfalls",
+      "to": "cost.caching",
+      "kind": "related"
+    },
+    {
+      "from": "context.window-budget",
+      "to": "context.context-poisoning",
+      "kind": "depends_on"
+    },
+    {
+      "from": "context.context-poisoning",
+      "to": "security.prompt-injection",
+      "kind": "related"
+    },
+    {
+      "from": "context.window-budget",
+      "to": "memory.working-vs-long-term",
+      "kind": "depends_on"
+    },
+    {
+      "from": "memory.working-vs-long-term",
+      "to": "memory.episodic-semantic",
+      "kind": "depends_on"
+    },
+    {
+      "from": "memory.working-vs-long-term",
+      "to": "memory.state-persistence",
+      "kind": "depends_on"
+    },
+    {
+      "from": "memory.state-persistence",
+      "to": "reliability.fallbacks",
+      "kind": "related"
+    },
+    {
+      "from": "memory.working-vs-long-term",
+      "to": "memory.knowledge-bases",
+      "kind": "depends_on"
+    },
+    {
+      "from": "memory.knowledge-bases",
+      "to": "retrieval.rag-basics",
+      "kind": "related"
+    },
+    {
+      "from": "memory.working-vs-long-term",
+      "to": "memory.vector-memory",
+      "kind": "depends_on"
+    },
+    {
+      "from": "retrieval.embeddings",
+      "to": "memory.vector-memory",
+      "kind": "depends_on"
+    },
+    {
+      "from": "memory.vector-memory",
+      "to": "memory.forgetting",
+      "kind": "depends_on"
+    },
+    {
+      "from": "memory.state-persistence",
+      "to": "memory.shared-memory",
+      "kind": "depends_on"
+    },
+    {
+      "from": "orchestration.handoffs",
+      "to": "memory.shared-memory",
+      "kind": "depends_on"
+    },
+    {
+      "from": "foundations.what-is-a-harness",
+      "to": "retrieval.rag-basics",
+      "kind": "depends_on"
+    },
+    {
+      "from": "retrieval.rag-basics",
+      "to": "retrieval.embeddings",
+      "kind": "depends_on"
+    },
+    {
+      "from": "retrieval.embeddings",
+      "to": "retrieval.hybrid",
+      "kind": "depends_on"
+    },
+    {
+      "from": "retrieval.rag-basics",
+      "to": "retrieval.query-rewriting",
+      "kind": "depends_on"
+    },
+    {
+      "from": "retrieval.rag-basics",
+      "to": "retrieval.citations",
+      "kind": "depends_on"
+    },
+    {
+      "from": "retrieval.query-rewriting",
+      "to": "retrieval.agentic-retrieval",
+      "kind": "depends_on"
+    },
+    {
+      "from": "loop.react",
+      "to": "retrieval.agentic-retrieval",
+      "kind": "depends_on"
+    },
+    {
+      "from": "loop.basic-loop",
+      "to": "orchestration.single-vs-multi",
+      "kind": "depends_on"
+    },
+    {
+      "from": "orchestration.single-vs-multi",
+      "to": "orchestration.supervisor-worker",
+      "kind": "depends_on"
+    },
+    {
+      "from": "orchestration.supervisor-worker",
+      "to": "orchestration.handoffs",
+      "kind": "depends_on"
+    },
+    {
+      "from": "orchestration.supervisor-worker",
+      "to": "orchestration.routing",
+      "kind": "depends_on"
+    },
+    {
+      "from": "cost.parallelism",
+      "to": "orchestration.parallel",
+      "kind": "depends_on"
+    },
+    {
+      "from": "orchestration.single-vs-multi",
+      "to": "orchestration.debate",
+      "kind": "depends_on"
+    },
+    {
+      "from": "orchestration.single-vs-multi",
+      "to": "orchestration.anti-patterns",
+      "kind": "depends_on"
+    },
+    {
+      "from": "orchestration.anti-patterns",
+      "to": "patterns.anti-patterns",
+      "kind": "related"
+    },
+    {
+      "from": "foundations.what-is-a-harness",
+      "to": "evals.why-evals-are-hard",
+      "kind": "depends_on"
+    },
+    {
+      "from": "evals.why-evals-are-hard",
+      "to": "evals.task-evals",
+      "kind": "depends_on"
+    },
+    {
+      "from": "evals.task-evals",
+      "to": "evals.trajectory-evals",
+      "kind": "depends_on"
+    },
+    {
+      "from": "evals.task-evals",
+      "to": "evals.llm-as-judge",
+      "kind": "depends_on"
+    },
+    {
+      "from": "evals.llm-as-judge",
+      "to": "loop.reflexion",
+      "kind": "related"
+    },
+    {
+      "from": "evals.task-evals",
+      "to": "evals.regression",
+      "kind": "depends_on"
+    },
+    {
+      "from": "evals.regression",
+      "to": "patterns.eval-driven-loop",
+      "kind": "related"
+    },
+    {
+      "from": "evals.why-evals-are-hard",
+      "to": "evals.tracing",
+      "kind": "depends_on"
+    },
+    {
+      "from": "evals.tracing",
+      "to": "evals.observability-tools",
+      "kind": "depends_on"
+    },
+    {
+      "from": "evals.tracing",
+      "to": "evals.cost-latency-dashboards",
+      "kind": "depends_on"
+    },
+    {
+      "from": "cost.tracking",
+      "to": "evals.cost-latency-dashboards",
+      "kind": "depends_on"
+    },
+    {
+      "from": "foundations.what-is-a-harness",
+      "to": "reliability.failure-taxonomy",
+      "kind": "depends_on"
+    },
+    {
+      "from": "tools.schema-design",
+      "to": "reliability.structured-errors",
+      "kind": "depends_on"
+    },
+    {
+      "from": "reliability.structured-errors",
+      "to": "tools.tool-errors",
+      "kind": "related"
+    },
+    {
+      "from": "reliability.structured-errors",
+      "to": "reliability.retries-backoff",
+      "kind": "depends_on"
+    },
+    {
+      "from": "reliability.retries-backoff",
+      "to": "reliability.timeouts",
+      "kind": "related"
+    },
+    {
+      "from": "reliability.retries-backoff",
+      "to": "reliability.timeouts",
+      "kind": "depends_on"
+    },
+    {
+      "from": "tools.schema-design",
+      "to": "reliability.structured-output",
+      "kind": "depends_on"
+    },
+    {
+      "from": "reliability.structured-output",
+      "to": "reliability.validation",
+      "kind": "depends_on"
+    },
+    {
+      "from": "reliability.retries-backoff",
+      "to": "reliability.fallbacks",
+      "kind": "depends_on"
+    },
+    {
+      "from": "reliability.failure-taxonomy",
+      "to": "reliability.chaos",
+      "kind": "depends_on"
+    },
+    {
+      "from": "evals.tracing",
+      "to": "cost.tracking",
+      "kind": "depends_on"
+    },
+    {
+      "from": "cost.tracking",
+      "to": "evals.cost-latency-dashboards",
+      "kind": "related"
+    },
+    {
+      "from": "context.system-prompts",
+      "to": "cost.caching",
+      "kind": "depends_on"
+    },
+    {
+      "from": "cost.caching",
+      "to": "cost.tracking",
+      "kind": "related"
+    },
+    {
+      "from": "cost.tracking",
+      "to": "cost.model-tiering",
+      "kind": "depends_on"
+    },
+    {
+      "from": "cost.model-tiering",
+      "to": "orchestration.routing",
+      "kind": "related"
+    },
+    {
+      "from": "cost.tracking",
+      "to": "cost.parallelism",
+      "kind": "depends_on"
+    },
+    {
+      "from": "cost.parallelism",
+      "to": "orchestration.parallel",
+      "kind": "related"
+    },
+    {
+      "from": "cost.tracking",
+      "to": "cost.streaming",
+      "kind": "depends_on"
+    },
+    {
+      "from": "context.window-budget",
+      "to": "cost.short-vs-long-context",
+      "kind": "depends_on"
+    },
+    {
+      "from": "context.context-poisoning",
+      "to": "security.prompt-injection",
+      "kind": "depends_on"
+    },
+    {
+      "from": "security.prompt-injection",
+      "to": "security.tool-poisoning",
+      "kind": "related"
+    },
+    {
+      "from": "tools.sandboxing",
+      "to": "security.permissions",
+      "kind": "depends_on"
+    },
+    {
+      "from": "security.permissions",
+      "to": "security.data-exfiltration",
+      "kind": "depends_on"
+    },
+    {
+      "from": "evals.tracing",
+      "to": "security.confidentiality",
+      "kind": "depends_on"
+    },
+    {
+      "from": "security.prompt-injection",
+      "to": "security.tool-poisoning",
+      "kind": "depends_on"
+    },
+    {
+      "from": "tools.tool-errors",
+      "to": "security.tool-poisoning",
+      "kind": "depends_on"
+    },
+    {
+      "from": "evals.tracing",
+      "to": "security.audit-trail",
+      "kind": "depends_on"
+    },
+    {
+      "from": "security.audit-trail",
+      "to": "security.confidentiality",
+      "kind": "related"
+    },
+    {
+      "from": "security.prompt-injection",
+      "to": "security.red-team",
+      "kind": "depends_on"
+    },
+    {
+      "from": "evals.regression",
+      "to": "security.red-team",
+      "kind": "depends_on"
+    },
+    {
+      "from": "loop.deterministic-skeleton",
+      "to": "patterns.skeleton-with-flex",
+      "kind": "depends_on"
+    },
+    {
+      "from": "tools.tool-design",
+      "to": "patterns.guarded-tool",
+      "kind": "depends_on"
+    },
+    {
+      "from": "reliability.validation",
+      "to": "patterns.guarded-tool",
+      "kind": "depends_on"
+    },
+    {
+      "from": "context.structured-context",
+      "to": "patterns.context-recipes",
+      "kind": "depends_on"
+    },
+    {
+      "from": "patterns.context-recipes",
+      "to": "security.prompt-injection",
+      "kind": "related"
+    },
+    {
+      "from": "evals.regression",
+      "to": "patterns.eval-driven-loop",
+      "kind": "depends_on"
+    },
+    {
+      "from": "patterns.eval-driven-loop",
+      "to": "patterns.skeleton-with-flex",
+      "kind": "related"
+    },
+    {
+      "from": "foundations.engineer-the-mistake-out",
+      "to": "patterns.anti-patterns",
+      "kind": "depends_on"
+    },
+    {
+      "from": "tools.computer-use",
+      "to": "patterns.coding-agent-recipes",
+      "kind": "depends_on"
+    },
+    {
+      "from": "loop.deterministic-skeleton",
+      "to": "patterns.coding-agent-recipes",
+      "kind": "depends_on"
+    },
+    {
+      "from": "patterns.coding-agent-recipes",
+      "to": "patterns.skeleton-with-flex",
+      "kind": "related"
+    },
+    {
+      "from": "loop.plan-execute",
+      "to": "patterns.research-agent-recipes",
+      "kind": "depends_on"
+    },
+    {
+      "from": "retrieval.agentic-retrieval",
+      "to": "patterns.research-agent-recipes",
+      "kind": "depends_on"
+    },
+    {
+      "from": "patterns.research-agent-recipes",
+      "to": "retrieval.citations",
+      "kind": "related"
+    }
+  ]
+}
