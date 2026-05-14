@@ -20,7 +20,7 @@
 #   - The fine-grained PAT must have: Administration RW, Contents RW,
 #     Issues RW, Pages RW, Workflows RW, Metadata R, Discussions RW.
 
-$ErrorActionPreference = "Stop"
+$ErrorActionPreference = "Continue"
 $ProgressPreference = "SilentlyContinue"
 
 $GH = "C:\Program Files\GitHub CLI\gh.exe"
@@ -39,10 +39,14 @@ Step "Verifying gh auth"
 if ($LASTEXITCODE -ne 0) { throw "gh is not authenticated. Run 'gh auth login' first." }
 
 Step "Ensuring repo $REPO exists"
-& $GH repo view $REPO --json name 2>$null | Out-Null
-if ($LASTEXITCODE -ne 0) {
+$repoExists = $false
+try {
+  & $GH repo view $REPO --json name 2>$null | Out-Null
+  if ($LASTEXITCODE -eq 0) { $repoExists = $true }
+} catch { $repoExists = $false }
+if (-not $repoExists) {
   Step "Creating $REPO (public)"
-  & $GH repo create $REPO --public --description $DESCRIPTION --homepage $HOMEPAGE --disable-issues=false --disable-wiki=false
+  & $GH repo create $REPO --public --description $DESCRIPTION --homepage $HOMEPAGE --disable-issues=$false --disable-wiki=$false
   if ($LASTEXITCODE -ne 0) { throw "repo create failed" }
 } else {
   Write-Host "    repo already exists; updating metadata"
