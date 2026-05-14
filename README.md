@@ -6,8 +6,6 @@
 
 ![Harness Engineering Roadmap — diagram](assets/diagram-screenshot.png)
 
-> *(The screenshot above is a placeholder until the renderer is built in Phase 3 and the live site is captured for Phase 5.)*
-
 ---
 
 ## Why this exists
