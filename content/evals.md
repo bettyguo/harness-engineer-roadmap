@@ -21,7 +21,7 @@ Non-determinism, multi-step trajectories, partial credit, no clean labels. Most 
 
 **Resources:**
 
-- [Evaluating LLM Agents: A Deep Dive](https://hamel.dev/blog/posts/evals/) — Hamel Husain, 2024 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Evaluating LLM Agents: A Deep Dive](https://hamel.dev/blog/posts/evals/) — Hamel Husain, 2024 · `post` · `intermediate` · `free` · ◆ durable
   - The most practitioner-grade essay on agent eval — frames it as a discipline rather than a metric. The "look at your data" framing is durable.
 
 ---
@@ -42,7 +42,7 @@ End-to-end task success. A rubric, a held-out set, a pass rate. The eval you nee
 
 **Resources:**
 
-- [A Field Guide to Rapidly Improving AI Products](https://hamel.dev/blog/posts/field-guide/) — Hamel Husain, 2024 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [A Field Guide to Rapidly Improving AI Products](https://hamel.dev/blog/posts/field-guide/) — Hamel Husain, 2024 · `post` · `intermediate` · `free` · ◆ durable
   - The clearest "build the eval before you build the feature" discipline in the literature. Walks through task-level eval design with worked examples.
 
 ---
@@ -63,7 +63,7 @@ Scoring intermediate steps, not just final outputs. Catches the regression where
 
 **Resources:**
 
-- [Tau-Bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains](https://arxiv.org/abs/2406.12045) — Yao et al., 2024 · `paper` · `advanced` · `free` · ◆ durable *(unverified)*
+- [Tau-Bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains](https://arxiv.org/abs/2406.12045) — Yao et al., 2024 · `paper` · `advanced` · `free` · ◆ durable
   - The clearest example of trajectory-aware benchmarking. The design (multi-step, tool-use, partial credit) sets the template for how to think about trajectory evals.
 
 ---
@@ -84,7 +84,7 @@ Using a model to grade a model. Cheap and scalable; calibration and bias are the
 
 **Resources:**
 
-- [Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena](https://arxiv.org/abs/2306.05685) — Zheng et al., 2023 · `paper` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena](https://arxiv.org/abs/2306.05685) — Zheng et al., 2023 · `paper` · `intermediate` · `free` · ◆ durable
   - The paper that established LLM-as-judge as a discipline. Section 3 is required reading on the bias catalogue.
 
 ---
@@ -105,7 +105,7 @@ Locking in behavior. Your eval set is your test suite — every PR runs it; regr
 
 **Resources:**
 
-- [Evaluating LLM Agents: A Deep Dive](https://hamel.dev/blog/posts/evals/) — Hamel Husain, 2024 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Evaluating LLM Agents: A Deep Dive](https://hamel.dev/blog/posts/evals/) — Hamel Husain, 2024 · `post` · `intermediate` · `free` · ◆ durable
   - Treats regression discipline as the single biggest reliability lever for agents. The framing transfers directly to a PR pipeline.
 
 ---
@@ -126,7 +126,7 @@ Per-turn traces, OpenTelemetry-style spans, replayable runs. The observability s
 
 **Resources:**
 
-- [OpenTelemetry GenAI Conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/) — OpenTelemetry, 2024 · `spec` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [OpenTelemetry GenAI Conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/) — OpenTelemetry, 2024 · `spec` · `intermediate` · `free` · ◆ durable
   - The emerging standard for instrumenting agent calls. Durable even as specific vendors come and go — the spec is the layer everyone implements against.
 
 ---
@@ -147,7 +147,7 @@ Langfuse, AgentOps, LangSmith, Laminar — the current crop. durability:current 
 
 **Resources:**
 
-- [AgentOps](https://github.com/AgentOps-AI/agentops) — AgentOps team, 2024 · `repo` · `intermediate` · `freemium` · 🜂 current *(unverified)*
+- [AgentOps](https://github.com/AgentOps-AI/agentops) — AgentOps team, 2024 · `repo` · `intermediate` · `freemium` · 🜂 current
   - One representative current tool. Open-source, integrates with most agent frameworks. Listed as example of the category, not a recommendation against alternatives.
 
 ---
@@ -166,7 +166,7 @@ The "is this agent affordable to run" view. $ per task, p50/p99 latency, cache-h
 
 **Resources:**
 
-- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable
   - The "measure cost and latency from day one" guidance is unusually direct — most agent posts skip this. Durable.
 
 ---

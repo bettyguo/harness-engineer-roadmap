@@ -21,9 +21,9 @@
 
 **Resources:**
 
-- [Harness engineering for coding agent users](https://martinfowler.com/articles/harness-engineering.html) — Birgitta Böckeler, 2026 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Harness engineering for coding agent users](https://martinfowler.com/articles/harness-engineering.html) — Birgitta Böckeler, 2026 · `post` · `intermediate` · `free` · ◆ durable
   - The canonical vocabulary for the discipline — guides, sensors, harnessability, behaviour vs maintainability harness. Read this first; everything since builds on it.
-- [The Agent Harness: Why the LLM Is the Smallest Part of Your Agent System](https://www.mongodb.com/company/blog/technical/agent-harness-why-llm-is-smallest-part-of-your-agent-system) — MongoDB, 2026 · `post` · `beginner` · `free` · ◆ durable *(unverified)*
+- [The Agent Harness: Why the LLM Is the Smallest Part of Your Agent System](https://www.mongodb.com/company/blog/technical/agent-harness-why-llm-is-smallest-part-of-your-agent-system) — MongoDB, 2026 · `post` · `beginner` · `free` · ◆ durable
   - The six-component view (state, security, orchestration, memory, observability, evals). Useful as the working mental model when auditing an existing system.
 
 ---
@@ -44,7 +44,7 @@ Hashimoto's rule: every time the agent makes a mistake, you engineer the harness
 
 **Resources:**
 
-- [My AI Adoption Journey](https://mitchellh.com/writing/my-ai-adoption-journey) — Mitchell Hashimoto, 2026 · `post` · `beginner` · `free` · ◆ durable *(unverified)*
+- [My AI Adoption Journey](https://mitchellh.com/writing/my-ai-adoption-journey) — Mitchell Hashimoto, 2026 · `post` · `beginner` · `free` · ◆ durable
   - The essay that named the discipline. Read the section formalizing "agent = model + harness" and the "engineer the mistake out" philosophy — short, opinionated, foundational.
 
 ---
@@ -63,7 +63,7 @@ The field churns monthly. Concepts (the agent loop, eval discipline, memory arch
 
 **Resources:**
 
-- [Don't Build Multi-Agents](https://cognition.ai/blog/dont-build-multi-agents) — Cognition AI, 2025 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Don't Build Multi-Agents](https://cognition.ai/blog/dont-build-multi-agents) — Cognition AI, 2025 · `post` · `intermediate` · `free` · ◆ durable
   - A model of separating durable principle (context shapes behavior) from the current-tool fashion (multi-agent frameworks). Read it for the framing more than the conclusion.
 
 ---
@@ -84,7 +84,7 @@ Every node in this roadmap carries a behavioural rubric — what being competent
 
 **Resources:**
 
-- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable
   - Frames agent competence behaviorally — what a working system does, not what it knows. Pairs well with the rubric mindset this node captures.
 
 ---

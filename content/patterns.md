@@ -23,7 +23,7 @@ Deterministic backbone, model fills the gaps. The #1 reliability pattern — the
 
 **Resources:**
 
-- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable
   - The "workflow vs agent" framing is the cleanest treatment of the pattern. The case for backbones with flex steps is worked through with examples.
 
 ---
@@ -42,7 +42,7 @@ Every tool has a precondition and a postcondition checker. The model can call it
 
 **Resources:**
 
-- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable
   - Treats tool design with pre/post validation as a first-class harness concern. The structural lesson is durable.
 
 ---
@@ -63,7 +63,7 @@ Named slot layouts that have been shown to work. System prompt (stable, cached),
 
 **Resources:**
 
-- [Context engineering for agents](https://www.langchain.com/blog/context-engineering-for-agents) — LangChain, 2025 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Context engineering for agents](https://www.langchain.com/blog/context-engineering-for-agents) — LangChain, 2025 · `post` · `intermediate` · `free` · ◆ durable
   - The clearest practitioner-grade taxonomy of context slots and their roles. The recipe framing is the durable contribution.
 
 ---
@@ -84,7 +84,7 @@ Every change has an eval. Every regression blocks the change. The discipline tha
 
 **Resources:**
 
-- [A Field Guide to Rapidly Improving AI Products](https://hamel.dev/blog/posts/field-guide/) — Hamel Husain, 2024 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [A Field Guide to Rapidly Improving AI Products](https://hamel.dev/blog/posts/field-guide/) — Hamel Husain, 2024 · `post` · `intermediate` · `free` · ◆ durable
   - The case for eval-as-the-flywheel is made with worked examples. The discipline — write the eval, run it on every change — is durable.
 
 ---
@@ -105,7 +105,7 @@ The recurring failures, given names. "Prompt the bug away." "Add another agent."
 
 **Resources:**
 
-- [Don't Build Multi-Agents](https://cognition.ai/blog/dont-build-multi-agents) — Cognition AI, 2025 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Don't Build Multi-Agents](https://cognition.ai/blog/dont-build-multi-agents) — Cognition AI, 2025 · `post` · `intermediate` · `free` · ◆ durable
   - The canonical "this isn't progress, it's complexity" case. The named anti-patterns survive the specific framework critique.
 
 ---
@@ -126,7 +126,7 @@ The Claude Code / Cursor / Aider class: file-edit tool, test runner, plan-mode, 
 
 **Resources:**
 
-- [SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering](https://arxiv.org/abs/2405.15793) — Yang et al., 2024 · `paper` · `advanced` · `free` · ◆ durable *(unverified)*
+- [SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering](https://arxiv.org/abs/2405.15793) — Yang et al., 2024 · `paper` · `advanced` · `free` · ◆ durable
   - The clearest paper-treatment of "design the agent-computer interface, not the agent." The framing transfers across every coding-agent product.
 
 ---
@@ -147,7 +147,7 @@ The OpenAI-DeepResearch / Anthropic Research / Gemini Deep Research class: brows
 
 **Resources:**
 
-- [Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection](https://arxiv.org/abs/2310.11511) — Asai et al., 2023 · `paper` · `advanced` · `free` · ◆ durable *(unverified)*
+- [Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection](https://arxiv.org/abs/2310.11511) — Asai et al., 2023 · `paper` · `advanced` · `free` · ◆ durable
   - The cleanest mechanism for "generate that cites and abstains." Research-agent recipes routinely import this idea even when the implementation is different.
 
 ---

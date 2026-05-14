@@ -36,7 +36,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: evals.task-evals
     label: "Task-level evals"
@@ -63,7 +64,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: evals.trajectory-evals
     label: "Trajectory / process evals"
@@ -91,7 +93,8 @@ nodes:
         difficulty: advanced
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: evals.llm-as-judge
     label: "LLM-as-judge"
@@ -118,7 +121,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: evals.regression
     label: "Regression eval & golden sets"
@@ -145,7 +149,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: evals.tracing
     label: "Tracing & structured logs"
@@ -172,7 +177,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: evals.observability-tools
     label: "Observability tools (current)"
@@ -201,7 +207,8 @@ nodes:
         difficulty: intermediate
         cost: freemium
         durability: current
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: evals.cost-latency-dashboards
     label: "Cost & latency dashboards"
@@ -227,4 +234,5 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"

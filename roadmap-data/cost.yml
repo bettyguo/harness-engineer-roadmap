@@ -34,7 +34,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: cost.caching
     label: "Prompt caching"
@@ -62,7 +63,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: current
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: cost.model-tiering
     label: "Model tiering & routing"
@@ -89,7 +91,8 @@ nodes:
         difficulty: advanced
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: cost.parallelism
     label: "Parallelism & batching"
@@ -117,7 +120,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: cost.streaming
     label: "Streaming & partial outputs"
@@ -133,18 +137,20 @@ nodes:
     related: []
     aliases: [streaming responses, sse, partial outputs]
     resources:
-      - title: "Streaming Responses"
-        author: "OpenAI"
+      - title: "How to stream completions"
+        author: "OpenAI Cookbook"
         year: 2024
-        type: spec
-        link: "https://platform.openai.com/docs/api-reference/streaming"
+        type: post
+        link: "https://cookbook.openai.com/examples/how_to_stream_completions"
         why: >
-          Vendor reference (durability:current). The pattern (SSE,
-          delta events, terminal marker) is durable across providers.
+          Working code example, durably hosted on the official cookbook
+          repo. The SSE / delta-event / terminal-marker pattern walks
+          through cleanly and transfers across providers.
         difficulty: beginner
         cost: free
         durability: current
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: cost.short-vs-long-context
     label: "Short-context discipline"
@@ -172,4 +178,5 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"

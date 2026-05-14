@@ -35,7 +35,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: orchestration.supervisor-worker
     label: "Supervisor / worker patterns"
@@ -63,7 +64,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: current
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: orchestration.handoffs
     label: "Handoffs & state passing"
@@ -91,7 +93,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: current
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: orchestration.routing
     label: "Routing & specialization"
@@ -117,7 +120,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: orchestration.parallel
     label: "Parallelism & fan-out"
@@ -145,7 +149,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: orchestration.debate
     label: "Debate, voting, ensembles"
@@ -172,7 +177,8 @@ nodes:
         difficulty: advanced
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: orchestration.anti-patterns
     label: "Multi-agent anti-patterns"
@@ -200,4 +206,5 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"

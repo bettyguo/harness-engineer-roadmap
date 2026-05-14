@@ -35,7 +35,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: retrieval.embeddings
     label: "Embeddings & dense retrieval"
@@ -62,7 +63,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: retrieval.hybrid
     label: "Hybrid search (BM25 + dense + rerank)"
@@ -90,7 +92,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: retrieval.query-rewriting
     label: "Query rewriting & HyDE"
@@ -118,7 +121,8 @@ nodes:
         difficulty: advanced
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: retrieval.citations
     label: "Citations, attribution, grounding"
@@ -146,7 +150,8 @@ nodes:
         difficulty: advanced
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: retrieval.agentic-retrieval
     label: "Agentic / iterative retrieval"
@@ -173,4 +178,5 @@ nodes:
         difficulty: advanced
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"

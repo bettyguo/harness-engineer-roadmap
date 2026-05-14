@@ -36,7 +36,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: patterns.guarded-tool
     label: "Guarded tool pattern"
@@ -64,7 +65,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: patterns.context-recipes
     label: "Context recipes (system + user + retrieved)"
@@ -93,7 +95,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: patterns.eval-driven-loop
     label: "Eval-driven loop"
@@ -121,7 +124,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: patterns.anti-patterns
     label: "Named anti-patterns"
@@ -149,7 +153,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: patterns.coding-agent-recipes
     label: "Coding-agent recipes"
@@ -178,7 +183,8 @@ nodes:
         difficulty: advanced
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: patterns.research-agent-recipes
     label: "Research-agent recipes"
@@ -207,4 +213,5 @@ nodes:
         difficulty: advanced
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"

@@ -23,7 +23,7 @@ Naming, single-purpose vs swiss-army, return shapes, descriptions as prompts. Th
 
 **Resources:**
 
-- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable
   - The tool-design section is the single best practitioner-grade treatment; calls out the descriptions-as-prompts insight explicitly.
 
 ---
@@ -44,7 +44,7 @@ JSON Schema, descriptions as prompts, enums, structured outputs. Over-permissive
 
 **Resources:**
 
-- [JSON Schema for OpenAPI](https://platform.openai.com/docs/guides/structured-outputs) — OpenAI, 2024 · `spec` · `intermediate` · `free` · 🜂 current *(unverified)*
+- [JSON Schema for OpenAPI](https://platform.openai.com/docs/guides/structured-outputs) — OpenAI, 2024 · `spec` · `intermediate` · `free` · 🜂 current
   - The reference for structured-output enforcement at the model boundary — durable because schemas-as-contracts is a permanent pattern, even as specific platform APIs evolve.
 
 ---
@@ -65,7 +65,7 @@ The 2025 protocol for standardizing tool access across models and clients. Repla
 
 **Resources:**
 
-- [Model Context Protocol — specification](https://modelcontextprotocol.io/) — Anthropic, 2024 · `spec` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Model Context Protocol — specification](https://modelcontextprotocol.io/) — Anthropic, 2024 · `spec` · `intermediate` · `free` · ◆ durable
   - The canonical spec. Read the overview + transports; skim the rest until you need it. Mandatory reading once you have more than one tool client.
 
 ---
@@ -86,7 +86,7 @@ Errors are signals the model can read and act on. A 400 stack trace back into th
 
 **Resources:**
 
-- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable
   - The "tools-as-API-surface" guidance covers error shapes explicitly — the only post that treats them as a model-input design problem, not a logging concern.
 
 ---
@@ -107,7 +107,7 @@ What happens when the agent has 50 tools — retrieval-based tool selection, too
 
 **Resources:**
 
-- [ToolBench / ToolLLM](https://arxiv.org/abs/2307.16789) — Qin et al., 2023 · `paper` · `advanced` · `free` · ◆ durable *(unverified)*
+- [ToolBench / ToolLLM](https://arxiv.org/abs/2307.16789) — Qin et al., 2023 · `paper` · `advanced` · `free` · ◆ durable
   - The clearest benchmark for "what happens when you scale tool counts" — the framing has held even as models have improved on the absolute scores.
 
 ---
@@ -128,7 +128,7 @@ Pipelines and tool-to-tool data plumbing. When the model shouldn't be involved i
 
 **Resources:**
 
-- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable
   - The "prompt chaining" pattern in this post is the cleanest treatment of in-code vs in-prompt composition.
 
 ---
@@ -149,8 +149,8 @@ Code-execution sandboxes, file-system permissions, network egress controls. Ever
 
 **Resources:**
 
-- [Building Effective AI Agent Sandboxes](https://e2b.dev/blog/security-for-ai-agents-sandboxes-for-ai-developers) — E2B, 2025 · `post` · `intermediate` · `free` · 🜂 current *(unverified)*
-  - Current-tool example — concrete walkthrough of sandbox design for agent code-execution. The principles (default-deny, egress limits, ephemeral fs) outlast the specific tool.
+- [E2B — Sandboxes for AI agents (blog index)](https://e2b.dev/blog) — E2B, 2025 · `post` · `intermediate` · `free` · 🜂 current
+  - Current-tool example — running index of sandbox-design posts (microVM isolation, egress limits, ephemeral filesystems). The architectural principles outlast the specific platform.
 
 ---
 
@@ -170,7 +170,7 @@ Browser automation, shell tools, IDE plugin surface. Pixel-level vs API-level to
 
 **Resources:**
 
-- [Introducing computer use](https://www.anthropic.com/news/3-5-models-and-computer-use) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Introducing computer use](https://www.anthropic.com/news/3-5-models-and-computer-use) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable
   - The clearest first-party explanation of pixel-level computer use, including the honest failure modes. Durable because the tradeoffs are intrinsic, not implementation details.
 
 ---

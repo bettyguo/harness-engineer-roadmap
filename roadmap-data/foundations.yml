@@ -36,7 +36,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
       - title: "The Agent Harness: Why the LLM Is the Smallest Part of Your Agent System"
         author: "MongoDB"
@@ -50,7 +51,8 @@ nodes:
         difficulty: beginner
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: foundations.engineer-the-mistake-out
     label: "Engineer the mistake out"
@@ -79,7 +81,8 @@ nodes:
         difficulty: beginner
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: foundations.durable-vs-current
     label: "Durable concepts vs current tools"
@@ -108,7 +111,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: foundations.competence-rubric
     label: "What 'competent' looks like"
@@ -136,4 +140,5 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"

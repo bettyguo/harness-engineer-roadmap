@@ -23,7 +23,7 @@ Per-task, per-user, per-feature attribution. Without it, every "cost optimizatio
 
 **Resources:**
 
-- [OpenTelemetry GenAI Conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/) — OpenTelemetry, 2024 · `spec` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [OpenTelemetry GenAI Conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/) — OpenTelemetry, 2024 · `spec` · `intermediate` · `free` · ◆ durable
   - The emerging standard includes per-call token + cost attributes. Durable because the spec is the layer everyone implements against, vendor-neutral.
 
 ---
@@ -44,7 +44,7 @@ Anthropic prompt caching, OpenAI prefix caching, KV-cache reuse. The cheapest si
 
 **Resources:**
 
-- [Prompt caching with Claude](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching) — Anthropic, 2024 · `spec` · `intermediate` · `free` · 🜂 current *(unverified)*
+- [Prompt caching with Claude](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching) — Anthropic, 2024 · `spec` · `intermediate` · `free` · 🜂 current
   - Vendor docs (durability:current). The mechanism (prefix-stable caching with TTL) is now standard across providers; the durable lesson is "design your prompt as a cache key."
 
 ---
@@ -65,7 +65,7 @@ Cheap model for simple steps, expensive model for hard. A router decides — eit
 
 **Resources:**
 
-- [RouteLLM: Learning to Route LLMs with Preference Data](https://arxiv.org/abs/2406.18665) — Ong et al., 2024 · `paper` · `advanced` · `free` · ◆ durable *(unverified)*
+- [RouteLLM: Learning to Route LLMs with Preference Data](https://arxiv.org/abs/2406.18665) — Ong et al., 2024 · `paper` · `advanced` · `free` · ◆ durable
   - The clearest treatment of model routing as a learned policy. The framing (preference data, calibrated routing) is durable even as specific routers improve.
 
 ---
@@ -86,7 +86,7 @@ Concurrent tool calls, batched embeddings, async generation. The latency win is 
 
 **Resources:**
 
-- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable
   - The "parallelization" pattern split into sectioning vs voting is the cleanest framing — separates latency wins from ensemble wins.
 
 ---
@@ -105,8 +105,8 @@ Streaming for perceived latency, partial-output UX, the ergonomics of "show prog
 
 **Resources:**
 
-- [Streaming Responses](https://platform.openai.com/docs/api-reference/streaming) — OpenAI, 2024 · `spec` · `beginner` · `free` · 🜂 current *(unverified)*
-  - Vendor reference (durability:current). The pattern (SSE, delta events, terminal marker) is durable across providers.
+- [How to stream completions](https://cookbook.openai.com/examples/how_to_stream_completions) — OpenAI Cookbook, 2024 · `post` · `beginner` · `free` · 🜂 current
+  - Working code example, durably hosted on the official cookbook repo. The SSE / delta-event / terminal-marker pattern walks through cleanly and transfers across providers.
 
 ---
 
@@ -126,7 +126,7 @@ A 4k well-shaped context often beats 100k everything-in. Long context is a tool,
 
 **Resources:**
 
-- [Lost in the Middle: How Language Models Use Long Contexts](https://arxiv.org/abs/2307.03172) — Liu et al., 2023 · `paper` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Lost in the Middle: How Language Models Use Long Contexts](https://arxiv.org/abs/2307.03172) — Liu et al., 2023 · `paper` · `intermediate` · `free` · ◆ durable
   - Empirical grounding for "less context, attended-to, beats more context, ignored." Cite this when arguing against everything-in defaults.
 
 ---

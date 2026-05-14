@@ -35,7 +35,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: reliability.structured-errors
     label: "Structured error returns"
@@ -61,7 +62,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: reliability.retries-backoff
     label: "Retries, backoff, idempotency"
@@ -77,18 +79,20 @@ nodes:
     related: [reliability.timeouts]
     aliases: [retry logic, exponential backoff, idempotent tools]
     resources:
-      - title: "Patterns of Distributed Systems — Retry"
-        author: "Martin Kleppmann / Unmesh Joshi"
-        year: 2020
+      - title: "Patterns of Distributed Systems — Idempotent Receiver"
+        author: "Unmesh Joshi"
+        year: 2021
         type: post
-        link: "https://martinfowler.com/articles/patterns-of-distributed-systems/retry.html"
+        link: "https://martinfowler.com/articles/patterns-of-distributed-systems/idempotent-receiver.html"
         why: >
-          The durable engineering treatment of retry/backoff/
-          idempotency. The lessons predate LLMs and survive them.
+          The durable engineering treatment of how retry/backoff and
+          idempotency actually compose. The lessons predate LLMs and
+          transfer directly to model + tool calls.
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: reliability.timeouts
     label: "Timeouts & deadlines"
@@ -116,7 +120,8 @@ nodes:
         difficulty: beginner
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: reliability.structured-output
     label: "Structured output enforcement"
@@ -143,7 +148,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: current
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: reliability.validation
     label: "Validation gates"
@@ -172,7 +178,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: current
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: reliability.fallbacks
     label: "Fallbacks & degraded modes"
@@ -200,7 +207,8 @@ nodes:
         difficulty: intermediate
         cost: paid
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: reliability.chaos
     label: "Chaos testing for agents"
@@ -228,4 +236,5 @@ nodes:
         difficulty: advanced
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"

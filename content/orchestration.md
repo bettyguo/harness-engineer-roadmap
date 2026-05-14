@@ -23,7 +23,7 @@ The gate question: do you actually need multiple agents? Most "multi-agent" syst
 
 **Resources:**
 
-- [Don't Build Multi-Agents](https://cognition.ai/blog/dont-build-multi-agents) — Cognition AI, 2025 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Don't Build Multi-Agents](https://cognition.ai/blog/dont-build-multi-agents) — Cognition AI, 2025 · `post` · `intermediate` · `free` · ◆ durable
   - The strongest argument-from-experience against multi-agent as the default. Required reading before you ship a supervisor.
 
 ---
@@ -44,7 +44,7 @@ One agent dispatches, others execute. Useful when the dispatcher genuinely has d
 
 **Resources:**
 
-- [Multi-Agent Workflows](https://blog.langchain.com/langgraph-multi-agent-workflows/) — LangChain, 2024 · `post` · `intermediate` · `free` · 🜂 current *(unverified)*
+- [Multi-Agent Workflows](https://blog.langchain.com/langgraph-multi-agent-workflows/) — LangChain, 2024 · `post` · `intermediate` · `free` · 🜂 current
   - Current-tool example — the supervisor pattern walked through with code. The structural insight (dispatcher concerns vs worker concerns) is durable.
 
 ---
@@ -65,7 +65,7 @@ What does the receiving agent actually need to know? Most multi- agent bugs are 
 
 **Resources:**
 
-- [OpenAI Agents SDK — Handoffs](https://platform.openai.com/docs/guides/agents) — OpenAI, 2025 · `spec` · `intermediate` · `free` · 🜂 current *(unverified)*
+- [OpenAI Agents SDK — Handoffs](https://platform.openai.com/docs/guides/agents) — OpenAI, 2025 · `spec` · `intermediate` · `free` · 🜂 current
   - Current-tool example — first-party docs on handoff as a first-class primitive. The framing (handoff = transferred intent + transferred context) is durable.
 
 ---
@@ -86,7 +86,7 @@ Picking the right agent for the request. Often a model call, often a classifier,
 
 **Resources:**
 
-- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable
   - The "routing" pattern in this post is the cleanest treatment of when a router is a model and when it should be a rule.
 
 ---
@@ -105,7 +105,7 @@ Running tool calls or subagents concurrently. The latency win is real; the cost 
 
 **Resources:**
 
-- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable
   - The "parallelization" pattern (sectioning vs voting) is the cleanest treatment — distinguishes "parallel for speed" from "parallel for ensemble" cleanly.
 
 ---
@@ -124,7 +124,7 @@ Multiple agents critique or vote. Theatrical wins are easy; real accuracy wins a
 
 **Resources:**
 
-- [Improving Factuality and Reasoning in Language Models through Multiagent Debate](https://arxiv.org/abs/2305.14325) — Du et al., 2023 · `paper` · `advanced` · `free` · ◆ durable *(unverified)*
+- [Improving Factuality and Reasoning in Language Models through Multiagent Debate](https://arxiv.org/abs/2305.14325) — Du et al., 2023 · `paper` · `advanced` · `free` · ◆ durable
   - The most-cited debate paper. Read the methodology; treat the gains skeptically — newer work has shown ensemble effects often dominate the "debate" framing.
 
 ---
@@ -145,7 +145,7 @@ Multiple agents critique or vote. Theatrical wins are easy; real accuracy wins a
 
 **Resources:**
 
-- [Don't Build Multi-Agents](https://cognition.ai/blog/dont-build-multi-agents) — Cognition AI, 2025 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Don't Build Multi-Agents](https://cognition.ai/blog/dont-build-multi-agents) — Cognition AI, 2025 · `post` · `intermediate` · `free` · ◆ durable
   - The most thorough catalogue of multi-agent anti-patterns from a team that shipped both. Required reading.
 
 ---

@@ -35,7 +35,8 @@ nodes:
         difficulty: beginner
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: security.permissions
     label: "Capability gating & permissions"
@@ -50,20 +51,21 @@ nodes:
     related: [security.data-exfiltration]
     aliases: [least privilege, capability scoping, agent permissions]
     resources:
-      - title: "The Confused Deputy: Re-Examined"
-        author: "Norm Hardy / canonicalized in capability literature"
+      - title: "The Confused Deputy (or why capabilities might have been invented)"
+        author: "Norm Hardy"
         year: 1988
         type: paper
-        link: "https://www.cap-lore.com/CapTheory/ConfusedDeputy.html"
+        link: "http://web.cs.wpi.edu/~cs557/f14/papers/confused_deputy-hardy.pdf"
         why: >
-          The pre-LLM origin of the capability/least-privilege framing.
+          The pre-LLM origin of the capability / least-privilege framing.
           Applies directly to agents: the agent is the confused deputy
           when it can act on its principal's behalf with the attacker's
           intent.
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: security.data-exfiltration
     label: "Data exfiltration"
@@ -80,20 +82,21 @@ nodes:
     related: [security.audit-trail]
     aliases: [data leak, exfil, side channel]
     resources:
-      - title: "Markdown Image Exfiltration in LLM Agents"
+      - title: "Markdown exfiltration (tag archive)"
         author: "Simon Willison"
         year: 2024
         type: post
-        link: "https://simonwillison.net/2024/Mar/23/prompt-injection-llm-agents/"
+        link: "https://simonwillison.net/tags/markdown-exfiltration/"
         why: >
-          A specific worked example — markdown-image exfil — that
-          covers the general pattern (any outbound URL is a side
-          channel). Durable because the channel keeps reappearing in
-          new forms.
+          A running index of markdown-image exfil incidents — the
+          general pattern (any outbound URL the model can write is a
+          side channel) keeps reappearing in new forms. The tag
+          archive auto-stays-current as new incidents land.
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: security.confidentiality
     label: "Confidentiality & PII"
@@ -120,7 +123,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: security.tool-poisoning
     label: "Tool-output poisoning"
@@ -148,7 +152,8 @@ nodes:
         difficulty: advanced
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: security.audit-trail
     label: "Audit trails"
@@ -176,7 +181,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: security.red-team
     label: "Red-teaming agents"
@@ -204,4 +210,5 @@ nodes:
         difficulty: advanced
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"

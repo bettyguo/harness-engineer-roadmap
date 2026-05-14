@@ -23,7 +23,7 @@ What goes in context every turn (working) vs what's recalled when needed (long-t
 
 **Resources:**
 
-- [Memory in Agents](https://www.letta.com/blog/memory) — Letta, 2024 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Agent Memory: How to Build Agents that Learn and Remember](https://www.letta.com/blog/agent-memory) — Letta, 2025 · `post` · `intermediate` · `free` · ◆ durable
   - The clearest taxonomy of memory types in modern agents, including the working/long-term split as a first-class design decision rather than an implementation detail.
 
 ---
@@ -42,7 +42,7 @@ What goes in context every turn (working) vs what's recalled when needed (long-t
 
 **Resources:**
 
-- [MemGPT: Towards LLMs as Operating Systems](https://arxiv.org/abs/2310.08560) — Packer et al., 2023 · `paper` · `advanced` · `free` · ◆ durable *(unverified)*
+- [MemGPT: Towards LLMs as Operating Systems](https://arxiv.org/abs/2310.08560) — Packer et al., 2023 · `paper` · `advanced` · `free` · ◆ durable
   - Treats memory as a tiered storage problem (RAM/disk analogue). The taxonomy survives the specific MemGPT implementation.
 
 ---
@@ -63,7 +63,7 @@ Where state lives across turns: in-process, KV store, database, blob store. The 
 
 **Resources:**
 
-- [Building Stateful Agents](https://blog.langchain.com/langgraph-multi-agent-workflows/) — LangChain, 2024 · `post` · `intermediate` · `free` · 🜂 current *(unverified)*
+- [Building Stateful Agents](https://blog.langchain.com/langgraph-multi-agent-workflows/) — LangChain, 2024 · `post` · `intermediate` · `free` · 🜂 current
   - Current-tool example — concrete walkthrough of state stores in a real framework. The "checkpoint as durability boundary" pattern is durable even if LangGraph rotates.
 
 ---
@@ -84,7 +84,7 @@ A markdown library the LLM curates, lints, and interlinks. Replaces RAG for some
 
 **Resources:**
 
-- [LLM Knowledge Bases (gist)](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — Andrej Karpathy, 2026 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [LLM Knowledge Bases (gist)](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — Andrej Karpathy, 2026 · `post` · `intermediate` · `free` · ◆ durable
   - The originating post for the pattern. Short, specific, and the framing — markdown library as primary memory — is the durable contribution.
 
 ---
@@ -105,7 +105,7 @@ Embedding-based recall over past turns or events. Eviction policies matter more 
 
 **Resources:**
 
-- [MemGPT: Towards LLMs as Operating Systems](https://arxiv.org/abs/2310.08560) — Packer et al., 2023 · `paper` · `advanced` · `free` · ◆ durable *(unverified)*
+- [MemGPT: Towards LLMs as Operating Systems](https://arxiv.org/abs/2310.08560) — Packer et al., 2023 · `paper` · `advanced` · `free` · ◆ durable
   - The clearest paper-treatment of "embed memories, evict on pressure, summarize before eviction." The mechanics outlive the implementation.
 
 ---
@@ -126,7 +126,7 @@ When old memory becomes a liability — stale facts, outdated preferences, drift
 
 **Resources:**
 
-- [Memory in Agents](https://www.letta.com/blog/memory) — Letta, 2024 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Agent Memory: How to Build Agents that Learn and Remember](https://www.letta.com/blog/agent-memory) — Letta, 2025 · `post` · `intermediate` · `free` · ◆ durable
   - Treats forgetting as a design problem with specific eviction patterns. The clearest practitioner-level coverage.
 
 ---
@@ -145,7 +145,7 @@ Multi-agent memory blackboards, shared context channels, conflict resolution. A 
 
 **Resources:**
 
-- [LangGraph multi-agent workflows](https://blog.langchain.com/langgraph-multi-agent-workflows/) — LangChain, 2024 · `post` · `advanced` · `free` · 🜂 current *(unverified)*
+- [LangGraph multi-agent workflows](https://blog.langchain.com/langgraph-multi-agent-workflows/) — LangChain, 2024 · `post` · `advanced` · `free` · 🜂 current
   - Current-tool example — walks through shared-state design patterns in a real framework. The race-condition lessons transfer.
 
 ---

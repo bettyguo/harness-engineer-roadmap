@@ -24,11 +24,11 @@ nodes:
     related: [memory.state-persistence]
     aliases: [short-term memory, persistent memory, agent memory]
     resources:
-      - title: "Memory in Agents"
+      - title: "Agent Memory: How to Build Agents that Learn and Remember"
         author: "Letta"
-        year: 2024
+        year: 2025
         type: post
-        link: "https://www.letta.com/blog/memory"
+        link: "https://www.letta.com/blog/agent-memory"
         why: >
           The clearest taxonomy of memory types in modern agents,
           including the working/long-term split as a first-class design
@@ -36,7 +36,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: memory.episodic-semantic
     label: "Episodic vs semantic memory"
@@ -62,7 +63,8 @@ nodes:
         difficulty: advanced
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: memory.state-persistence
     label: "State & session persistence"
@@ -89,7 +91,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: current
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: memory.knowledge-bases
     label: "LLM knowledge bases (Karpathy pattern)"
@@ -116,7 +119,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: memory.vector-memory
     label: "Vector-store memory"
@@ -143,7 +147,8 @@ nodes:
         difficulty: advanced
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: memory.forgetting
     label: "Forgetting, decay, eviction"
@@ -159,18 +164,19 @@ nodes:
     related: [context.compaction]
     aliases: [memory decay, eviction policy, ttl memory]
     resources:
-      - title: "Memory in Agents"
+      - title: "Agent Memory: How to Build Agents that Learn and Remember"
         author: "Letta"
-        year: 2024
+        year: 2025
         type: post
-        link: "https://www.letta.com/blog/memory"
+        link: "https://www.letta.com/blog/agent-memory"
         why: >
           Treats forgetting as a design problem with specific eviction
           patterns. The clearest practitioner-level coverage.
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: memory.shared-memory
     label: "Shared memory across agents"
@@ -198,4 +204,5 @@ nodes:
         difficulty: advanced
         cost: free
         durability: current
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"

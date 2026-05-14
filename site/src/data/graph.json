@@ -112,7 +112,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         },
         {
           "title": "The Agent Harness: Why the LLM Is the Smallest Part of Your Agent System",
@@ -124,7 +125,8 @@
           "difficulty": "beginner",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -150,7 +152,8 @@
           "difficulty": "beginner",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -176,7 +179,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -202,7 +206,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -229,7 +234,8 @@
           "difficulty": "beginner",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -255,7 +261,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -282,7 +289,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -308,7 +316,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -336,7 +345,8 @@
           "difficulty": "advanced",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -363,7 +373,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -390,7 +401,8 @@
           "difficulty": "beginner",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -417,7 +429,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "current",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -444,7 +457,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -471,7 +485,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "current",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -498,7 +513,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -524,7 +540,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -550,7 +567,8 @@
           "difficulty": "advanced",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -576,7 +594,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -594,16 +613,17 @@
       ],
       "resources": [
         {
-          "title": "Building Effective AI Agent Sandboxes",
+          "title": "E2B \u2014 Sandboxes for AI agents (blog index)",
           "author": "E2B",
           "year": 2025,
           "type": "post",
-          "link": "https://e2b.dev/blog/security-for-ai-agents-sandboxes-for-ai-developers",
-          "why": "Current-tool example \u2014 concrete walkthrough of sandbox design for agent code-execution. The principles (default-deny, egress limits, ephemeral fs) outlast the specific tool.\n",
+          "link": "https://e2b.dev/blog",
+          "why": "Current-tool example \u2014 running index of sandbox-design posts (microVM isolation, egress limits, ephemeral filesystems). The architectural principles outlast the specific platform.\n",
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "current",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -630,7 +650,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -657,7 +678,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -684,7 +706,8 @@
           "difficulty": "beginner",
           "cost": "free",
           "durability": "current",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -711,7 +734,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "current",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -737,7 +761,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -763,7 +788,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -790,7 +816,8 @@
           "difficulty": "beginner",
           "cost": "free",
           "durability": "current",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -816,7 +843,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -842,7 +870,8 @@
           "difficulty": "beginner",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -860,16 +889,17 @@
       ],
       "resources": [
         {
-          "title": "Memory in Agents",
+          "title": "Agent Memory: How to Build Agents that Learn and Remember",
           "author": "Letta",
-          "year": 2024,
+          "year": 2025,
           "type": "post",
-          "link": "https://www.letta.com/blog/memory",
+          "link": "https://www.letta.com/blog/agent-memory",
           "why": "The clearest taxonomy of memory types in modern agents, including the working/long-term split as a first-class design decision rather than an implementation detail.\n",
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -895,7 +925,8 @@
           "difficulty": "advanced",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -922,7 +953,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "current",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -949,7 +981,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -975,7 +1008,8 @@
           "difficulty": "advanced",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -993,16 +1027,17 @@
       ],
       "resources": [
         {
-          "title": "Memory in Agents",
+          "title": "Agent Memory: How to Build Agents that Learn and Remember",
           "author": "Letta",
-          "year": 2024,
+          "year": 2025,
           "type": "post",
-          "link": "https://www.letta.com/blog/memory",
+          "link": "https://www.letta.com/blog/agent-memory",
           "why": "Treats forgetting as a design problem with specific eviction patterns. The clearest practitioner-level coverage.\n",
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1029,7 +1064,8 @@
           "difficulty": "advanced",
           "cost": "free",
           "durability": "current",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1055,7 +1091,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1082,7 +1119,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1109,7 +1147,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1136,7 +1175,8 @@
           "difficulty": "advanced",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1163,7 +1203,8 @@
           "difficulty": "advanced",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1190,7 +1231,8 @@
           "difficulty": "advanced",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1217,7 +1259,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1244,7 +1287,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "current",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1271,7 +1315,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "current",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1297,7 +1342,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1324,7 +1370,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1351,7 +1398,8 @@
           "difficulty": "advanced",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1376,7 +1424,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1403,7 +1452,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1429,7 +1479,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1456,7 +1507,8 @@
           "difficulty": "advanced",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1483,7 +1535,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1510,7 +1563,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1537,7 +1591,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1565,7 +1620,8 @@
           "difficulty": "intermediate",
           "cost": "freemium",
           "durability": "current",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1592,7 +1648,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1618,7 +1675,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1644,7 +1702,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1662,16 +1721,17 @@
       ],
       "resources": [
         {
-          "title": "Patterns of Distributed Systems \u2014 Retry",
-          "author": "Martin Kleppmann / Unmesh Joshi",
-          "year": 2020,
+          "title": "Patterns of Distributed Systems \u2014 Idempotent Receiver",
+          "author": "Unmesh Joshi",
+          "year": 2021,
           "type": "post",
-          "link": "https://martinfowler.com/articles/patterns-of-distributed-systems/retry.html",
-          "why": "The durable engineering treatment of retry/backoff/ idempotency. The lessons predate LLMs and survive them.\n",
+          "link": "https://martinfowler.com/articles/patterns-of-distributed-systems/idempotent-receiver.html",
+          "why": "The durable engineering treatment of how retry/backoff and idempotency actually compose. The lessons predate LLMs and transfer directly to model + tool calls.\n",
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1698,7 +1758,8 @@
           "difficulty": "beginner",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1725,7 +1786,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "current",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1752,7 +1814,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "current",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1779,7 +1842,8 @@
           "difficulty": "intermediate",
           "cost": "paid",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1805,7 +1869,8 @@
           "difficulty": "advanced",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1832,7 +1897,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1859,7 +1925,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "current",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1886,7 +1953,8 @@
           "difficulty": "advanced",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1913,7 +1981,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1931,16 +2000,17 @@
       ],
       "resources": [
         {
-          "title": "Streaming Responses",
-          "author": "OpenAI",
+          "title": "How to stream completions",
+          "author": "OpenAI Cookbook",
           "year": 2024,
-          "type": "spec",
-          "link": "https://platform.openai.com/docs/api-reference/streaming",
-          "why": "Vendor reference (durability:current). The pattern (SSE, delta events, terminal marker) is durable across providers.\n",
+          "type": "post",
+          "link": "https://cookbook.openai.com/examples/how_to_stream_completions",
+          "why": "Working code example, durably hosted on the official cookbook repo. The SSE / delta-event / terminal-marker pattern walks through cleanly and transfers across providers.\n",
           "difficulty": "beginner",
           "cost": "free",
           "durability": "current",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1966,7 +2036,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -1993,7 +2064,8 @@
           "difficulty": "beginner",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -2011,16 +2083,17 @@
       ],
       "resources": [
         {
-          "title": "The Confused Deputy: Re-Examined",
-          "author": "Norm Hardy / canonicalized in capability literature",
+          "title": "The Confused Deputy (or why capabilities might have been invented)",
+          "author": "Norm Hardy",
           "year": 1988,
           "type": "paper",
-          "link": "https://www.cap-lore.com/CapTheory/ConfusedDeputy.html",
-          "why": "The pre-LLM origin of the capability/least-privilege framing. Applies directly to agents: the agent is the confused deputy when it can act on its principal's behalf with the attacker's intent.\n",
+          "link": "http://web.cs.wpi.edu/~cs557/f14/papers/confused_deputy-hardy.pdf",
+          "why": "The pre-LLM origin of the capability / least-privilege framing. Applies directly to agents: the agent is the confused deputy when it can act on its principal's behalf with the attacker's intent.\n",
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -2038,16 +2111,17 @@
       ],
       "resources": [
         {
-          "title": "Markdown Image Exfiltration in LLM Agents",
+          "title": "Markdown exfiltration (tag archive)",
           "author": "Simon Willison",
           "year": 2024,
           "type": "post",
-          "link": "https://simonwillison.net/2024/Mar/23/prompt-injection-llm-agents/",
-          "why": "A specific worked example \u2014 markdown-image exfil \u2014 that covers the general pattern (any outbound URL is a side channel). Durable because the channel keeps reappearing in new forms.\n",
+          "link": "https://simonwillison.net/tags/markdown-exfiltration/",
+          "why": "A running index of markdown-image exfil incidents \u2014 the general pattern (any outbound URL the model can write is a side channel) keeps reappearing in new forms. The tag archive auto-stays-current as new incidents land.\n",
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -2074,7 +2148,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -2100,7 +2175,8 @@
           "difficulty": "advanced",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -2127,7 +2203,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -2153,7 +2230,8 @@
           "difficulty": "advanced",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -2179,7 +2257,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -2206,7 +2285,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -2232,7 +2312,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -2258,7 +2339,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -2285,7 +2367,8 @@
           "difficulty": "intermediate",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -2311,7 +2394,8 @@
           "difficulty": "advanced",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     },
@@ -2338,7 +2422,8 @@
           "difficulty": "advanced",
           "cost": "free",
           "durability": "durable",
-          "verified": "pending"
+          "verified": "yes",
+          "verified_at": "2026-05-14"
         }
       ]
     }

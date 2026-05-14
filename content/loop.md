@@ -21,7 +21,7 @@ think → act → observe → repeat. The minimal viable agent. Most frameworks 
 
 **Resources:**
 
-- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `beginner` · `free` · ◆ durable *(unverified)*
+- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `beginner` · `free` · ◆ durable
   - The cleanest "build it yourself before you import a framework" guide in the field. Walks through the loop with code, not metaphors.
 
 ---
@@ -42,7 +42,7 @@ Interleaved reasoning and tool calls. The canonical "think out loud, then act, t
 
 **Resources:**
 
-- [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629) — Yao et al., 2023 · `paper` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629) — Yao et al., 2023 · `paper` · `intermediate` · `free` · ◆ durable
   - The canonical paper. Read sections 2 and 4; skim the rest. The framing has held up; the benchmark numbers are dated.
 
 ---
@@ -63,7 +63,7 @@ Generate a plan first, execute the plan, replan on failure. Trades reactivity fo
 
 **Resources:**
 
-- [Plan-and-Solve Prompting: Improving Zero-Shot Chain-of-Thought Reasoning by Large Language Models](https://arxiv.org/abs/2305.04091) — Wang et al., 2023 · `paper` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Plan-and-Solve Prompting: Improving Zero-Shot Chain-of-Thought Reasoning by Large Language Models](https://arxiv.org/abs/2305.04091) — Wang et al., 2023 · `paper` · `intermediate` · `free` · ◆ durable
   - The grounded version of "make a plan first." Treats planning as a prompt technique, not a separate architecture — saves you from over-engineering the planner role.
 
 ---
@@ -84,7 +84,7 @@ The agent critiques its own output, then retries with the critique in context. C
 
 **Resources:**
 
-- [Reflexion: Language Agents with Verbal Reinforcement Learning](https://arxiv.org/abs/2303.11366) — Shinn et al., 2023 · `paper` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Reflexion: Language Agents with Verbal Reinforcement Learning](https://arxiv.org/abs/2303.11366) — Shinn et al., 2023 · `paper` · `intermediate` · `free` · ◆ durable
   - The paper that formalized the pattern. The "verbal RL" framing is the durable insight; the specific benchmarks are dated.
 
 ---
@@ -103,7 +103,7 @@ LATS, ToT, MCTS-flavored agent search. Heavier than ReAct; sometimes worth the c
 
 **Resources:**
 
-- [Tree of Thoughts: Deliberate Problem Solving with Large Language Models](https://arxiv.org/abs/2305.10601) — Yao et al., 2023 · `paper` · `advanced` · `free` · ◆ durable *(unverified)*
+- [Tree of Thoughts: Deliberate Problem Solving with Large Language Models](https://arxiv.org/abs/2305.10601) — Yao et al., 2023 · `paper` · `advanced` · `free` · ◆ durable
   - The seminal paper. Read it for the framing of search-over-thought rather than the benchmark gains — the gains have closed.
 
 ---
@@ -124,7 +124,7 @@ Hard-code the deterministic backbone (state machine, DAG) and let the model fill
 
 **Resources:**
 
-- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable
   - The "workflow vs agent" framing in this post is the clearest in the field — the case for deterministic backbones is made with worked examples.
 
 ---
@@ -145,7 +145,7 @@ Step budgets, time budgets, repeat-detection, termination conditions. Most produ
 
 **Resources:**
 
-- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `beginner` · `free` · ◆ durable *(unverified)*
+- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `beginner` · `free` · ◆ durable
   - The "stopping criteria" guidance is the most actionable on the web — treats halting as a first-class design decision, not an afterthought.
 
 ---
@@ -166,7 +166,7 @@ Pause points, approval gates, ask-to-clarify. The escape hatch that keeps the ag
 
 **Resources:**
 
-- [Human-in-the-loop](https://langchain-ai.github.io/langgraph/concepts/human_in_the_loop/) — LangGraph, 2025 · `post` · `intermediate` · `free` · 🜂 current *(unverified)*
+- [Human-in-the-loop](https://langchain-ai.github.io/langgraph/concepts/human_in_the_loop/) — LangGraph, 2025 · `post` · `intermediate` · `free` · 🜂 current
   - Current-tool example (durability:current) — the clearest implementation walkthrough for a HITL gate in a real framework; the principles transfer if LangGraph rotates out of fashion.
 
 ---

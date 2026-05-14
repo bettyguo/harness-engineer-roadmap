@@ -23,7 +23,7 @@ Hallucination, loop-fail, tool-misuse, context-drift, halt-fail, permission-fail
 
 **Resources:**
 
-- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable
   - The "common failure modes" section is the closest thing to a canonical taxonomy in the field. Pairs well with Hashimoto's "engineer the mistake out" rule.
 
 ---
@@ -44,7 +44,7 @@ Errors as model-readable signals, not stack traces. A 400 with "expected ISO-860
 
 **Resources:**
 
-- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Building effective agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic, 2024 · `post` · `intermediate` · `free` · ◆ durable
   - The tool-design section covers error shapes as a model-input design problem — the durable framing.
 
 ---
@@ -65,8 +65,8 @@ Standard reliability discipline applied to model + tool calls. Don't retry witho
 
 **Resources:**
 
-- [Patterns of Distributed Systems — Retry](https://martinfowler.com/articles/patterns-of-distributed-systems/retry.html) — Martin Kleppmann / Unmesh Joshi, 2020 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
-  - The durable engineering treatment of retry/backoff/ idempotency. The lessons predate LLMs and survive them.
+- [Patterns of Distributed Systems — Idempotent Receiver](https://martinfowler.com/articles/patterns-of-distributed-systems/idempotent-receiver.html) — Unmesh Joshi, 2021 · `post` · `intermediate` · `free` · ◆ durable
+  - The durable engineering treatment of how retry/backoff and idempotency actually compose. The lessons predate LLMs and transfer directly to model + tool calls.
 
 ---
 
@@ -86,7 +86,7 @@ Per-call, per-step, per-task. Every long-running agent has at least one un-bound
 
 **Resources:**
 
-- [Latency Numbers Every Programmer Should Know](https://gist.github.com/jboner/2841832) — Peter Norvig / Jeff Dean (canonicalized by Jonas Bonér), 2012 · `post` · `beginner` · `free` · ◆ durable *(unverified)*
+- [Latency Numbers Every Programmer Should Know](https://gist.github.com/jboner/2841832) — Peter Norvig / Jeff Dean (canonicalized by Jonas Bonér), 2012 · `post` · `beginner` · `free` · ◆ durable
   - The reference frame for "what's an honest deadline?" — durable because it teaches you to budget time in milliseconds, not vibes.
 
 ---
@@ -107,7 +107,7 @@ JSON Schema, function calling, constrained decoding, schema-fix loops. Never par
 
 **Resources:**
 
-- [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs) — OpenAI, 2024 · `spec` · `intermediate` · `free` · 🜂 current *(unverified)*
+- [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs) — OpenAI, 2024 · `spec` · `intermediate` · `free` · 🜂 current
   - Vendor docs (durability:current) — the clearest first-party guide to enforcing JSON-schema output at the API boundary. The mechanism is increasingly standard.
 
 ---
@@ -128,7 +128,7 @@ Post-conditions on tool output, sanity checks on plans, type- level guardrails. 
 
 **Resources:**
 
-- [Guardrails for Large Language Models](https://www.guardrailsai.com/docs) — Guardrails AI, 2024 · `post` · `intermediate` · `free` · 🜂 current *(unverified)*
+- [Guardrails for Large Language Models](https://www.guardrailsai.com/docs) — Guardrails AI, 2024 · `post` · `intermediate` · `free` · 🜂 current
   - Current-tool example — concrete walkthrough of validation as a first-class harness layer. The principle (validate structurally, validate semantically, validate behaviorally) is durable.
 
 ---
@@ -149,7 +149,7 @@ What does the agent do when the model is down, the tool is unreachable, or the b
 
 **Resources:**
 
-- [Release It! (book) — Stability Patterns](https://pragprog.com/titles/mnee2/release-it-second-edition/) — Michael T. Nygard, 2018 · `book` · `intermediate` · `paid` · ◆ durable *(unverified)*
+- [Release It! (book) — Stability Patterns](https://pragprog.com/titles/mnee2/release-it-second-edition/) — Michael T. Nygard, 2018 · `book` · `intermediate` · `paid` · ◆ durable
   - Pre-LLM but the timeouts/bulkheads/circuit-breakers material transfers directly. The most durable reliability text in this area.
 
 ---
@@ -170,7 +170,7 @@ Inject tool failures, latency spikes, context truncation, model 503s. Most agent
 
 **Resources:**
 
-- [Chaos Engineering — Principles](https://principlesofchaos.org/) — Principles of Chaos, 2019 · `post` · `advanced` · `free` · ◆ durable *(unverified)*
+- [Chaos Engineering — Principles](https://principlesofchaos.org/) — Principles of Chaos, 2019 · `post` · `advanced` · `free` · ◆ durable
   - The canonical statement of the discipline. Pre-LLM but the principles (steady-state hypothesis, blast-radius, automate) transfer directly to agent chaos testing.
 
 ---

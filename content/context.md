@@ -23,7 +23,7 @@ Token accounting, headroom, ceiling effects. Most "I'll just put everything in" 
 
 **Resources:**
 
-- [Context engineering for agents](https://www.langchain.com/blog/context-engineering-for-agents) — LangChain, 2025 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Context engineering for agents](https://www.langchain.com/blog/context-engineering-for-agents) — LangChain, 2025 · `post` · `intermediate` · `free` · ◆ durable
   - The clearest practitioner-grade overview of context budgeting as a first-class design problem. Vendor-flavored but the concepts transfer.
 
 ---
@@ -44,7 +44,7 @@ Persona, rules, output shape, and what NOT to put in the system prompt. The syst
 
 **Resources:**
 
-- [Prompt engineering — Anthropic docs](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview) — Anthropic, 2024 · `spec` · `beginner` · `free` · 🜂 current *(unverified)*
+- [Prompt engineering — Anthropic docs](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview) — Anthropic, 2024 · `spec` · `beginner` · `free` · 🜂 current
   - Current-tool example — vendor docs, but the structural advice (be specific, use examples, define output shape) is durable and one of the few that addresses system-prompt design explicitly.
 
 ---
@@ -65,7 +65,7 @@ Auto-compact, sliding windows, hierarchical summaries. Lossy by design — the d
 
 **Resources:**
 
-- [Long-Context Window Engineering Patterns](https://docs.anthropic.com/en/docs/build-with-claude/context-windows) — Anthropic, 2025 · `post` · `intermediate` · `free` · 🜂 current *(unverified)*
+- [Long-Context Window Engineering Patterns](https://docs.anthropic.com/en/docs/build-with-claude/context-windows) — Anthropic, 2025 · `post` · `intermediate` · `free` · 🜂 current
   - Vendor docs, durable principles — covers compaction patterns and when they preserve vs destroy load-bearing context.
 
 ---
@@ -86,7 +86,7 @@ Trim noisy tool outputs before they hit the next turn. Most context problems are
 
 **Resources:**
 
-- [Context engineering for agents](https://www.langchain.com/blog/context-engineering-for-agents) — LangChain, 2025 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Context engineering for agents](https://www.langchain.com/blog/context-engineering-for-agents) — LangChain, 2025 · `post` · `intermediate` · `free` · ◆ durable
   - Discusses output-filtering as a routine harness practice — the framing of "prune what the model doesn't need" is durable even as the example tools rotate.
 
 ---
@@ -105,7 +105,7 @@ Lost-in-the-middle, recency bias, primacy bias. Models attend to the start and t
 
 **Resources:**
 
-- [Lost in the Middle: How Language Models Use Long Contexts](https://arxiv.org/abs/2307.03172) — Liu et al., 2023 · `paper` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Lost in the Middle: How Language Models Use Long Contexts](https://arxiv.org/abs/2307.03172) — Liu et al., 2023 · `paper` · `intermediate` · `free` · ◆ durable
   - The paper that named the effect. Read sections 3–4; the U-shape attention curve is the durable insight, not the specific numbers (which improve with new models).
 
 ---
@@ -126,7 +126,7 @@ Anthropic-style XML, OpenAI-style sections. Structure isn't cosmetic — it chan
 
 **Resources:**
 
-- [Use XML tags to structure your prompts](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags) — Anthropic, 2024 · `spec` · `beginner` · `free` · 🜂 current *(unverified)*
+- [Use XML tags to structure your prompts](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags) — Anthropic, 2024 · `spec` · `beginner` · `free` · 🜂 current
   - Vendor docs (durability:current), but the technique itself is durable and transfers to any model — XML, JSON-fenced sections, or markdown headers all work.
 
 ---
@@ -147,7 +147,7 @@ Anthropic-style XML, OpenAI-style sections. Structure isn't cosmetic — it chan
 
 **Resources:**
 
-- [Lost in the Middle: How Language Models Use Long Contexts](https://arxiv.org/abs/2307.03172) — Liu et al., 2023 · `paper` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Lost in the Middle: How Language Models Use Long Contexts](https://arxiv.org/abs/2307.03172) — Liu et al., 2023 · `paper` · `intermediate` · `free` · ◆ durable
   - The clearest empirical evidence that long context isn't a free win. Cite this in any "why don't we just put it all in?" argument.
 
 ---
@@ -168,7 +168,7 @@ Bad data in context cascades. Untrusted text from tool outputs, retrieved docs, 
 
 **Resources:**
 
-- [Prompt Injection: What's the worst that can happen?](https://simonwillison.net/2023/Apr/14/worst-that-can-happen/) — Simon Willison, 2023 · `post` · `beginner` · `free` · ◆ durable *(unverified)*
+- [Prompt Injection: What's the worst that can happen?](https://simonwillison.net/2023/Apr/14/worst-that-can-happen/) — Simon Willison, 2023 · `post` · `beginner` · `free` · ◆ durable
   - The clearest non-academic walk-through of the attack surface, including the context-poisoning angle. Required reading.
 
 ---

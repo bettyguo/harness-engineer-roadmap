@@ -23,7 +23,7 @@ Direct and indirect injection — the most-shipped vulnerability in agents. Any 
 
 **Resources:**
 
-- [Prompt injection: What's the worst that can happen?](https://simonwillison.net/2023/Apr/14/worst-that-can-happen/) — Simon Willison, 2023 · `post` · `beginner` · `free` · ◆ durable *(unverified)*
+- [Prompt injection: What's the worst that can happen?](https://simonwillison.net/2023/Apr/14/worst-that-can-happen/) — Simon Willison, 2023 · `post` · `beginner` · `free` · ◆ durable
   - The clearest non-academic walkthrough of the attack surface and the realistic threat model. Required reading; Willison's ongoing index of the topic is the de facto bibliography.
 
 ---
@@ -44,8 +44,8 @@ What can the agent do, and on whose behalf? Least-privilege as a default, with e
 
 **Resources:**
 
-- [The Confused Deputy: Re-Examined](https://www.cap-lore.com/CapTheory/ConfusedDeputy.html) — Norm Hardy / canonicalized in capability literature, 1988 · `paper` · `intermediate` · `free` · ◆ durable *(unverified)*
-  - The pre-LLM origin of the capability/least-privilege framing. Applies directly to agents: the agent is the confused deputy when it can act on its principal's behalf with the attacker's intent.
+- [The Confused Deputy (or why capabilities might have been invented)](http://web.cs.wpi.edu/~cs557/f14/papers/confused_deputy-hardy.pdf) — Norm Hardy, 1988 · `paper` · `intermediate` · `free` · ◆ durable
+  - The pre-LLM origin of the capability / least-privilege framing. Applies directly to agents: the agent is the confused deputy when it can act on its principal's behalf with the attacker's intent.
 
 ---
 
@@ -65,8 +65,8 @@ Side-channel leaks via tool calls, outbound URLs, embeddings, and logs. The mode
 
 **Resources:**
 
-- [Markdown Image Exfiltration in LLM Agents](https://simonwillison.net/2024/Mar/23/prompt-injection-llm-agents/) — Simon Willison, 2024 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
-  - A specific worked example — markdown-image exfil — that covers the general pattern (any outbound URL is a side channel). Durable because the channel keeps reappearing in new forms.
+- [Markdown exfiltration (tag archive)](https://simonwillison.net/tags/markdown-exfiltration/) — Simon Willison, 2024 · `post` · `intermediate` · `free` · ◆ durable
+  - A running index of markdown-image exfil incidents — the general pattern (any outbound URL the model can write is a side channel) keeps reappearing in new forms. The tag archive auto-stays-current as new incidents land.
 
 ---
 
@@ -86,7 +86,7 @@ Redaction, secrets handling, prompt-leak hygiene. The trace pipeline is often th
 
 **Resources:**
 
-- [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/) — OWASP, 2024 · `spec` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/) — OWASP, 2024 · `spec` · `intermediate` · `free` · ◆ durable
   - The reference taxonomy. Read LLM02 (insecure output handling) and LLM06 (sensitive information disclosure) — durable framing that survives version bumps of the list.
 
 ---
@@ -107,7 +107,7 @@ Adversarial content in retrieved docs or tool returns — the indirect-injection
 
 **Resources:**
 
-- [Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection](https://arxiv.org/abs/2302.12173) — Greshake et al., 2023 · `paper` · `advanced` · `free` · ◆ durable *(unverified)*
+- [Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection](https://arxiv.org/abs/2302.12173) — Greshake et al., 2023 · `paper` · `advanced` · `free` · ◆ durable
   - The paper that named indirect prompt injection. Section 3 on attack vectors is required reading for anyone building a retrieval-augmented agent.
 
 ---
@@ -128,7 +128,7 @@ Who did what, when, why — provable from logs. The forensic surface that turns 
 
 **Resources:**
 
-- [OWASP Top 10 for LLM Applications — LLM09 Overreliance](https://owasp.org/www-project-top-10-for-large-language-model-applications/) — OWASP, 2024 · `spec` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [OWASP Top 10 for LLM Applications — LLM09 Overreliance](https://owasp.org/www-project-top-10-for-large-language-model-applications/) — OWASP, 2024 · `spec` · `intermediate` · `free` · ◆ durable
   - OWASP's framing of audit trails as a defense against overreliance and an enabler of incident response. Durable even as the list version-bumps.
 
 ---
@@ -149,7 +149,7 @@ Adversarial eval as continuous discipline. Treats the threat surface like a regr
 
 **Resources:**
 
-- [Red Teaming Language Models with Language Models](https://arxiv.org/abs/2202.03286) — Perez et al., 2022 · `paper` · `advanced` · `free` · ◆ durable *(unverified)*
+- [Red Teaming Language Models with Language Models](https://arxiv.org/abs/2202.03286) — Perez et al., 2022 · `paper` · `advanced` · `free` · ◆ durable
   - The canonical paper on using models to generate red-team inputs. The mechanism (generate, classify, refine) is durable even as model-specific attack catalogues change.
 
 ---

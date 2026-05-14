@@ -33,7 +33,8 @@ nodes:
         difficulty: beginner
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: loop.react
     label: "ReAct (reasoning + acting)"
@@ -60,7 +61,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: loop.plan-execute
     label: "Plan-and-execute"
@@ -88,7 +90,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: loop.reflexion
     label: "Reflexion / self-critique"
@@ -115,7 +118,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: loop.tree-search
     label: "Tree-of-Thoughts & search-based loops"
@@ -141,7 +145,8 @@ nodes:
         difficulty: advanced
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: loop.deterministic-skeleton
     label: "Deterministic skeletons"
@@ -169,7 +174,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: loop.halting
     label: "Halting conditions & loop budgets"
@@ -197,7 +203,8 @@ nodes:
         difficulty: beginner
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: loop.human-in-the-loop
     label: "Human-in-the-loop checkpoints"
@@ -224,4 +231,5 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: current
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"

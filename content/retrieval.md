@@ -23,7 +23,7 @@ Just enough RAG to slot it into a harness — chunk, embed, retrieve, re-insert 
 
 **Resources:**
 
-- [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401) — Lewis et al., 2020 · `paper` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401) — Lewis et al., 2020 · `paper` · `intermediate` · `free` · ◆ durable
   - The originating paper. Read the architecture section; skim the numbers. The "retrieve, then condition" framing is the durable contribution.
 
 ---
@@ -42,7 +42,7 @@ Embedding model choice, dimensionality, normalization, the cost of switching emb
 
 **Resources:**
 
-- [MTEB: Massive Text Embedding Benchmark](https://arxiv.org/abs/2210.07316) — Muennighoff et al., 2022 · `paper` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [MTEB: Massive Text Embedding Benchmark](https://arxiv.org/abs/2210.07316) — Muennighoff et al., 2022 · `paper` · `intermediate` · `free` · ◆ durable
   - The reference for "which embedding model and why." The leaderboard rotates; the methodology for picking is durable.
 
 ---
@@ -61,7 +61,7 @@ Pure dense retrieval loses on technical terms, acronyms, and named-entity querie
 
 **Resources:**
 
-- [Hybrid Search Explained](https://www.pinecone.io/learn/hybrid-search-intro/) — Pinecone, 2023 · `post` · `intermediate` · `free` · ◆ durable *(unverified)*
+- [Hybrid Search Explained](https://www.pinecone.io/learn/hybrid-search-intro/) — Pinecone, 2023 · `post` · `intermediate` · `free` · ◆ durable
   - Vendor-flavored but the clearest practitioner walkthrough of why hybrid wins, with worked examples on the kinds of queries dense alone fails.
 
 ---
@@ -82,7 +82,7 @@ Let the model rewrite the user's query before retrieval — expansion, decomposi
 
 **Resources:**
 
-- [Precise Zero-Shot Dense Retrieval without Relevance Labels (HyDE)](https://arxiv.org/abs/2212.10496) — Gao et al., 2022 · `paper` · `advanced` · `free` · ◆ durable *(unverified)*
+- [Precise Zero-Shot Dense Retrieval without Relevance Labels (HyDE)](https://arxiv.org/abs/2212.10496) — Gao et al., 2022 · `paper` · `advanced` · `free` · ◆ durable
   - The canonical paper on rewriting queries via hypothetical documents. The trick generalizes: model-as-query-rewriter is a durable pattern.
 
 ---
@@ -103,7 +103,7 @@ The antidote to hallucinated retrievals: make the agent show its work. Without c
 
 **Resources:**
 
-- [Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection](https://arxiv.org/abs/2310.11511) — Asai et al., 2023 · `paper` · `advanced` · `free` · ◆ durable *(unverified)*
+- [Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection](https://arxiv.org/abs/2310.11511) — Asai et al., 2023 · `paper` · `advanced` · `free` · ◆ durable
   - The clearest treatment of "generation that knows when to cite and when to abstain." The mechanism is durable; the specific training recipe is one of many.
 
 ---
@@ -124,7 +124,7 @@ The agent decides what to retrieve next based on what it just read. Where the ag
 
 **Resources:**
 
-- [Self-Ask with Search](https://arxiv.org/abs/2210.03350) — Press et al., 2022 · `paper` · `advanced` · `free` · ◆ durable *(unverified)*
+- [Self-Ask with Search](https://arxiv.org/abs/2210.03350) — Press et al., 2022 · `paper` · `advanced` · `free` · ◆ durable
   - The clearest paper on "decompose, retrieve, repeat" loops. The pattern survives the specific implementation.
 
 ---

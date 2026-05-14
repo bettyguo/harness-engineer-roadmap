@@ -35,7 +35,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: tools.schema-design
     label: "Schema design for tool I/O"
@@ -63,7 +64,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: current
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: tools.mcp
     label: "Model Context Protocol (MCP)"
@@ -90,7 +92,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: tools.tool-errors
     label: "Tool errors as model input"
@@ -118,7 +121,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: tools.tool-selection
     label: "Tool selection at scale"
@@ -145,7 +149,8 @@ nodes:
         difficulty: advanced
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: tools.composition
     label: "Tool composition & chaining"
@@ -171,7 +176,8 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: tools.sandboxing
     label: "Tool sandboxing & permission scopes"
@@ -187,19 +193,20 @@ nodes:
     related: [security.permissions]
     aliases: [tool sandbox, execution sandbox, permissions]
     resources:
-      - title: "Building Effective AI Agent Sandboxes"
+      - title: "E2B — Sandboxes for AI agents (blog index)"
         author: "E2B"
         year: 2025
         type: post
-        link: "https://e2b.dev/blog/security-for-ai-agents-sandboxes-for-ai-developers"
+        link: "https://e2b.dev/blog"
         why: >
-          Current-tool example — concrete walkthrough of sandbox design
-          for agent code-execution. The principles (default-deny, egress
-          limits, ephemeral fs) outlast the specific tool.
+          Current-tool example — running index of sandbox-design posts
+          (microVM isolation, egress limits, ephemeral filesystems).
+          The architectural principles outlast the specific platform.
         difficulty: intermediate
         cost: free
         durability: current
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
 
   - id: tools.computer-use
     label: "Computer-use tools"
@@ -227,4 +234,5 @@ nodes:
         difficulty: intermediate
         cost: free
         durability: durable
-        verified: pending
+        verified: "yes"
+        verified_at: "2026-05-14"
