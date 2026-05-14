@@ -80,3 +80,46 @@ def test_load_ignore_returns_empty_when_file_missing(
 ) -> None:
     monkeypatch.setattr(linkcheck, "IGNORE_PATH", tmp_path / "nope")
     assert linkcheck.load_ignore() == set()
+
+
+# ---------- S1: hostname-aware ignore match ----------
+
+
+def test_should_ignore_exact_hostname() -> None:
+    """A registered domain matches its own URLs exactly."""
+    assert linkcheck.should_ignore(
+        "https://example.com/a/b?c=d", {"example.com"}
+    ) is True
+
+
+def test_should_ignore_subdomain_of_registered() -> None:
+    """Registering example.com matches docs.example.com — covers the
+    common 'ignore the whole org's domain' contributor intent."""
+    assert linkcheck.should_ignore(
+        "https://docs.example.com/path", {"example.com"}
+    ) is True
+
+
+def test_should_ignore_refuses_substring_attack() -> None:
+    """The pre-fix bug: 'cookbook.openai.com' in the ignore-list also
+    matched 'evil-cookbook.openai.com.attacker.com' via substring. The
+    hostname-aware check must reject that."""
+    assert linkcheck.should_ignore(
+        "https://evil-cookbook.openai.com.attacker.com/x",
+        {"cookbook.openai.com"},
+    ) is False
+
+
+def test_should_ignore_refuses_unrelated_host() -> None:
+    assert linkcheck.should_ignore(
+        "https://attacker.com/example.com", {"example.com"}
+    ) is False
+
+
+def test_should_ignore_handles_url_without_scheme() -> None:
+    """If a malformed URL slips in, we don't crash; we just don't ignore."""
+    assert linkcheck.should_ignore("not a url", {"example.com"}) is False
+
+
+def test_should_ignore_empty_ignore_set() -> None:
+    assert linkcheck.should_ignore("https://example.com/", set()) is False

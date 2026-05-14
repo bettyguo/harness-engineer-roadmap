@@ -22,6 +22,7 @@ import sys
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
+from urllib.parse import urlparse
 
 import requests
 import yaml
@@ -64,6 +65,30 @@ def load_ignore() -> set[str]:
     }
 
 
+def should_ignore(link: str, ignore: set[str]) -> bool:
+    """Return True iff `link`'s host equals or is a subdomain of any entry
+    in `ignore`. Hostname-aware so that adding `cookbook.openai.com` to
+    .linkcheck-ignore does NOT also ignore
+    `evil-cookbook.openai.com.attacker.com`.
+    """
+    if not ignore:
+        return False
+    try:
+        host = urlparse(link).hostname
+    except ValueError:
+        return False
+    if not host:
+        return False
+    host = host.lower().rstrip(".")
+    for entry in ignore:
+        e = entry.lower().lstrip(".").rstrip(".")
+        if not e:
+            continue
+        if host == e or host.endswith("." + e):
+            return True
+    return False
+
+
 def collect_links(paths: list[Path]) -> list[tuple[str, str, str]]:
     """Return list of (link, node_id, title) tuples."""
     out: list[tuple[str, str, str]] = []
@@ -79,7 +104,7 @@ def collect_links(paths: list[Path]) -> list[tuple[str, str, str]]:
 
 def check_one(link: str, ignore: set[str]) -> tuple[str, str, int | None]:
     """Returns (status_string, link, http_code). status_string in {OK, BROKEN, WARN}."""
-    if any(dom in link for dom in ignore):
+    if should_ignore(link, ignore):
         return "OK", link, None
     headers = {"User-Agent": UA, "Accept": "*/*"}
     try:

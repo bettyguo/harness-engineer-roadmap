@@ -1,4 +1,9 @@
-# Domains to skip in linkcheck (one per line, substring match).
+# Domains to skip in linkcheck (one per line, hostname match).
+#
+# Matching is hostname-aware: an entry `example.com` matches the host
+# `example.com` and any subdomain (`docs.example.com`, `api.example.com`)
+# but NOT a string-containing-but-not-being host (e.g. `evil.example.com.attacker.com`).
+#
 # Use sparingly — every entry here is a potential silent rot point.
 # Add a date and reason in a comment when you add one.
 #
