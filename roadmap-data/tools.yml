@@ -50,7 +50,7 @@ nodes:
       accuracy without changing the model.
     depends_on: [tools.tool-design]
     related: [reliability.structured-output]
-    aliases: [function schemas, json schema, tool schemas]
+    aliases: [function schemas, json schema, tool schemas, function calling]
     resources:
       - title: "JSON Schema for OpenAPI"
         author: "OpenAI"

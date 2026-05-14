@@ -148,6 +148,6 @@ The OpenAI-DeepResearch / Anthropic Research / Gemini Deep Research class: brows
 **Resources:**
 
 - [Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection](https://arxiv.org/abs/2310.11511) — Asai et al., 2023 · `paper` · `advanced` · `free` · ◆ durable
-  - The cleanest mechanism for "generate that cites and abstains." Research-agent recipes routinely import this idea even when the implementation is different.
+  - Cited here as adjacent rather than central — the "abstain when you can't ground" mechanism is what research agents import. The browse→read→cite loop itself doesn't yet have a canonical paper; revisit when one lands.
 
 ---

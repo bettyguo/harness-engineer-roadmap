@@ -472,7 +472,8 @@
       "aliases": [
         "function schemas",
         "json schema",
-        "tool schemas"
+        "tool schemas",
+        "function calling"
       ],
       "resources": [
         {
@@ -2418,7 +2419,7 @@
           "year": 2023,
           "type": "paper",
           "link": "https://arxiv.org/abs/2310.11511",
-          "why": "The cleanest mechanism for \"generate that cites and abstains.\" Research-agent recipes routinely import this idea even when the implementation is different.\n",
+          "why": "Cited here as adjacent rather than central \u2014 the \"abstain when you can't ground\" mechanism is what research agents import. The browse\u2192read\u2192cite loop itself doesn't yet have a canonical paper; revisit when one lands.\n",
           "difficulty": "advanced",
           "cost": "free",
           "durability": "durable",

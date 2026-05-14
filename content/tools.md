@@ -40,7 +40,7 @@ JSON Schema, descriptions as prompts, enums, structured outputs. Over-permissive
 
 **Related:** `reliability.structured-output`
 
-**Also known as:** function schemas, json schema, tool schemas
+**Also known as:** function schemas, json schema, tool schemas, function calling
 
 **Resources:**
 
