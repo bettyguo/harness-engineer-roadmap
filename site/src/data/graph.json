@@ -2433,6 +2433,16 @@
     {
       "from": "foundations.what-is-a-harness",
       "to": "foundations.engineer-the-mistake-out",
+      "kind": "related"
+    },
+    {
+      "from": "foundations.what-is-a-harness",
+      "to": "foundations.durable-vs-current",
+      "kind": "related"
+    },
+    {
+      "from": "foundations.what-is-a-harness",
+      "to": "foundations.engineer-the-mistake-out",
       "kind": "depends_on"
     },
     {
@@ -2454,6 +2464,11 @@
       "from": "foundations.what-is-a-harness",
       "to": "foundations.competence-rubric",
       "kind": "depends_on"
+    },
+    {
+      "from": "foundations.competence-rubric",
+      "to": "evals.why-evals-are-hard",
+      "kind": "related"
     },
     {
       "from": "foundations.what-is-a-harness",
@@ -2484,6 +2499,11 @@
       "from": "loop.react",
       "to": "loop.reflexion",
       "kind": "depends_on"
+    },
+    {
+      "from": "loop.reflexion",
+      "to": "evals.llm-as-judge",
+      "kind": "related"
     },
     {
       "from": "loop.plan-execute",
@@ -2527,6 +2547,11 @@
     },
     {
       "from": "tools.tool-design",
+      "to": "tools.schema-design",
+      "kind": "related"
+    },
+    {
+      "from": "tools.tool-design",
       "to": "tools.tool-selection",
       "kind": "related"
     },
@@ -2534,6 +2559,11 @@
       "from": "tools.tool-design",
       "to": "tools.schema-design",
       "kind": "depends_on"
+    },
+    {
+      "from": "tools.schema-design",
+      "to": "reliability.structured-output",
+      "kind": "related"
     },
     {
       "from": "tools.tool-design",
@@ -2551,9 +2581,19 @@
       "kind": "depends_on"
     },
     {
+      "from": "tools.tool-errors",
+      "to": "reliability.structured-errors",
+      "kind": "related"
+    },
+    {
       "from": "tools.tool-design",
       "to": "tools.tool-selection",
       "kind": "depends_on"
+    },
+    {
+      "from": "tools.tool-selection",
+      "to": "retrieval.embeddings",
+      "kind": "related"
     },
     {
       "from": "tools.tool-design",
@@ -2561,14 +2601,29 @@
       "kind": "depends_on"
     },
     {
+      "from": "tools.composition",
+      "to": "loop.deterministic-skeleton",
+      "kind": "related"
+    },
+    {
       "from": "tools.tool-design",
       "to": "tools.sandboxing",
       "kind": "depends_on"
     },
     {
+      "from": "tools.sandboxing",
+      "to": "security.permissions",
+      "kind": "related"
+    },
+    {
       "from": "tools.tool-design",
       "to": "tools.computer-use",
       "kind": "depends_on"
+    },
+    {
+      "from": "tools.computer-use",
+      "to": "patterns.coding-agent-recipes",
+      "kind": "related"
     },
     {
       "from": "foundations.what-is-a-harness",
@@ -2604,6 +2659,11 @@
       "from": "context.window-budget",
       "to": "context.relevance-filtering",
       "kind": "depends_on"
+    },
+    {
+      "from": "context.relevance-filtering",
+      "to": "context.position-bias",
+      "kind": "related"
     },
     {
       "from": "context.window-budget",
@@ -2647,6 +2707,11 @@
     },
     {
       "from": "memory.working-vs-long-term",
+      "to": "memory.state-persistence",
+      "kind": "related"
+    },
+    {
+      "from": "memory.working-vs-long-term",
       "to": "memory.episodic-semantic",
       "kind": "depends_on"
     },
@@ -2679,6 +2744,11 @@
       "from": "retrieval.embeddings",
       "to": "memory.vector-memory",
       "kind": "depends_on"
+    },
+    {
+      "from": "memory.vector-memory",
+      "to": "memory.forgetting",
+      "kind": "related"
     },
     {
       "from": "memory.vector-memory",
@@ -2716,9 +2786,19 @@
       "kind": "depends_on"
     },
     {
+      "from": "retrieval.query-rewriting",
+      "to": "retrieval.agentic-retrieval",
+      "kind": "related"
+    },
+    {
       "from": "retrieval.rag-basics",
       "to": "retrieval.citations",
       "kind": "depends_on"
+    },
+    {
+      "from": "retrieval.citations",
+      "to": "evals.task-evals",
+      "kind": "related"
     },
     {
       "from": "retrieval.query-rewriting",
@@ -2731,9 +2811,19 @@
       "kind": "depends_on"
     },
     {
+      "from": "retrieval.agentic-retrieval",
+      "to": "patterns.research-agent-recipes",
+      "kind": "related"
+    },
+    {
       "from": "loop.basic-loop",
       "to": "orchestration.single-vs-multi",
       "kind": "depends_on"
+    },
+    {
+      "from": "orchestration.single-vs-multi",
+      "to": "orchestration.anti-patterns",
+      "kind": "related"
     },
     {
       "from": "orchestration.single-vs-multi",
@@ -2743,12 +2833,27 @@
     {
       "from": "orchestration.supervisor-worker",
       "to": "orchestration.handoffs",
+      "kind": "related"
+    },
+    {
+      "from": "orchestration.supervisor-worker",
+      "to": "orchestration.handoffs",
       "kind": "depends_on"
+    },
+    {
+      "from": "orchestration.handoffs",
+      "to": "memory.shared-memory",
+      "kind": "related"
     },
     {
       "from": "orchestration.supervisor-worker",
       "to": "orchestration.routing",
       "kind": "depends_on"
+    },
+    {
+      "from": "orchestration.routing",
+      "to": "cost.model-tiering",
+      "kind": "related"
     },
     {
       "from": "cost.parallelism",
@@ -2782,18 +2887,23 @@
     },
     {
       "from": "evals.task-evals",
+      "to": "evals.regression",
+      "kind": "related"
+    },
+    {
+      "from": "evals.task-evals",
       "to": "evals.trajectory-evals",
       "kind": "depends_on"
+    },
+    {
+      "from": "evals.trajectory-evals",
+      "to": "evals.tracing",
+      "kind": "related"
     },
     {
       "from": "evals.task-evals",
       "to": "evals.llm-as-judge",
       "kind": "depends_on"
-    },
-    {
-      "from": "evals.llm-as-judge",
-      "to": "loop.reflexion",
-      "kind": "related"
     },
     {
       "from": "evals.task-evals",
@@ -2813,7 +2923,17 @@
     {
       "from": "evals.tracing",
       "to": "evals.observability-tools",
+      "kind": "related"
+    },
+    {
+      "from": "evals.tracing",
+      "to": "evals.observability-tools",
       "kind": "depends_on"
+    },
+    {
+      "from": "evals.observability-tools",
+      "to": "evals.cost-latency-dashboards",
+      "kind": "related"
     },
     {
       "from": "evals.tracing",
@@ -2834,11 +2954,6 @@
       "from": "tools.schema-design",
       "to": "reliability.structured-errors",
       "kind": "depends_on"
-    },
-    {
-      "from": "reliability.structured-errors",
-      "to": "tools.tool-errors",
-      "kind": "related"
     },
     {
       "from": "reliability.structured-errors",
@@ -2871,9 +2986,19 @@
       "kind": "depends_on"
     },
     {
+      "from": "reliability.fallbacks",
+      "to": "reliability.chaos",
+      "kind": "related"
+    },
+    {
       "from": "reliability.failure-taxonomy",
       "to": "reliability.chaos",
       "kind": "depends_on"
+    },
+    {
+      "from": "reliability.chaos",
+      "to": "evals.regression",
+      "kind": "related"
     },
     {
       "from": "evals.tracing",
@@ -2901,11 +3026,6 @@
       "kind": "depends_on"
     },
     {
-      "from": "cost.model-tiering",
-      "to": "orchestration.routing",
-      "kind": "related"
-    },
-    {
       "from": "cost.tracking",
       "to": "cost.parallelism",
       "kind": "depends_on"
@@ -2926,6 +3046,11 @@
       "kind": "depends_on"
     },
     {
+      "from": "cost.short-vs-long-context",
+      "to": "context.long-context-pitfalls",
+      "kind": "related"
+    },
+    {
       "from": "context.context-poisoning",
       "to": "security.prompt-injection",
       "kind": "depends_on"
@@ -2943,12 +3068,27 @@
     {
       "from": "security.permissions",
       "to": "security.data-exfiltration",
+      "kind": "related"
+    },
+    {
+      "from": "security.permissions",
+      "to": "security.data-exfiltration",
       "kind": "depends_on"
+    },
+    {
+      "from": "security.data-exfiltration",
+      "to": "security.audit-trail",
+      "kind": "related"
     },
     {
       "from": "evals.tracing",
       "to": "security.confidentiality",
       "kind": "depends_on"
+    },
+    {
+      "from": "security.confidentiality",
+      "to": "security.audit-trail",
+      "kind": "related"
     },
     {
       "from": "security.prompt-injection",
@@ -2961,14 +3101,14 @@
       "kind": "depends_on"
     },
     {
+      "from": "security.tool-poisoning",
+      "to": "context.context-poisoning",
+      "kind": "related"
+    },
+    {
       "from": "evals.tracing",
       "to": "security.audit-trail",
       "kind": "depends_on"
-    },
-    {
-      "from": "security.audit-trail",
-      "to": "security.confidentiality",
-      "kind": "related"
     },
     {
       "from": "security.prompt-injection",
@@ -2981,9 +3121,19 @@
       "kind": "depends_on"
     },
     {
+      "from": "security.red-team",
+      "to": "reliability.chaos",
+      "kind": "related"
+    },
+    {
       "from": "loop.deterministic-skeleton",
       "to": "patterns.skeleton-with-flex",
       "kind": "depends_on"
+    },
+    {
+      "from": "patterns.skeleton-with-flex",
+      "to": "patterns.eval-driven-loop",
+      "kind": "related"
     },
     {
       "from": "tools.tool-design",
@@ -3009,11 +3159,6 @@
       "from": "evals.regression",
       "to": "patterns.eval-driven-loop",
       "kind": "depends_on"
-    },
-    {
-      "from": "patterns.eval-driven-loop",
-      "to": "patterns.skeleton-with-flex",
-      "kind": "related"
     },
     {
       "from": "foundations.engineer-the-mistake-out",

@@ -40,6 +40,7 @@ def build_graph(areas: list[dict]) -> dict:
     out_areas = []
     out_nodes = []
     out_edges = []
+    seen_related: set[frozenset[str]] = set()
     for area in sorted(areas, key=lambda a: a["area"]["order"]):
         a = area["area"]
         out_areas.append(
@@ -73,9 +74,12 @@ def build_graph(areas: list[dict]) -> dict:
                     }
                 )
             for rel in node.get("related", []):
-                # only emit one direction to avoid double-rendering
-                if rel < node["id"]:
+                if rel == node["id"]:
                     continue
+                key = frozenset({node["id"], rel})
+                if key in seen_related:
+                    continue
+                seen_related.add(key)
                 out_edges.append(
                     {
                         "from": node["id"],
